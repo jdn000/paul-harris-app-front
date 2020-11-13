@@ -1,0 +1,22 @@
+<ngx-ui-loader [loaderId]="'loader'"></ngx-ui-loader>
+<div class="row">
+
+    <!-- <mat-spinner style="margin:0 auto;"></mat-spinner> -->
+    <!-- <div class="overlay">
+        <div class="center">
+            <mat-progress-spinner diameter=60 mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+    </div> -->
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                Configuración Usuarios
+            </nb-card-header>
+            <nb-card-body>
+                <ng2-smart-table [settings]="settings" [source]="users" #table></ng2-smart-table>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
+<!-- <ngx-loader-spinner overlay="true"></ngx-loader-spinner> -->

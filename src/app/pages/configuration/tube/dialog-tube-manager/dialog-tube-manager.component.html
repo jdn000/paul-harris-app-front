@@ -1,0 +1,72 @@
+<div class="float-right">
+    <span class="demo-close" mat-dialog-close>
+        <nb-icon icon="close-outline"></nb-icon>
+    </span>
+
+</div>
+<h2 mat-dialog-title>
+    <nb-icon icon="color-picker-outline"></nb-icon> {{title}}
+</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="row">
+        <div class="col-md-11">
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Código</mat-label>
+                        <input matInput name="code" [(ngModel)]="tubeContentForm.code" required>
+                        <mat-error *ngIf="!tubeContentForm.code">Ingrese código</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-8">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Descripción</mat-label>
+                        <input matInput name="description" [(ngModel)]="tubeContentForm.description" required>
+                        <mat-error *ngIf="!tubeContentForm.description">Ingrese descripción</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Abreviación</mat-label>
+                        <input matInput name="abbreviation" [(ngModel)]="tubeContentForm.abbreviation" required>
+                        <mat-error *ngIf="!tubeContentForm.abbreviation">Ingrese abreviación</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Color borde</mat-label>
+                        <input matInput type="color" name="tubeContentForm.borderColor"
+                            [(ngModel)]="tubeContentForm.borderColor" value="#000000" required>
+                        <mat-error *ngIf="!tubeContentForm.borderColor">Ingrese color borde</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Color Tapa</mat-label>
+                        <input matInput type="color" name="tubeContentForm.capColor"
+                            [(ngModel)]="tubeContentForm.capColor" value="#000000" required>
+                        <mat-error *ngIf="!tubeContentForm.capColor">Ingrese color capa</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="tube">
+                <div class="cap-color" [style.background-color]="tubeContentForm.capColor"></div>
+                <div class="border-color" [style.background-color]="tubeContentForm.borderColor"></div>
+                <div class="inner"></div>
+            </div>
+        </div>
+        <div *ngIf="buttonTitle=='EDITAR'; then statusEnabled"></div>
+        <ng-template #statusEnabled>
+            <div class="col-md-12">
+                <mat-slide-toggle class="float-right" [(ngModel)]="tubeContentForm.status"
+                    [ngModelOptions]="{standalone: true}">{{tubeContentForm.status? 'Activo':'Inactivo'}}
+                </mat-slide-toggle>
+            </div>
+        </ng-template>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button color="accent" (click)="manageTube()">{{buttonTitle}}</button>
+</mat-dialog-actions>

@@ -1,0 +1,43 @@
+<div class="float-right">
+  <span class="demo-close" mat-dialog-close>
+    <nb-icon icon="close-outline"></nb-icon>
+  </span>
+
+</div>
+<h2 mat-dialog-title>
+  <nb-icon icon="options-outline"></nb-icon> {{title}}
+</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-form-field class="example-full-width">
+    <mat-label>Descripción</mat-label>
+    <input matInput name="description" [(ngModel)]="systemParameterData.description" disabled>
+    <mat-error *ngIf="!systemParameterData.value">Ingrese un valor</mat-error>
+  </mat-form-field>
+  <div *ngIf="isList">
+    <mat-form-field class="example-full-width">
+      <mat-label>{{listItem? listItem.description : 'Seleccione ítem'}}</mat-label>
+      <mat-select [(ngModel)]="systemParameterData.listItemId" [ngModelOptions]="{standalone: true}">
+        <mat-option *ngFor="let listItem of listItems" [value]="listItem.id">
+          {{listItem.description}}
+        </mat-option>
+      </mat-select>
+
+    </mat-form-field>
+  </div>
+  <div *ngIf="isText">
+    <mat-form-field class="example-full-width">
+      <mat-label>Valor</mat-label>
+      <input matInput name="valor" [(ngModel)]="systemParameterData.value" required>
+      <mat-error *ngIf="!systemParameterData.value">Ingrese un valor</mat-error>
+    </mat-form-field>
+  </div>
+  <div *ngIf="isBool">
+    <mat-slide-toggle [(ngModel)]="currentBoolState" [ngModelOptions]="{standalone: true}"
+      (change)="updateToggle(currentBoolState)">
+      {{currentBoolState? 'Activo':'Inactivo'}}
+    </mat-slide-toggle>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button color="accent" (click)="submit()">EDITAR</button>
+</mat-dialog-actions>
