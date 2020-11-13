@@ -1,3 +1,3 @@
 # LIS front
 
-Front end application of new Laboratory Information System for Roman Diaz Lab.
+Front end application of Paul Harris School App
