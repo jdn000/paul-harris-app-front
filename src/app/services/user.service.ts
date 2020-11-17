@@ -4,42 +4,43 @@ import { environment } from '../../environments/environment';
 import { retry, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ErrorService } from '../services/error.service';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   constructor(
-    private http: HttpClient,
-    private errorService: ErrorService) { }
+    private readonly http: HttpClient,
+    private readonly errorService: ErrorService) { }
 
-  private baseUrl: string = environment.apiUrl + '/user';
+  private readonly baseUrl: string = environment.apiUrl + '/user';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
 
-  getAll(): Observable<any> {
+  getAll(): Observable<User[]> {
     return this.http
-      .get<any>(this.baseUrl, this.httpOptions)
+      .get<User[]>(this.baseUrl, this.httpOptions)
       .pipe(retry(1), catchError(this.errorService.errorHandler));
   }
 
-  getById(id: number): Observable<any> {
+  getById(id: number): Observable<User> {
     return this.http
-      .get<any>(this.baseUrl + `/${id}`, this.httpOptions)
+      .get<User>(this.baseUrl + `/${id}`, this.httpOptions)
       .pipe(retry(1), catchError(this.errorService.errorHandler));
   }
 
-  add(data: any) {
+  add(data: User) {
     return this.http
-      .post<any>(this.baseUrl, data, this.httpOptions)
+      .post<User>(this.baseUrl, data, this.httpOptions)
       .pipe(retry(1), catchError(this.errorService.errorHandler));
   }
 
-  update(id: any, data: any) {
+  update(id: any, data: User) {
     return this.http
-      .put<any>(this.baseUrl + `/${id}`, data, this.httpOptions)
+      .put<User>(this.baseUrl + `/${id}`, data, this.httpOptions)
       .pipe(retry(1), catchError(this.errorService.errorHandler));
   }
 

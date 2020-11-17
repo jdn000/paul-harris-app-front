@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { ToastService } from '../../../services/toast.service';
 import { User } from '../../../models/user';
-import { Role } from '../../../models/role';
-import { RoleService } from '../../../services/role.service';
+
+
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogUserManagerComponent } from './dialog-user-manager/dialog-user-manager.component';
@@ -21,16 +21,16 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   constructor(
     private readonly userService: UserService,
-    private readonly roleService: RoleService,
     private readonly toastService: ToastService,
     private readonly dialog: MatDialog,
     private readonly snackBar: MatSnackBar,
     private readonly ngxService: NgxUiLoaderService,
   ) { }
 
-  loading: boolean = false;
+  loading = false;
+
   users: User[] = [];
-  roles: Role[] = [];
+
   userData: User = {} as User;
 
   @ViewChild('table') smartTable: Ng2SmartTableComponent;
@@ -44,21 +44,12 @@ export class UserComponent implements OnInit, AfterViewInit {
     },
     delete: {
       deleteButtonContent: '<i class="nb-locked"></i>',
-      saveButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-      confirmDelete: true,
     },
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
-      createButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-      confirmCreate: true,
     },
     edit: {
       editButtonContent: '<i class="nb-edit"></i>',
-      saveButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-      confirmSave: true,
     },
     columns: {
       username: {
@@ -69,11 +60,12 @@ export class UserComponent implements OnInit, AfterViewInit {
         title: 'Nombres',
         type: 'string',
       },
-      lastname: {
+      lastName: {
         title: 'Apellidos',
         type: 'html',
         valuePrepareFunction: (cell, row) => {
-          return row.lastName + ' ' + row.secondSurName;
+
+          return ` ${row.lastName}   ${row.secondSurname}`;
         },
       },
       email: {
@@ -83,14 +75,7 @@ export class UserComponent implements OnInit, AfterViewInit {
           return '<a href="mailto:' + row.email + '" target="_blank" ><small>' + row.email + '</small></a>';
         },
       },
-      roleId: {
-        title: 'Rol',
-        type: 'html',
-        valuePrepareFunction: (data) => {
-          const role = this.roles.find((rl) => rl.id === data).description;
-          return '<small><strong>' + role + '</strong></small>';
-        },
-      },
+
       status: {
         title: 'Estado',
         type: 'custom',
@@ -132,10 +117,9 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   async load() {
     try {
-      const rol = await this.roleService.getAll().toPromise();
-      this.roles = rol && rol.status ? rol.data : [];
+
       const res = await this.userService.getAll().toPromise();
-      this.users = res && res.status ? res.data : [];
+      this.users = res;
     } catch (error) {
       this.toastService.showError(error.message || error);
     }
@@ -153,8 +137,9 @@ export class UserComponent implements OnInit, AfterViewInit {
       disableClose: true,
       panelClass: 'custom-modalbox',
     }).afterClosed().subscribe(async (data) => {
-      if (data)
+      if (data) {
         await this.load();
+      }
     });
   }
   openChangePasswordDialog(userInfo: User): void {
@@ -169,8 +154,9 @@ export class UserComponent implements OnInit, AfterViewInit {
       disableClose: true,
       panelClass: 'custom-modalbox',
     }).afterClosed().subscribe(async (data) => {
-      if (data)
+      if (data) {
         await this.load();
+      }
     });
   }
 

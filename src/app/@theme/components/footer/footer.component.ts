@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./footer.component.scss'],
   template: `
     <span class="created-by">
-      <a href="www.mnd.cl">Merge & Deploy © 2020</a>
+      <a >Julio Díaz N © 2020</a>
     </span>
   `,
 })

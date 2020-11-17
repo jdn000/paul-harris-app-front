@@ -40,7 +40,7 @@
         <div class="col-md-6">
             <mat-form-field class="example-full-width">
                 <mat-label>Segundo Apellido</mat-label>
-                <input matInput name="secondsurname" [(ngModel)]="userContentForm.secondSurName">
+                <input matInput name="secondsurname" [(ngModel)]="userContentForm.secondSurname">
             </mat-form-field>
         </div>
         <div class="col-md-6" *ngIf="isNewUser">
@@ -60,17 +60,6 @@
             </mat-form-field>
         </div>
         <div class="col-md-12">
-            <mat-form-field class="example-full-width">
-                <mat-label>Rol Usuario</mat-label>
-                <mat-select [(ngModel)]="userContentForm.roleId" [ngModelOptions]="{standalone: true}" required>
-                    <mat-option *ngFor="let role of roles" [value]="role.id">
-                        {{role.description}}
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="!userContentForm.roleId">Seleccione Rol</mat-error>
-            </mat-form-field>
-
-            <div *ngIf="buttonTitle=='EDITAR'; then statusEnabled"></div>
 
             <ng-template #statusEnabled>
                 <mat-slide-toggle class="float-right" [(ngModel)]="userContentForm.status"

@@ -39,11 +39,18 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CoreFLowComponent } from './core-flow.component';
 import { CoreRoutingModule } from './core-routing.module';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { PatientComponent } from './patient/patient.component';
-import { DialogPatientComponent } from './patient/dialog-patient/dialog-patient.component';
+
+
 import { MatDaterangepickerModule } from 'mat-daterangepicker';
 import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
+import { AlumnComponent } from './alumn/alumn.component';
+import { DialogAlumnComponent } from './alumn/dialog-alumn/dialog-alumn.component';
+import { LearningObjectiveComponent } from './learning-objective/learning-objective.component';
+import { DialogLearningObjectiveComponent } from './learning-objective/dialog-learning-objective/dialog-learning-objective.component';
+import { CalificationComponent } from './calification/calification.component';
+import { SubjectComponent } from '../administration/subject/subject.component';
+import { GradeComponent } from '../administration/grade/grade.component';
 
 
 registerLocaleData(localeEs, 'es-ES');
@@ -76,11 +83,14 @@ const materialModules = [
 @NgModule({
   declarations: [
     CoreFLowComponent,
-
     FilterPipe,
-
-    PatientComponent,
-    DialogPatientComponent,
+    AlumnComponent,
+    DialogAlumnComponent,
+    LearningObjectiveComponent,
+    DialogLearningObjectiveComponent,
+    CalificationComponent,
+    SubjectComponent,
+    GradeComponent,
 
   ],
   providers: [

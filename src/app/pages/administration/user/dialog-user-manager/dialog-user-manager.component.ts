@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { ToastService } from '../../../../services/toast.service';
 import { UserService } from '../../../../services/user.service';
-import { RoleService } from '../../../../services/role.service';
+import { User } from '../../../../models/user';
 
 
 @Component({
@@ -18,7 +18,6 @@ export class DialogUserManagerComponent implements OnInit {
     public dialogRef: MatDialogRef<DialogUserManagerComponent>,
     public dialog: MatDialog,
     public userService: UserService,
-    public roleService: RoleService,
     private toastService: ToastService,
 
     @Inject(MAT_DIALOG_DATA) public getData: any,
@@ -28,34 +27,20 @@ export class DialogUserManagerComponent implements OnInit {
   buttonTitle: string;
   passwordRepeat: string;
   isNewUser: boolean;
-  roles: [];
-  userContentForm = {
-    email: null,
-    password: null,
-    firstName: null,
-    lastName: null,
-    profileImage: null,
-    secondSurName: null,
-    status: true,
-    username: null,
-    roleId: null,
-  };
+  userContentForm: User = {} as User;
   loading = false;
   async ngOnInit() {
     this.loading = true;
     this.title = this.getData['title'];
     this.buttonTitle = this.getData['buttonTitle'];
-    const res = await this.roleService.getAll().toPromise();
-    this.roles = res && res.status ? res.data : [];
     if (this.getData['user']) {
       this.userContentForm.email = this.getData['user'].email;
       this.userContentForm.password = this.getData['user'].password;
       this.userContentForm.firstName = this.getData['user'].firstName;
       this.userContentForm.lastName = this.getData['user'].lastName;
-      this.userContentForm.secondSurName = this.getData['user'].secondSurName;
+      this.userContentForm.secondSurname = this.getData['user'].secondSurname;
       this.userContentForm.status = this.getData['user'].status;
       this.userContentForm.username = this.getData['user'].username;
-      this.userContentForm.roleId = this.getData['user'].roleId;
       this.isNewUser = false;
 
     } else {
@@ -70,7 +55,7 @@ export class DialogUserManagerComponent implements OnInit {
         const userInfo = Object.assign({}, this.userContentForm);
         if (this.isNewUser) {
           const res = await this.userService.add(userInfo).toPromise();
-          if (res.status) {
+          if (res) {
             this.toastService.showToast('success', 'Confirmación', 'Registro creado exitosamente');
           } else {
             this.toastService.showWarning('Error actualizando usuario');
@@ -81,13 +66,11 @@ export class DialogUserManagerComponent implements OnInit {
           editUser.email = this.userContentForm.email;
           editUser.firstName = this.userContentForm.firstName;
           editUser.lastName = this.userContentForm.lastName;
-          editUser.secondSurName = this.userContentForm.secondSurName ? this.userContentForm.secondSurName : '';
+          editUser.secondSurname = this.userContentForm.secondSurname ? this.userContentForm.secondSurname : '';
           editUser.status = this.userContentForm.status;
           editUser.username = this.userContentForm.username;
-          editUser.roleId = this.userContentForm.roleId;
-          editUser.profileImage = 'user.jpg';
           const res = await this.userService.update(id, editUser).toPromise();
-          if (res.status) {
+          if (res) {
             this.toastService.showToast('success', 'Confirmación', 'Registro actualizado');
           } else {
             this.toastService.showWarning('Error actualizando usuario');
@@ -115,9 +98,6 @@ export class DialogUserManagerComponent implements OnInit {
       return false;
     } else if (!this.userContentForm.email) {
       this.toastService.showToast('warning', 'Dato Incompleto', 'Ingrese un Email');
-      return false;
-    } else if (!this.userContentForm.roleId) {
-      this.toastService.showToast('warning', 'Dato Incompleto', 'Seleccione un Rol de usuario');
       return false;
     } else if (!this.userContentForm.password && this.isNewUser) {
       this.toastService.showToast('warning', 'Dato Incompleto', 'Ingrese una Contraseña');

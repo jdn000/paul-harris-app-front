@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AlumnComponent } from './alumn/alumn.component';
 
 import { CoreFLowComponent } from './core-flow.component';
-import { PatientComponent } from './patient/patient.component';
+
 
 
 const routes: Routes = [
@@ -12,8 +13,8 @@ const routes: Routes = [
         children: [
 
             {
-                path: 'patient',
-                component: PatientComponent,
+                path: 'alumn',
+                component: AlumnComponent,
             },
         ],
     },

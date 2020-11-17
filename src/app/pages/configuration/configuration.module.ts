@@ -67,14 +67,8 @@ import { ConfigurationComponent } from './configuration.component';
 
 import { ToggleCustomerComponent } from '../../@theme/components/table-render/ToggleCustomerRender.component';
 import { ButtonToggleComponent } from '../../@theme/components/table-render/ButtonToggleComponentRender.component';
-import { TubeComponent } from './tube/tube.component';
-import { DialogTubeManagerComponent } from './tube/dialog-tube-manager/dialog-tube-manager.component';
 import { ButtonToggleTubeComponent } from '../../@theme/components/table-render/ButtonToggleTubeRender.component';
 import { ButtonToggleDisabledComponent } from '../../@theme/components/table-render/ToggleDisabledButton.component';
-import { TestComponent } from './test/test.component';
-import { DialogTestManagerComponent } from './test/dialog-test-manager/dialog-test-manager.component';
-import { TurnComponent } from './turn/turn.component';
-import { DialogTurnManagerComponent } from './turn/dialog-turn-manager/dialog-turn-manager.component';
 import { ButtonToggleCustomerComponent } from '../../@theme/components/table-render/ButtonToggleCustomerComponentRender.component';
 
 const MATERIAL_MODULES = [
@@ -133,13 +127,8 @@ const MATERIAL_MODULES = [
 
     ButtonToggleComponent,
     ButtonToggleDisabledComponent,
-    TubeComponent,
-    DialogTubeManagerComponent,
     ButtonToggleTubeComponent,
-    TestComponent,
-    DialogTestManagerComponent,
-    TurnComponent,
-    DialogTurnManagerComponent,
+
 
     ButtonToggleCustomerComponent,
 

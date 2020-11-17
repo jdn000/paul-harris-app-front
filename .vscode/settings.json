@@ -1,5 +1,6 @@
 {
     "sonarlint.connectedMode.project": {
         "projectKey": "lrd-dialsys-frontend"
-    }
+    },
+    "sonarlint.disableTelemetry": true
 }

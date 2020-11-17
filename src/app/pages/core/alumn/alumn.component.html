@@ -1,0 +1,29 @@
+<ngx-ui-loader [loaderId]="'loader'"></ngx-ui-loader>
+<div class="col-md-4">
+    <nb-card>
+        <nb-card-body>
+            <mat-form-field class="example-full-width">
+                <mat-label>Filtrar por curso</mat-label>
+                <mat-select (selectionChange)="onSelectedTurn($event)" multiple>
+                    <mat-option *ngFor="let grade of grades" [value]="grade.id">
+                        {{grade.description }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </nb-card-body>
+
+    </nb-card>
+
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                Alumnos
+            </nb-card-header>
+            <nb-card-body>
+                <ng2-smart-table [settings]="settings" [source]="filteredAlumns" #table></ng2-smart-table>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

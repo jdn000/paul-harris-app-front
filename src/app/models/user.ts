@@ -5,8 +5,8 @@ export interface User {
   salt: string;
   firstName: string;
   lastName: string;
-  secondSurName: string;
+  secondSurname: string;
   email: string;
   roleId: number;
-  profileImage: string;
+  status: boolean;
 }

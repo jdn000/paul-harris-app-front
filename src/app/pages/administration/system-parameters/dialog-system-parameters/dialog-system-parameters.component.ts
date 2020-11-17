@@ -4,7 +4,7 @@ import { ToastService } from '../../../../services/toast.service';
 import { SystemParameter } from '../../../../models/system-parameter';
 import { SystemParametersService } from '../../../../services/system-parameters.service';
 import { List, ListItem } from '../../../../models/list';
-import { ListService } from '../../../../services/list.service';
+// import { ListService } from '../../../../services/list.service';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class DialogSystemParametersComponent implements OnInit {
     public dialog: MatDialog,
     public systemParameterService: SystemParametersService,
     private toastService: ToastService,
-    private listService: ListService,
+    //    private listService: ListService,
 
     @Inject(MAT_DIALOG_DATA) public getData: any,
   ) { }
@@ -34,24 +34,24 @@ export class DialogSystemParametersComponent implements OnInit {
   async ngOnInit() {
     this.title = this.getData.title;
     this.systemParameterData = this.getData.systemParameterData;
-    if (this.getData.parsedValue === true || this.getData.parsedValue === false) {
-      this.isBool = true;
-      this.currentBoolState = this.getData.parsedValue;
-    } else if (this.systemParameterData.listId) {
-      this.isList = true;
-      const parameterList = await this.listService.getById(this.systemParameterData.listId).toPromise();
-      if (parameterList.status && parameterList.data) {
-        this.list = parameterList.data;
-        const itemsList = await this.listService.getListItems(this.list.id).toPromise();
-        this.listItems = itemsList.status && itemsList.data ? itemsList.data : [];
+    /*   if (this.getData.parsedValue === true || this.getData.parsedValue === false) {
+        this.isBool = true;
+        this.currentBoolState = this.getData.parsedValue;
+      } else if (this.systemParameterData.listId) {
+        this.isList = true;
+        const parameterList = await this.listService.getById(this.systemParameterData.listId).toPromise();
+        if (parameterList.status && parameterList.data) {
+          this.list = parameterList.data;
+          const itemsList = await this.listService.getListItems(this.list.id).toPromise();
+          this.listItems = itemsList.status && itemsList.data ? itemsList.data : [];
+        }
+      } else {
+        if (!this.isBool && !this.isList) {
+          this.isText = true;
+        }
       }
-    } else {
-      if (!this.isBool && !this.isList) {
-        this.isText = true;
-      }
-    }
-
-
+  
+  */
   }
   updateToggle(boolVar) {
     this.systemParameterData.value = boolVar.toString();

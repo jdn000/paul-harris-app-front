@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogUserManagerComponent } from '../dialog-user-manager/dialog-user-manager.component';
 import { UserService } from '../../../../services/user.service';
-import { RoleService } from '../../../../services/role.service';
+// import { RoleService } from '../../../../services/role.service';
 import { ToastService } from '../../../../services/toast.service';
 import { AuthService } from '../../../../services/auth.service';
 
@@ -17,7 +17,7 @@ export class DialogChangePasswordComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<DialogUserManagerComponent>,
     public dialog: MatDialog,
     public userService: UserService,
-    public roleService: RoleService,
+    //    public roleService: RoleService,
     private toastService: ToastService,
     private authService: AuthService,
     @Inject(MAT_DIALOG_DATA) public getData: any) { }
@@ -29,7 +29,7 @@ export class DialogChangePasswordComponent implements OnInit {
     username: null,
     firstName: null,
     lastName: null,
-    secondSurName: null,
+    secondSurname: null,
     email: null,
   };
   loading = false;
@@ -43,7 +43,7 @@ export class DialogChangePasswordComponent implements OnInit {
       this.userContentForm.username = this.getData['user'].username;
       this.userContentForm.firstName = this.getData['user'].firstName;
       this.userContentForm.lastName = this.getData['user'].lastName;
-      this.userContentForm.secondSurName = this.getData['user'].secondSurName;
+      this.userContentForm.secondSurname = this.getData['user'].secondSurname;
       this.userContentForm.email = this.getData['user'].email;
     }
     this.loading = false;
@@ -56,7 +56,7 @@ export class DialogChangePasswordComponent implements OnInit {
           editUser.email = this.getData['user'].email;
           editUser.firstName = this.getData['user'].firstName;
           editUser.lastName = this.getData['user'].lastName;
-          editUser.secondSurName = this.getData['user'].secondSurName;
+          editUser.secondSurname = this.getData['user'].secondSurname;
           editUser.status = this.getData['user'].status;
           editUser.username = this.getData['user'].username;
           editUser.roleId = this.getData['user'].roleId;
