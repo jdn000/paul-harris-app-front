@@ -67,7 +67,6 @@ export class AlumnComponent implements OnInit, AfterViewInit {
         this.filteredAlumns = this.alumns;
       }
       this.filteredAlumns = _.uniqBy(this.filteredAlumns, 'id');
-      console.log(this.filteredAlumns);
     } catch (error) {
       this.toastService.showError(error.message || error);
     }

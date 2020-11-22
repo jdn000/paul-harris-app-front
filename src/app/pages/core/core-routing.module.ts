@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AlumnComponent } from './alumn/alumn.component';
 
 import { CoreFLowComponent } from './core-flow.component';
+import { LearningObjectiveComponent } from './learning-objective/learning-objective.component';
 
 
 
@@ -15,6 +16,10 @@ const routes: Routes = [
             {
                 path: 'alumn',
                 component: AlumnComponent,
+            },
+            {
+                path: 'objective',
+                component: LearningObjectiveComponent,
             },
         ],
     },

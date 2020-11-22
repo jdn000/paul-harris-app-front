@@ -16,7 +16,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'radio-button-off-outline',
     link: '/pages/core/alumn',
   },
-
+  {
+    title: 'Objetivos de aprendizaje',
+    icon: 'radio-button-off-outline',
+    link: '/pages/core/objective',
+  },
   {
     title: 'CONFIGURACIÓN',
     group: true,

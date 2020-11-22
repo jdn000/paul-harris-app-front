@@ -7,7 +7,6 @@ import { ErrorService } from './error.service';
 
 import { Grade } from '../models/Grade';
 
-
 @Injectable({
     providedIn: 'root',
 })
@@ -22,8 +21,6 @@ export class GradeService {
     httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
     };
-
-
     getAll(): Observable<Grade[]> {
         return this.http
             .get<Grade[]>(this.baseUrl, this.httpOptions)

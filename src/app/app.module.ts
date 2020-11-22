@@ -22,6 +22,7 @@ import {
   NbWindowModule,
 } from '@nebular/theme';
 import { NgxUiLoaderModule, SPINNER, POSITION, PB_DIRECTION, NgxUiLoaderConfig } from 'ngx-ui-loader';
+import { GradeComponent } from './grade/grade.component';
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'red',
@@ -34,7 +35,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, GradeComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

@@ -1,1 +1,63 @@
-<p>dialog-learning-objective works!</p>
+<div class="float-right">
+    <span class="demo-close" mat-dialog-close>
+        <nb-icon icon="close-outline"></nb-icon>
+    </span>
+</div>
+<h2 mat-dialog-title>
+    <nb-icon icon="person-outline"></nb-icon> {{title}}
+</h2>
+
+
+<mat-dialog-content class="mat-typography" [nbSpinner]="loading">
+    <div class="row">
+
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <mat-label>Nombre</mat-label>
+                <input matInput name="names" [(ngModel)]="objectiveContentForm.name" required>
+                <mat-error *ngIf="!objectiveContentForm.name">Ingrese nombre</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <mat-label> Descripción</mat-label>
+                <input matInput name="lastname" [(ngModel)]="objectiveContentForm.description" required>
+                <mat-error *ngIf="!objectiveContentForm.description">Ingrese Descripción</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <mat-label>Curso</mat-label>
+                <mat-select [(ngModel)]="objectiveContentForm.gradeId" [ngModelOptions]="{standalone: true}" required>
+                    <mat-option *ngFor="let grade of getData.grades" [value]="grade.id">
+                        {{grade.description}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!objectiveContentForm.gradeId">Seleccione curso</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <mat-label>Asignatura</mat-label>
+                <mat-select [(ngModel)]="objectiveContentForm.subjectId" [ngModelOptions]="{standalone: true}" required>
+                    <mat-option *ngFor="let subject of getData.subjects" [value]="subject.id">
+                        {{subject.description}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!objectiveContentForm.subjectId">Seleccione Asignatura</mat-error>
+            </mat-form-field>
+        </div>
+
+    </div>
+    <div class="col-md-12">
+        <ng2-smart-table [settings]="settings" [source]="indicatorsSource" (createConfirm)="onCreateConfirm($event)"
+            (editConfirm)="onSaveConfirm($event)" #indicators>
+        </ng2-smart-table>
+    </div>
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="end">
+    <button mat-button color="accent" (click)="manageObjective()">{{buttonTitle}}</button>
+</mat-dialog-actions>
