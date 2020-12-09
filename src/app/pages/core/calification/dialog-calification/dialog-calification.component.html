@@ -1,0 +1,68 @@
+<div class="float-right">
+    <span class="demo-close" mat-dialog-close>
+        <nb-icon icon="close-outline"></nb-icon>
+    </span>
+</div>
+
+<h2 mat-dialog-title>
+    <nb-icon icon="person-outline"></nb-icon> {{title}}
+</h2>
+<mat-dialog-content class="mat-typography">
+
+    <div class="row">
+        <div class="col-md-10" *ngIf="!isCummulative">
+
+            <mat-form-field>
+                <mat-label>N° de evaluación</mat-label>
+                <input matInput [(ngModel)]="form.evaluationNumber" disabled>
+            </mat-form-field>
+
+        </div>
+        <div class="col-md-10">
+
+            <mat-checkbox (selectionChange)="onChange($event)" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="isCummulative">
+                <mat-label>¿Calificación de proceso?</mat-label>
+            </mat-checkbox>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+                <mat-label>Seleccione Objetivo de aprendizaje</mat-label>
+                <mat-select (selectionChange)="onSelectedObjective($event)" [(ngModel)]="form.objectiveId">
+                    <mat-option *ngFor="let objective of objectives" [value]="objective.id">
+                        {{objective.description }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6" *ngIf="isCummulative && form.objectiveId">
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Seleccione indicador</mat-label>
+                <mat-select (selectionChange)="onSelectedIndicators($event)" multiple>
+                    <mat-option *ngFor="let filteredIndicator of filteredIndicators" [value]="filteredIndicator.id">
+                        {{filteredIndicator.description }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Seleccione calificacion a añadir </mat-label>
+                <mat-select [(ngModel)]="form.calificationId">
+                    <mat-option *ngFor="let calification of calificationsToSelect"
+                        [value]="calification.calificationId">
+                        {{calification.evaluationNumber }}-{{calification.id}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button color="accent" (click)="manageCalifications()">{{buttonTitle}}</button>
+
+</mat-dialog-actions>

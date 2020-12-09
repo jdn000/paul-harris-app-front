@@ -24,6 +24,7 @@ import {
 import { NgxUiLoaderModule, SPINNER, POSITION, PB_DIRECTION, NgxUiLoaderConfig } from 'ngx-ui-loader';
 import { GradeComponent } from './grade/grade.component';
 
+
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: 'red',
   bgsPosition: POSITION.bottomCenter,

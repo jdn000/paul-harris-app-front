@@ -52,7 +52,6 @@ export class AlumnComponent implements OnInit, AfterViewInit {
   }
 
   compareFunction = (o1: any, o2: any) => o1.id === o2.id;
-
   async onSelectedTurn(evt: any) {
     try {
       this.filteredAlumns = [];

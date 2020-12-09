@@ -22,6 +22,34 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/core/objective',
   },
   {
+    title: 'Notas',
+    icon: 'radio-button-off-outline',
+    link: '/pages/core/calification',
+    // children: [
+    //   {
+    //     title: '5to ',
+    //     icon: 'people-outline',
+    //   },
+    //   {
+    //     title: '6to ',
+    //     icon: 'people-outline',
+    //   },
+    //   {
+    //     title: '7mo ',
+    //     icon: 'people-outline',
+    //   },
+    //   {
+    //     title: '8vo ',
+    //     icon: 'people-outline',
+    //   },
+    // ],
+  },
+  {
+    title: 'Mi Curso',
+    icon: 'radio-button-off-outline',
+    // link: '/pages/core/alumn',
+  },
+  {
     title: 'CONFIGURACIÓN',
     group: true,
   },
@@ -33,7 +61,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Sistema',
     icon: 'cube-outline',
     children: [
-
       {
         title: 'Usuarios',
         icon: 'people-outline',
@@ -48,6 +75,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Parámetros',
         link: '/pages/administration/system-parameters',
+        icon: 'lock-outline',
+      },
+      {
+        title: 'Cursos',
+        link: '/pages/administration/grade',
+        icon: 'lock-outline',
+      },
+      {
+        title: 'Asignaturas',
+        link: '/pages/administration/subject',
         icon: 'lock-outline',
       },
     ],

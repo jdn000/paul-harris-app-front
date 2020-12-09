@@ -1,0 +1,187 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-body>
+                <!-- <div class="row">
+                    <div class="col-md-4">
+                        <mat-form-field class="full-width">
+                            <mat-label>Seleccione Curso</mat-label>
+                            <mat-select (selectionChange)="onSelectedGrade($event)">
+                                <mat-option *ngFor="let grade of grades" [value]="grade.id">
+                                    {{grade.description }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field class="full-width">
+                            <mat-label>Seleccione Asignatura</mat-label>
+                            <mat-select (selectionChange)="onSelectedSubject($event)" [disabled]="disableSubjectSelect">
+                                <mat-option *ngFor="let subject of subjects" [value]="subject.id">
+                                    {{subject.description }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div> -->
+                <button mat-raised-button color="primary" (click)="redirectingCalifications()">VOLVER</button>
+                <button mat-raised-button color="primary" (click)="editCalifications()"> EDITAR CALIFICACIONES </button>
+
+                <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                    <ng-container matColumnDef="alumnFullName">
+                        <mat-header-cell *matHeaderCellDef sticky> Alumno </mat-header-cell>
+                        <mat-cell *matCellDef="let element" matTooltip="Alumno" matTooltipPosition="above">
+                            {{element.alumnFullName}} </mat-cell>
+                    </ng-container>
+                    <div class="col-md-1">
+                        <ng-container matColumnDef="A1">
+                            <mat-header-cell *matHeaderCellDef> A1
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let element" matTooltip="A1" matTooltipPosition="above">
+                                <mat-form-field class="type-number">
+                                    <input matInput [(ngModel)]="element.A1" [disabled]="!editAlumnCalifications">
+                                </mat-form-field>
+                            </mat-cell>
+                        </ng-container>
+                    </div>
+                    <ng-container matColumnDef="A2">
+                        <mat-header-cell *matHeaderCellDef> A2 </mat-header-cell>
+                        <mat-cell *matCellDef="let element" matTooltip="A2" matTooltipPosition="above">
+                            <mat-form-field class="type-number">
+                                <input matInput [(ngModel)]="element.A2" [disabled]="!editAlumnCalifications">
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="A3">
+                        <mat-header-cell *matHeaderCellDef> A3 </mat-header-cell>
+                        <mat-cell *matCellDef="let element" matTooltip="A3" matTooltipPosition="above">
+                            <mat-form-field class="type-number">
+                                <input matInput [(ngModel)]="element.A3" [disabled]="!editAlumnCalifications">
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="A4">
+                        <mat-header-cell *matHeaderCellDef> A4 </mat-header-cell>
+                        <mat-cell *matCellDef="let element" matTooltip="A4" matTooltipPosition="above">
+                            <mat-form-field class="type-number">
+                                <input matInput [(ngModel)]="element.A4" [disabled]="!editAlumnCalifications">
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="A5">
+                        <mat-header-cell *matHeaderCellDef> A5 </mat-header-cell>
+                        <mat-cell *matCellDef="let element" matTooltip="A5" matTooltipPosition="above">
+                            <mat-form-field class="type-number">
+                                <input matInput [(ngModel)]="element.A5" [disabled]="!editAlumnCalifications">
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="A6">
+                        <mat-header-cell *matHeaderCellDef> A6 </mat-header-cell>
+                        <mat-cell *matCellDef="let element" matTooltip="A6" matTooltipPosition="above">
+                            <mat-form-field class="type-number">
+                                <input matInput [(ngModel)]="element.A6" [disabled]="!editAlumnCalifications">
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="A7">
+                        <mat-header-cell *matHeaderCellDef> A7 </mat-header-cell>
+                        <mat-cell *matCellDef="let element" matTooltip="A7" matTooltipPosition="above">
+                            <mat-form-field class="type-number">
+                                <input matInput [(ngModel)]="element.A7" [disabled]="!editAlumnCalifications">
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="A8">
+                        <mat-header-cell *matHeaderCellDef> A8 </mat-header-cell>
+                        <mat-cell *matCellDef="let element" matTooltip="A8" matTooltipPosition="above">
+                            <mat-form-field class="type-number">
+                                <input matInput [(ngModel)]="element.A8" [disabled]="!editAlumnCalifications">
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="A9">
+                        <mat-header-cell *matHeaderCellDef> A9 </mat-header-cell>
+                        <mat-cell *matCellDef="let element" matTooltip="A9" matTooltipPosition="above">
+                            <mat-form-field class="type-number">
+                                <input matInput [(ngModel)]="element.A9" [disabled]="!editAlumnCalifications">
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="A10">
+                        <mat-header-cell *matHeaderCellDef> A10 </mat-header-cell>
+                        <mat-cell *matCellDef="let element" matTooltip="A10" matTooltipPosition="above">
+                            <mat-form-field class="type-number">
+                                <input matInput [(ngModel)]="element.A10" [disabled]="!editAlumnCalifications">
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="A11">
+                        <mat-header-cell *matHeaderCellDef> A11 </mat-header-cell>
+                        <mat-cell *matCellDef="let element" matTooltip="A11" matTooltipPosition="above">
+                            <mat-form-field class="type-number">
+                                <input matInput [(ngModel)]="element.A11" [disabled]="!editAlumnCalifications">
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="A12">
+                        <mat-header-cell *matHeaderCellDef> A12 </mat-header-cell>
+                        <mat-cell *matCellDef="let element" matTooltip="A12" matTooltipPosition="above">
+                            <mat-form-field class="type-number">
+                                <input matInput [(ngModel)]="element.A12" [disabled]="!editAlumnCalifications">
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="A13">
+                        <mat-header-cell *matHeaderCellDef> A13 </mat-header-cell>
+                        <mat-cell *matCellDef="let element" matTooltip="A13" matTooltipPosition="above">
+                            <mat-form-field class="type-number">
+                                <input matInput [(ngModel)]="element.A13" [disabled]="!editAlumnCalifications">
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="A14">
+                        <mat-header-cell *matHeaderCellDef> A14 </mat-header-cell>
+                        <mat-cell *matCellDef="let element" matTooltip="A14" matTooltipPosition="above">
+                            <mat-form-field class="type-number">
+                                <input matInput [(ngModel)]="element.A14" [disabled]="!editAlumnCalifications">
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="A15">
+                        <mat-header-cell *matHeaderCellDef> A15 </mat-header-cell>
+                        <mat-cell *matCellDef="let element" matTooltip="A15" matTooltipPosition="above">
+                            <mat-form-field class="type-number">
+                                <input matInput [(ngModel)]="element.A15" [disabled]="!editAlumnCalifications">
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="avg">
+                        <mat-header-cell *matHeaderCellDef> Promedio </mat-header-cell>
+                        <mat-cell *matCellDef="let element" matTooltip="Promedio" matTooltipPosition="above">
+                            <mat-form-field class="type-number">
+                                <input matInput [(ngModel)]="element.avg" disabled>
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+
+
+                    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: columnsToDisplay;"></mat-row>
+                </mat-table>
+            </nb-card-body>
+        </nb-card>
+    </div>
+
+    <div class="col-md-12">
+
+        <mat-dialog-actions align="end">
+            <div class="example-button-row">
+                <button mat-raised-button class="multi-test">CANCELAR</button>
+                <button mat-raised-button class="multi-test" color="primary"
+                    (click)="updateCalifications()">GUARDAR</button>
+            </div>
+        </mat-dialog-actions>
+
+    </div>
+</div>

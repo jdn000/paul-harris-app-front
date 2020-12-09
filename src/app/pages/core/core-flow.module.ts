@@ -49,9 +49,12 @@ import { DialogAlumnComponent } from './alumn/dialog-alumn/dialog-alumn.componen
 import { LearningObjectiveComponent } from './learning-objective/learning-objective.component';
 import { DialogLearningObjectiveComponent } from './learning-objective/dialog-learning-objective/dialog-learning-objective.component';
 import { CalificationComponent } from './calification/calification.component';
+
 import { SubjectComponent } from '../administration/subject/subject.component';
 import { GradeComponent } from '../administration/grade/grade.component';
-
+import { DialogCalificationComponent } from './calification/dialog-calification/dialog-calification.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { CummulativeComponent } from './calification/cummulative/cummulative.component';
 
 registerLocaleData(localeEs, 'es-ES');
 
@@ -77,7 +80,7 @@ const materialModules = [
   MatTableModule,
   MatProgressSpinnerModule,
   MatChipsModule,
-  MatDaterangepickerModule
+  MatDaterangepickerModule, MatTabsModule
 ];
 
 @NgModule({
@@ -91,6 +94,8 @@ const materialModules = [
     CalificationComponent,
     SubjectComponent,
     GradeComponent,
+    DialogCalificationComponent,
+    CummulativeComponent
 
   ],
   providers: [
