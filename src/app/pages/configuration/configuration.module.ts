@@ -70,6 +70,7 @@ import { ButtonToggleComponent } from '../../@theme/components/table-render/Butt
 import { ButtonToggleTubeComponent } from '../../@theme/components/table-render/ButtonToggleTubeRender.component';
 import { ButtonToggleDisabledComponent } from '../../@theme/components/table-render/ToggleDisabledButton.component';
 import { ButtonToggleCustomerComponent } from '../../@theme/components/table-render/ButtonToggleCustomerComponentRender.component';
+import { PastAvgComponent } from './past-avg/past-avg.component';
 
 const MATERIAL_MODULES = [
   MatFormFieldModule,
@@ -131,6 +132,9 @@ const MATERIAL_MODULES = [
 
 
     ButtonToggleCustomerComponent,
+
+
+    PastAvgComponent,
 
   ],
   imports: [
