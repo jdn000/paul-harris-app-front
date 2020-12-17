@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthGuard } from './guards/auth-guard.service';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import localeEsCL from '@angular/common/locales/es-CL';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 registerLocaleData(localeEsCL);
 import {
   NbDatepickerModule,
@@ -22,7 +23,7 @@ import {
   NbWindowModule,
 } from '@nebular/theme';
 import { NgxUiLoaderModule, SPINNER, POSITION, PB_DIRECTION, NgxUiLoaderConfig } from 'ngx-ui-loader';
-import { GradeComponent } from './grade/grade.component';
+
 
 
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
@@ -36,7 +37,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent, GradeComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -53,6 +54,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
     SweetAlert2Module.forRoot(),
+    NgxChartsModule,
   ],
   providers: [
     AuthGuard,

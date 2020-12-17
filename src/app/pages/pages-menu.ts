@@ -45,6 +45,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
     // ],
   },
   {
+    title: 'Informe De notas',
+    icon: 'radio-button-off-outline',
+    link: '/pages/core/report',
+  },
+  {
+    title: 'Resultados',
+    icon: 'radio-button-off-outline',
+    link: '/pages/core/result',
+  },
+  {
     title: 'Mi Curso',
     icon: 'radio-button-off-outline',
     // link: '/pages/core/alumn',

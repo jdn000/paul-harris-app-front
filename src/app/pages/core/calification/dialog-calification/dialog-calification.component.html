@@ -8,7 +8,6 @@
     <nb-icon icon="person-outline"></nb-icon> {{title}}
 </h2>
 <mat-dialog-content class="mat-typography">
-
     <div class="row">
         <div class="col-md-10" *ngIf="!isCummulative">
 
@@ -18,18 +17,17 @@
             </mat-form-field>
 
         </div>
-        <div class="col-md-10">
+        <div class="col-md-10" *ngIf="form.evaluationNumber>1">
 
             <mat-checkbox (selectionChange)="onChange($event)" [ngModelOptions]="{standalone: true}"
                 [(ngModel)]="isCummulative">
                 <mat-label>¿Calificación de proceso?</mat-label>
             </mat-checkbox>
-
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <mat-form-field class="example-full-width">
+        <div class="col-md-6" *ngIf="objectives.length && !isCummulative">
+            <mat-form-field class=" full-width">
                 <mat-label>Seleccione Objetivo de aprendizaje</mat-label>
                 <mat-select (selectionChange)="onSelectedObjective($event)" [(ngModel)]="form.objectiveId">
                     <mat-option *ngFor="let objective of objectives" [value]="objective.id">
@@ -38,27 +36,39 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <div class="col-md-6" *ngIf="isCummulative && form.objectiveId">
+        <div>
+            <div class="col-md-6" *ngIf="objectives.length && isCummulative">
+                <mat-form-field class="full-width">
+                    <mat-label>Seleccione Objetivo de aprendizaje</mat-label>
+                    <mat-select (selectionChange)="onSelectedObjective($event)" [(ngModel)]="form.objectiveId">
+                        <mat-option *ngFor="let objective of objectivesFiltered" [value]="objective.id">
+                            {{objective.description }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
 
-            <mat-form-field class="example-full-width">
-                <mat-label>Seleccione indicador</mat-label>
-                <mat-select (selectionChange)="onSelectedIndicators($event)" multiple>
-                    <mat-option *ngFor="let filteredIndicator of filteredIndicators" [value]="filteredIndicator.id">
-                        {{filteredIndicator.description }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+            <div class="col-md-6" *ngIf="isCummulative && form.objectiveId">
+                <mat-form-field class="full-width">
+                    <mat-label>Seleccione indicador</mat-label>
+                    <mat-select (selectionChange)="onSelectedIndicators($event)" multiple>
+                        <mat-option *ngFor="let filteredIndicator of filteredIndicators" [value]="filteredIndicator.id">
+                            {{filteredIndicator.description }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-            <mat-form-field class="example-full-width">
-                <mat-label>Seleccione calificacion a añadir </mat-label>
-                <mat-select [(ngModel)]="form.calificationId">
-                    <mat-option *ngFor="let calification of calificationsToSelect"
-                        [value]="calification.calificationId">
-                        {{calification.evaluationNumber }}-{{calification.id}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Seleccione calificacion a añadir </mat-label>
+                    <mat-select [(ngModel)]="form.calificationId">
+                        <mat-option *ngFor="let calification of calificationsToSelect"
+                            [value]="calification.calificationId">
+                            Numero de calificación:{{calification.evaluationNumber }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
 
+            </div>
         </div>
     </div>
 </mat-dialog-content>

@@ -42,6 +42,7 @@ export class DialogCalificationComponent implements OnInit {
   selectedGrade: Grade;
   selectedSubjectId: number;
   objectives: LearningObjective[] = [];
+  objectivesFiltered: LearningObjective[] = [];
   indicators: Indicator[] = [];
   calificationIndicator: CalificationIndicator = {} as CalificationIndicator;
   calificationIndicators: CalificationIndicator[] = [];
@@ -67,6 +68,7 @@ export class DialogCalificationComponent implements OnInit {
     this.calificationNumber = this.getData.calificationNumber;
     this.calificationsToSelect = this.getData.calificationsToSelect;
     this.objectives = await this.learningObjectiveService.getGradeAndSubjectId(this.selectedGrade.id, this.selectedSubjectId).toPromise();
+    this.objectivesFiltered = await this.objectives.filter((i) => i.hasCalifications === true);
     this.alumns = this.getData.allAlumns;
     this.form.evaluationNumber = this.calificationNumber;
     this.calificationIndicators = await Promise.all(this.objectives.map(async (objective) => {
@@ -118,7 +120,7 @@ export class DialogCalificationComponent implements OnInit {
     let calificationsToSave = this.alumns.map((alumn) => {
       return {
         alumnId: alumn.id,
-        value: 0
+        value: 2
       };
     });
     let batchCalifToSave: BatchCalifications = {
@@ -138,6 +140,8 @@ export class DialogCalificationComponent implements OnInit {
     } else {
       this.toastService.showError('No se pudo ingresar');
     }
+    a.isCummulative = this.isCummulative;
+    a.evaluationNumber = this.calificationNumber - 1;
     this.dialogRef.close(a);
   }
 

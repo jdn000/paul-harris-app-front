@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { LearningObjective } from '../models/learningObjective';
+import { LearningObjective, ObjectiveData } from '../models/learningObjective';
 import { ErrorService } from './error.service';
 
 @Injectable({
@@ -29,6 +29,10 @@ export class LearningObjectiveService {
 
   getById(id: number): Observable<LearningObjective> {
     return this.http.get<LearningObjective>(this.baseUrl + `/${id}`, this.httpOptions).pipe(retry(1), catchError(this.errorService.errorHandler));
+  }
+
+  getAllDataById(id: number): Observable<ObjectiveData[]> {
+    return this.http.get<ObjectiveData[]>(this.baseUrl + `/all/${id}`, this.httpOptions).pipe(retry(1), catchError(this.errorService.errorHandler));
   }
 
   getBySubjectId(subjectId: number): Observable<LearningObjective[]> {

@@ -1,0 +1,145 @@
+.hx{
+    font-size:20px;
+    display:inline
+}
+
+table {
+    width: 100%;
+  }
+  
+  button {
+    margin: 16px 8px;
+  }
+  .mat-row {
+    height: auto;
+  }
+  
+  .mat-cell {
+    padding: 8px 8px 8px 0;
+  }
+  
+  .multi-test {
+    margin-left: 13px;
+    margin-bottom: 13px;
+}
+
+.full-width {
+	width: 100%;
+}
+
+.example-container {
+	display: flex;
+	flex-direction: column;
+	max-height: 500px;
+	min-width: 300px;
+}
+
+.mat-table {
+	overflow: auto;
+	max-height: 500px;
+	margin-bottom: 25px;
+}
+
+.mat-column-select {
+	overflow: visible;
+	flex: 0 0 75px;
+}
+
+.type-number {
+	width: 15%;
+}
+
+.progress-bar {
+	text-shadow: 1px 3px 10px black;
+}
+
+.actions-icon {
+	font-size: 1.5em;
+	color: #cccccc;
+	margin-right: 6px;
+	&:hover {
+		color: #6200ee;
+		cursor: pointer;
+	}
+}
+.mat-header-cell {
+  align-items: center;
+}
+
+.mat-cell {
+
+align-items: center;
+
+}
+
+
+.mat-column-code {
+	flex: 0 0 160px;
+}
+.mat-column-actions {
+	flex: 0 0 120px;
+}
+
+// from validation
+.validation-container {
+	position: absolute;
+	list-style: none;
+	right: 1px;
+	width: 50px;
+	z-index: 1;
+}
+.validation-item {
+	float: right;
+	width: 120px;
+	height: 40px;
+	position: relative;
+	left: 80px;
+	background: #d2eadd;
+	transition: 0.3s;
+	line-height: 40px;
+	font-size: 20px;
+	margin-bottom: 3px;
+	user-select: none;
+	cursor: pointer;
+	overflow: hidden;
+	&:hover {
+		left: 0;
+		color: white;
+		background: #00d68f;
+	}
+}
+.validation-icon {
+	margin-left: 11px;
+	float: left;
+	font-size: 12px;
+}
+
+
+
+.size-bar {
+	width: 100px;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+table {
+   // border-collapse: separate;
+    border-spacing: 0px 0;
+  }
+  th {
+    background-color: #4287f5;
+    color: white;
+    width: 5px;
+    text-align: center;
+    border: 1px solid black;
+    padding: 1px;
+}
+ 
+  td {
+    width: 2px;
+    text-align: left;
+    border: 1px solid black;
+    padding: 1px;
+  }

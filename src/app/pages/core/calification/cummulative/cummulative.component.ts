@@ -12,7 +12,7 @@ import { SubjectService } from '../../../../services/subject.service';
 import { ToastService } from '../../../../services/toast.service';
 import { NavigationExtras, Router } from '@angular/router';
 import { Alumn } from '../../../../models/alumn';
-
+import _ from 'lodash';
 @Component({
   selector: 'ngx-cummulative',
   templateUrl: './cummulative.component.html',
@@ -46,6 +46,7 @@ export class CummulativeComponent implements OnInit {
   columnsToDisplay: string[] = this.displayedColumns.slice();
   alumns: Alumn[] = [];
   calificationNumber: number;
+
   dataSource = new MatTableDataSource<AlumnCalifications>([]);
   redirect = {
     calificationNumber: null,
@@ -65,14 +66,20 @@ export class CummulativeComponent implements OnInit {
         alumnId: alumn.id
       };
     });
+
     if (this.redirect.calificationNumber) {
       this.getCummulativeCalifications(this.redirect.calificationNumber);
       this.dataSource = new MatTableDataSource<AlumnCalifications>(this.alumnCalifications);
     }
+    if (!this.redirect.calificationNumber) {
+      this.redirectingCalifications();
+    }
   }
+
   editCalifications() {
     this.editAlumnCalifications = !this.editAlumnCalifications;
   }
+
   async getCummulativeCalifications(gradeId: number) {
     this.showCummulativeTable = true;
     this.califications = await this.calificationService.getCummulativeByCalificationId(gradeId).toPromise();
@@ -92,6 +99,7 @@ export class CummulativeComponent implements OnInit {
         for (let i = 1; i <= 15; i++) {
           const founded = foundedCalifications.find((calification) => Number(calification.evaluationNumber) === i);
           if (founded) {
+            alumn.calificationId = founded.mainCalificationId;
             alumn[`A${i}`] = founded.value;
             alumn[`A${i}Id`] = founded.id;
             total += founded.value;
@@ -101,12 +109,11 @@ export class CummulativeComponent implements OnInit {
             alumn[`A${i}Id`] = null;
           }
         }
-        alumn.avg = count > 0 ? (total / count) : 0;
+        alumn.avg = count > 0 ? Math.round(total / count) : 0;
       }
     });
-    this.columnsToDisplay.push('avg');
-    console.log(this.alumnCalifications);
 
+    this.columnsToDisplay.push('avg');
   }
 
   redirectingCalifications() {
@@ -123,9 +130,14 @@ export class CummulativeComponent implements OnInit {
   async updateCalifications() {
     try {
       let calificationsToUpdate = [];
+      let mainCalificationToUpdate = [];
       this.alumnCalifications.forEach((c) => {
         for (let i = 1; i <= 15; i++) {
           if (c[`A${i}`]) {
+            mainCalificationToUpdate.push({
+              id: c.calificationId,
+              value: Math.round(c.avg)
+            });
             calificationsToUpdate.push({
               id: c[`A${i}Id`],
               value: c[`A${i}`]
@@ -134,11 +146,19 @@ export class CummulativeComponent implements OnInit {
         }
       }
       );
-      const updated = await this.calificationService.updateCummulatives(calificationsToUpdate).toPromise();
-      updated ? this.toastService.showSuccess('actualizadas') : this.toastService.showError('no se pudo actualizar');
-      //     this.editAlumnCalifications = false;
-      //    this.getCalificationInfo(this.selectedGrade.id, this.selectedSubject.id); <====== llamar a recargar
+      if (!calificationsToUpdate.length) {
+        this.toastService.showError('no se pudo actualizar');
+      } else {
+        mainCalificationToUpdate = _.uniqBy(mainCalificationToUpdate, 'id');
+        const updated = await this.calificationService.updateCummulatives(calificationsToUpdate).toPromise();
+        const mainCalificationUpdated = await this.calificationService.update(mainCalificationToUpdate).toPromise();
+        updated && mainCalificationUpdated ? this.toastService.showSuccess('actualizadas') : this.toastService.showError('no se pudo actualizar');
+        this.redirectingCalifications();
+      }
+
+
     } catch (error) {
+      this.toastService.showError('no se pudo actualizar');
     }
   }
 

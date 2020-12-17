@@ -5,6 +5,7 @@ import { retry, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ErrorService } from './error.service';
 import { Alumn } from '../models/alumn';
+import { CalificationReport } from '../models/calification';
 
 
 @Injectable({
@@ -34,9 +35,21 @@ export class AlumnService {
             .get<any>(this.baseUrl + `/${id}`, this.httpOptions)
             .pipe(retry(1), catchError(this.errorService.errorHandler));
     }
+    getReportDataByAlumnId(id: number): Observable<CalificationReport> {
+        return this.http
+            .get<any>(this.baseUrl + `/${id}/report`, this.httpOptions)
+            .pipe(retry(1), catchError(this.errorService.errorHandler));
+    }
+
     getByRun(run: string): Observable<Alumn> {
         return this.http
             .get<any>(this.baseUrl + `/run/${run}`, this.httpOptions)
+            .pipe(retry(1), catchError(this.errorService.errorHandler));
+    }
+
+    getAlumnDataForReports(gradeNumber: number): Observable<CalificationReport> {
+        return this.http
+            .get<CalificationReport>(this.baseUrl + `/grade/${gradeNumber}`, this.httpOptions)
             .pipe(retry(1), catchError(this.errorService.errorHandler));
     }
 

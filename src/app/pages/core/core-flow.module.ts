@@ -6,6 +6,8 @@ import {
   NbIconModule,
   NbPopoverModule,
   NbSpinnerModule,
+  NbTabComponent,
+  NbTabsetModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ThemeModule } from '../../@theme/theme.module';
@@ -55,6 +57,9 @@ import { GradeComponent } from '../administration/grade/grade.component';
 import { DialogCalificationComponent } from './calification/dialog-calification/dialog-calification.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CummulativeComponent } from './calification/cummulative/cummulative.component';
+import { ReportsComponent } from './reports/reports.component';
+import { ResultComponent } from './result/result.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 registerLocaleData(localeEs, 'es-ES');
 
@@ -95,7 +100,9 @@ const materialModules = [
     SubjectComponent,
     GradeComponent,
     DialogCalificationComponent,
-    CummulativeComponent
+    CummulativeComponent,
+    ReportsComponent,
+    ResultComponent
 
   ],
   providers: [
@@ -119,7 +126,9 @@ const materialModules = [
     NbPopoverModule,
     SweetAlert2Module,
     CdkTableModule,
-    NbSpinnerModule
+    NbSpinnerModule,
+    NgxChartsModule,
+    NbTabsetModule
   ],
 })
 export class CoreFlowModule { }

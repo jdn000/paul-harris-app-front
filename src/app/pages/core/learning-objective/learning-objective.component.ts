@@ -74,11 +74,11 @@ export class LearningObjectiveComponent implements OnInit, AfterViewInit {
   }
   async onSelectedSubject(evt: any) {
     try {
-      this.filteredLearningObjectives = [];
+
       for (const t of evt.value) {
         if (t) {
-          const filteredsBySubject = this.learningObjectives.filter((a) => a.subjectId === t);
-          this.filteredLearningObjectives.push(...filteredsBySubject);
+          const filteredsBySubject = this.filteredLearningObjectives.filter((a) => a.subjectId === t);
+          this.filteredLearningObjectives = filteredsBySubject;
         }
       }
       if (!evt.value.length) {

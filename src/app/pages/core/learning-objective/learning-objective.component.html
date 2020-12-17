@@ -9,7 +9,7 @@
             <nb-card-body>
                 <div class="row">
                     <div class="col-md-2">
-                        <mat-form-field class="example-full-width">
+                        <mat-form-field class="full-width">
                             <mat-label>Filtrar por curso</mat-label>
                             <mat-select (selectionChange)="onSelectedGrade($event)" multiple>
                                 <mat-option *ngFor="let grade of grades" [value]="grade.id">
@@ -19,7 +19,7 @@
                         </mat-form-field>
                     </div>
                     <div class="col-md-2">
-                        <mat-form-field class="example-full-width">
+                        <mat-form-field class="full-width">
                             <mat-label>Filtrar por Asignatura</mat-label>
                             <mat-select (selectionChange)="onSelectedSubject($event)" multiple>
                                 <mat-option *ngFor="let subject of subjects" [value]="subject.id">

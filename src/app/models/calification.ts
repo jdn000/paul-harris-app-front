@@ -36,6 +36,7 @@ export interface Calification {
   alumnId?: number;
   value?: number;
   calificationId?: number; // para notas acumulativas
+  mainCalificationId?: number;
 }
 
 export interface AlumnCalification {
@@ -43,6 +44,7 @@ export interface AlumnCalification {
   alumnId?: number;
   value?: number;
   idCalification?: number;
+  isCummulative?: boolean;
 }
 
 export interface BatchCalifications {
@@ -51,3 +53,11 @@ export interface BatchCalifications {
   indicators?: number[];
 }
 
+export interface CalificationReport {
+  alumnId: number;
+  alumnFullName: number;
+  run: string;
+  grade: number;
+  headTeacher: string;
+  subjects: any[];
+}

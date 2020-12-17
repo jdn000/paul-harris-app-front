@@ -18,6 +18,9 @@ import 'rxjs/add/observable/of';
 import { MatTableDataSource } from '@angular/material/table';
 import { DialogCalificationComponent } from './dialog-calification/dialog-calification.component';
 import { Router, NavigationExtras } from '@angular/router';
+import { PdfService } from '../../../services/pdf.service';
+import { ReportService } from '../../../services/report.service';
+import { saveAs } from 'file-saver';
 @Component({
   selector: 'ngx-calification',
   templateUrl: './calification.component.html',
@@ -34,6 +37,8 @@ export class CalificationComponent implements OnInit {
     private readonly alumnService: AlumnService,
     private readonly subjectService: SubjectService,
     private readonly router: Router,
+    private readonly pdfService: PdfService,
+    private readonly reportService: ReportService
   ) {
     if (typeof this.router.getCurrentNavigation().extras.state !== 'undefined') {
       this.redirect.gradeId = this.router.getCurrentNavigation().extras.state.gradeId;
@@ -49,23 +54,58 @@ export class CalificationComponent implements OnInit {
     gradeId: null,
     subjectId: null
   };
+  loadingCalifications = false;
+  waitingDownload = false;
+  reportData: any = {};
   useBreadcrumb = false;
+  generated = false;
   batchCalifications: BatchCalifications;
   califications: Calification[] = [];
   disableSelection = false;
   cummulativeCalifications: Calification[] = [];
   grades: Grade[] = [];
   displayedColumns: string[] = ['alumnFullName'];
-  columnsToDisplay: string[] = this.displayedColumns.slice();
+  columnsToDisplay: string[] = [];
   cummulativeColumnsToDisplay: string[] = this.displayedColumns.slice();
-  // dataSource = new MatTableDataSource<Alumn>([]);
+
   selectedGrades: Grade[] = [];
   selectedGrade: Grade = {} as Grade;
   subjects: Subject[] = [];
   selectedSubject: Subject = {} as Subject;
   alumns: Alumn[] = [];
 
-
+  isCummulative = {
+    N1: null,
+    N1Total: 0,
+    N2: null,
+    N2Total: 0,
+    N3: null,
+    N3Total: 0,
+    N4: null,
+    N4Total: 0,
+    N5: null,
+    N5Total: 0,
+    N6: null,
+    N6Total: 0,
+    N7: null,
+    N7Total: 0,
+    N8: null,
+    N8Total: 0,
+    N9: null,
+    N9Total: 0,
+    N10: null,
+    N10Total: 0,
+    N11: null,
+    N11Total: 0,
+    N12: null,
+    N12Total: 0,
+    N13: null,
+    N13Total: 0,
+    N14: null,
+    N14Total: 0,
+    N15: null,
+    N15Total: 0,
+  };
   disableSubjectSelect = true;
   editAlumnCalifications = false;
   alumnData: Alumn = {} as Alumn;
@@ -73,13 +113,13 @@ export class CalificationComponent implements OnInit {
   columns: any;
   alumnCalifications: AlumnCalifications[] = [];
 
-  mapArray = [];
+
   dataSource = new MatTableDataSource<AlumnCalifications>([]);
   calificationTemplate: CalificationTemplate[];// a eliminar
   calificationNumber: number;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   async ngOnInit() {
-    this.ngxService.startLoader('loader');
+
     this.grades = await this.gradeService.getAll().toPromise();
     this.subjects = await this.subjectService.getAll().toPromise();
     this.alumns = await this.alumnService.getAll().toPromise();
@@ -89,27 +129,12 @@ export class CalificationComponent implements OnInit {
     if (this.useBreadcrumb) {
       this.getInfoFromBreadCrumb();
     }
-    // this.columnsToDisplay = this.displayedColumns.slice();
-    // this.califications = await this.calificationService.getAll().toPromise();
-    await this.load();
-    this.ngxService.stopLoader('loader');
+
+
+
   }
   enableSelectLists() {
     this.disableSelection = false;
-  }
-  async load() {
-    try {
-    } catch (error) {
-      this.toastService.showError(error.message || error);
-    }
-  }
-  addColumn() {
-    this.columnsToDisplay.push(this.displayedColumns[3]);
-  }
-  removeColumn() {
-    if (this.columnsToDisplay.length) {
-      this.columnsToDisplay.pop();
-    }
   }
 
   compareFunction = (o1: any, o2: any) => o1.id === o2.id;
@@ -143,33 +168,41 @@ export class CalificationComponent implements OnInit {
   }
   clean() {
     this.alumnCalifications = [];
-
   }
+
   editCalifications() {
     this.editAlumnCalifications = !this.editAlumnCalifications;
   }
+
   async onSelectedSubject(evt: any) {
     try {
+      this.loadingCalifications = true;
       this.columnsToDisplay = this.displayedColumns.slice();
+
       if (evt.value) {
         this.selectedSubject = this.subjects.find((s) => s.id === evt.value);
         this.getCalificationInfo(this.selectedGrade.id, this.selectedSubject.id);
       }
+      this.loadingCalifications = false;
     } catch (error) {
+      this.loadingCalifications = false;
       this.toastService.showError(error.message || error);
     }
   }
 
   async getCalificationInfo(gradeId: number, subjectId: number) {
+    this.loadingCalifications = true;
     this.califications = [];
     this.cummulativeCalifications = [];
     this.columnsToDisplay = this.displayedColumns.slice();
     this.cummulativeColumnsToDisplay = this.displayedColumns.slice();
     this.califications = await this.calificationService.getByGradeAndSubjectId(gradeId, subjectId).toPromise();
+    this.cummulativeCalifications = await this.calificationService.getCummulativeByGradeAndSubjectId(gradeId, subjectId).toPromise();
     let maxvalue = Math.max(...this.califications.map(elt => elt.evaluationNumber));
     this.calificationNumber = maxvalue >= 0 ? maxvalue : 0;
     for (let i = 0; i < maxvalue; i++) {
       this.columnsToDisplay.push(`N${i + 1}`);
+
     }
     this.alumnCalifications.forEach(async (alumn) => {
       const foundedCalifications = this.califications.filter((c) => c.alumnId === alumn.alumnId);
@@ -181,11 +214,12 @@ export class CalificationComponent implements OnInit {
           const founded = foundedCalifications.find((calification) => Number(calification.evaluationNumber) === i);
           if (founded) {
             if (founded.isCummulative) {
-              founded.value = await this.getCummulativeValue(founded.calificationId, founded.alumnId);
+              this.isCummulative[`N${i}Total`] = founded.isCummulative ? await this.getCummulativeCount(founded.calificationId, founded.alumnId) : 0;
             }
-            alumn[`N${i}`] = founded.value;// si es acumulativa, buscar valores en los dto
+            alumn[`N${i}`] = founded.value;
             alumn[`N${i}Id`] = founded.id;
             alumn[`N${i}Cummulative`] = founded.isCummulative ? true : false;
+            this.isCummulative[`N${i}`] = founded.isCummulative ? true : false;
             total += founded.value;
             count += 1;
           } else {
@@ -193,16 +227,27 @@ export class CalificationComponent implements OnInit {
             alumn[`N${i}Id`] = null;
           }
         }
-        alumn.avg = count > 0 ? (total / count) : 0;
+        alumn.avg = Number(this.getAvg(alumn));
       }
     });
-    console.log(this.alumnCalifications);
     this.columnsToDisplay.push('avg');
+    this.dataSource = new MatTableDataSource<AlumnCalifications>(this.alumnCalifications);
+    this.loadingCalifications = false;
+  }
+
+  getAvg(evt: any) {
+    let total = 0;
+    let count = 0;
+    for (let i = 1; i <= 15; i++) {
+      if (evt[`N${i}`]) {
+        total += evt[`N${i}`];
+        count += 1;
+      }
+    }
+    return total > 0 ? (total / count).toFixed(1) : 0;
   }
   openDialog(): void {
-
     let calificationsToSelect = _.uniqBy(this.califications, 'evaluationNumber');
-    console.log(calificationsToSelect);
     this.dialog.open(DialogCalificationComponent, {
       data: {
         allAlumns: this.filteredAlumns,
@@ -218,8 +263,13 @@ export class CalificationComponent implements OnInit {
       panelClass: 'custom-modalbox',
     }).afterClosed().subscribe(async (data) => {
       if (data) {
-        this.editAlumnCalifications = true;
-        this.getCalificationInfo(this.selectedGrade.id, this.selectedSubject.id);
+        if (!data.isCummulative) {
+          this.editAlumnCalifications = true;
+          this.getCalificationInfo(this.selectedGrade.id, this.selectedSubject.id);
+        }
+        else {
+          this.redirectingCalifications(data.evaluationNumber, true);
+        }
 
       }
     });
@@ -227,26 +277,81 @@ export class CalificationComponent implements OnInit {
 
   async updateCalifications() {
     try {
-      let calificationsToUpdate = [];
-      this.alumnCalifications.forEach((c) => {
-        for (let i = 1; i <= 15; i++) {
-          if (c[`N${i}`]) {
-            calificationsToUpdate.push({
-              id: c[`N${i}Id`],
-              value: c[`N${i}`]
-            });
+      if (this.validateForm()) {
+
+        this.loadingCalifications = true;
+        let calificationsToUpdate = [];
+        this.alumnCalifications.forEach((c) => {
+          for (let i = 1; i <= 15; i++) {
+            if (c[`N${i}`]) {
+              calificationsToUpdate.push({
+                id: c[`N${i}Id`],
+                value: c[`N${i}`]
+              });
+            }
           }
         }
+        );
+        const updated = await this.calificationService.update(calificationsToUpdate).toPromise();
+        updated ? this.toastService.showSuccess('actualizadas') : this.toastService.showError('no se pudo actualizar');
+        this.editAlumnCalifications = false;
+        this.loadingCalifications = false;
+        this.getCalificationInfo(this.selectedGrade.id, this.selectedSubject.id);
       }
-      );
-      const updated = await this.calificationService.update(calificationsToUpdate).toPromise();
-      updated ? this.toastService.showSuccess('actualizadas') : this.toastService.showError('no se pudo actualizar');
-      this.editAlumnCalifications = false;
-      this.getCalificationInfo(this.selectedGrade.id, this.selectedSubject.id);
+      else {
+        this.toastService.showWarning('Error en el valor de las notas');
+      }
     } catch (error) {
+      this.loadingCalifications = false;
     }
   }
-
+  validateForm() {
+    let isValidated = true;
+    let validated = this.alumnCalifications.forEach((c) => {
+      for (let i = 1; i <= 15; i++) {
+        if (c[`N${i}`] && c[`N${i}`] > 7 || c[`N${i}`] && c[`N${i}`] < 2) {
+          isValidated = false;
+        }
+      }
+      // if (c.N2 > 7 || c.N2 < 2) {
+      //   return false;
+      // }
+      // if (c.N3 > 7 || c.N3 < 2) {
+      //   return false;
+      // }
+      // if (c.N4 > 7 || c.N4 < 2) {
+      //   return false;
+      // }
+      // if (c.N5 > 7 || c.N5 < 2) {
+      //   return false;
+      // }
+      // if (c.N6 > 7 || c.N6 < 2) {
+      //   return false;
+      // }
+      // if (c.N7 > 7 || c.N7 < 2) {
+      //   return false;
+      // }
+      // if (c.N8 > 7 || c.N8 < 2) {
+      //   return false;
+      // } if (c.N9 > 7 || c.N9 < 2) {
+      //   return false;
+      // } if (c.N10 > 7 || c.N10 < 2) {
+      //   return false;
+      // } if (c.N11 > 7 || c.N11 < 2) {
+      //   return false;
+      // } if (c.N12 > 7 || c.N12 < 2) {
+      //   return false;
+      // } if (c.N13 > 7 || c.N13 < 2) {
+      //   return false;
+      // } if (c.N14 > 7 || c.N14 < 2) {
+      //   return false;
+      // } if (c.N15 > 7 || c.N15 < 2) {
+      //   return false;
+      // }
+      // return true;
+    });
+    return isValidated;
+  }
   redirectingCalifications(evt: number, edit: boolean) {
     const x = this.califications.find((c) => Number(c.evaluationNumber) === evt);
     const navigationExtras: NavigationExtras = {
@@ -261,23 +366,45 @@ export class CalificationComponent implements OnInit {
   }
 
   async getCummulativeValue(calificationId: number, alumnId: number) {
-    let values = await this.calificationService.getCummulativeByCalificationIdAlumnId(calificationId, alumnId).toPromise();
+    let values = this.cummulativeCalifications.filter((c) => c.alumnId === alumnId && c.calificationId === calificationId);
     let total = 0;
-
     values.forEach((v) => {
       total += v.value;
     });
-    return total > 0 ? total / values.length : 0;
+    return total > 0 ? (Number(total) / Number(values.length)).toFixed(1) : 0;
+
+  }
+  async getCummulativeCount(calificationId: number, alumnId: number) {
+    let values = this.cummulativeCalifications.filter((c) => c.alumnId === alumnId && c.calificationId === calificationId);
+    return values ? values.length : 0;
   }
   async getInfoFromBreadCrumb() {
+    this.loadingCalifications = true;
     const subject = {
       value: this.redirect.subjectId
     };
     const grade = {
       value: this.redirect.gradeId
     };
+    this.loadingCalifications = false;
     this.onSelectedGrade(grade);
     this.onSelectedSubject(subject);
+  }
+
+  async generatePdf() {
+    this.waitingDownload = true;
+    this.reportData = await this.reportService.createReport(this.selectedGrade.gradeNumber).toPromise();
+    this.generated = true;
+    this.waitingDownload = false;
+  }
+  async downloadReport() {
+    if (this.generated) {
+      const reportToDownload = await this.reportService.downloadReport(this.reportData.id).toPromise();
+      saveAs(reportToDownload, `Informes ${this.selectedGrade.name}`);
+    }
+  }
+  changeDownloadStatus() {
+    this.generated = false;
   }
 }
 

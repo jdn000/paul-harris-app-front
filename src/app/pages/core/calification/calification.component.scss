@@ -2,51 +2,71 @@ table {
     width: 100%;
   }
   
-  button {
+   button {
     margin: 16px 8px;
-  }
-  .mat-row {
-    height: auto;
-  }
+   }
+//   .mat-row {
+//     height: auto;
+//   }
   
-  .mat-cell {
-    padding: 8px 8px 8px 0;
-  }
+   .mat-cell {
+     padding: 50px 8px 8px 0;
+   }
   
-  .multi-test {
-    margin-left: 13px;
-    margin-bottom: 13px;
+//   .multi-test {
+//     margin-left: 13px;
+//     margin-bottom: 13px;
+// }
+
+ .full-width {
+ 	width: 100%;
+ }
+ .empty-center {
+    text-align: center;
+    border: white;
+    margin-top: 70px;
+}
+.empty {
+    font-size: 10rem;
+    color: #f1f1f1;
 }
 
-.full-width {
-	width: 100%;
+.empty-center p {
+    color: #ddd;
 }
 
-.example-container {
-	display: flex;
-	flex-direction: column;
-	max-height: 500px;
-	min-width: 300px;
-}
+// .example-container {
+// 	display: flex;
+// 	flex-direction: column;
+// 	max-height: 500px;
+// 	min-width: 300px;
+// }
 
-.mat-table {
-	overflow: auto;
-	max-height: 500px;
-	margin-bottom: 25px;
-}
+//  .mat-table {
+//  	overflow: auto;
+//  	max-height: 500px;
+//  	margin-bottom: 25px;
+//  }
 
-.mat-column-select {
-	overflow: visible;
-	flex: 0 0 75px;
-}
+nb-card {
+    max-width: 100%;
+    max-height:  100%;
+  }
 
-.type-number {
-	width: 15%;
-}
+// .mat-column-select {
+// 	overflow: visible;
+// 	flex: 0 0 75px;
+// }
 
-.progress-bar {
-	text-shadow: 1px 3px 10px black;
-}
+ .type-number {
+  	width: 15%;
+  }
+
+ .mat-column-alumnFullName{
+ 	text-align: left;
+	width: 20% !important;
+   }
+
 
 .actions-icon {
 	font-size: 1.5em;
@@ -57,137 +77,26 @@ table {
 		cursor: pointer;
 	}
 }
-.mat-header-cell {
-  align-items: center;
-}
 
-.mat-cell {
+// .mat-header-cell {
+//   align-items: right;
+// }
 
-align-items: center;
+// // .mat-cell {
 
-}
+// // align-items: left;
+
+// // }
 
 
-.mat-column-code {
-	flex: 0 0 160px;
-}
-.mat-column-actions {
-	flex: 0 0 120px;
-}
+// .mat-column-code {
+// 	flex: 0 0 160px;
+// }
+// .mat-column-actions {
+// 	flex: 0 0 120px;
+// }
 
-// from validation
-.validation-container {
-	position: absolute;
-	list-style: none;
-	right: 1px;
-	width: 50px;
-	z-index: 1;
-}
-.validation-item {
-	float: right;
-	width: 120px;
-	height: 40px;
-	position: relative;
-	left: 80px;
-	background: #d2eadd;
-	transition: 0.3s;
-	line-height: 40px;
-	font-size: 20px;
-	margin-bottom: 3px;
-	user-select: none;
-	cursor: pointer;
-	overflow: hidden;
-	&:hover {
-		left: 0;
-		color: white;
-		background: #00d68f;
-	}
-}
-.validation-icon {
-	margin-left: 11px;
-	float: left;
-	font-size: 12px;
-}
 
-// range
-.range-gauge {
-	padding: 50px 20px;
-}
-.range-bar {
-	height: 10px;
-	background: #ddd;
-	position: relative;
-	.bar {
-		background: blue;
-		width: 20px;
-		position: absolute;
-		top: 0;
-		bottom: 0;
-		opacity: 0.7;
-		border-left: 1px solid #ddd;
-		border-right: 1px solid #ddd;
-		.labels {
-			table-layout: fixed;
-			margin-top: 10px;
-			width: 100%;
-			display: table;
-			font-size: 70%;
-			> span {
-				display: table-cell;
-				text-align: center;
-				line-height: 100%;
-				padding: 3px;
-				&:first-child {
-					text-align: left;
-				}
-				&:last-child {
-					text-align: right;
-				}
-			}
-		}
-		&:hover {
-			opacity: 1;
-		}
-	}
-	.gauge-bubble {
-		width: 100px;
-		margin-left: -50px;
-		position: absolute;
-		text-align: center;
-		bottom: 100%;
-		padding: 6px 0;
-		.lbl {
-			padding: 5px;
-			border-radius: 5px;
-			line-height: 100%;
-			text-align: center;
-			display: inline-block;
-			background: blue;
-			color: white;
-			small {
-				text-transform: uppercase;
-				font-size: 0.6rem;
-			}
-			&::after {
-				position: absolute;
-				bottom: 0;
-				left: 50%;
-				margin-left: -8px;
-				display: block;
-				content: '';
-				width: 0;
-				height: 0;
-				border-style: solid;
-				border-width: 6px 8px 8px;
-				border-color: blue transparent;
-			}
-		}
-	}
-}
-
-.size-bar {
-	width: 100px;
-}
 
 .pointer {
 	cursor: pointer;

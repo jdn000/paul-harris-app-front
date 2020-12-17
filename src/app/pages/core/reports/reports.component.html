@@ -1,0 +1,106 @@
+<div class="col-md-12">
+    <nb-card>
+        <nb-card-body>
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field class="full-width">
+                        <mat-label>Filtrar por curso</mat-label>
+                        <mat-select (selectionChange)="onSelectedTurn($event)" multiple
+                            (click)="changeDownloadStatus()">
+                            <mat-option *ngFor="let grade of grades" [value]="grade.id">
+                                {{grade.description }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field class="full-width">
+                        <mat-label>Seleccione Alumno</mat-label>
+                        <mat-select (selectionChange)="onSelectedAlumn($event)" [(ngModel)]="selectedAlumnId"
+                            (click)="changeDownloadStatus()">
+                            <mat-option *ngFor="let alumn of filteredAlumns" [value]="alumn.id">
+                                {{alumn.names}} {{alumn.lastName}} {{alumn.secondSurname}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </nb-card-body>
+    </nb-card>
+</div>
+
+<div class="col-md-12">
+    <nb-card>
+        <nb-card-body>
+            <div *ngIf="alumnData.alumnId">
+                <div class="col-md-12">
+                    <div>
+                        <h6 style="font-size:15px;display:inline">Nombre Alumno:</h6>
+                        <hx>{{alumnData.alumnFullName}}</hx>
+                    </div>
+                    <div>
+                        <h6 style="font-size:15px;display:inline">Run:</h6>
+                        <hx>{{alumnData.run}}</hx>
+                    </div>
+                    <div>
+                        <h6 style="font-size:15px;display:inline">Curso:</h6>
+                        <hx>{{alumnData.grade}}</hx>
+                    </div>
+                </div>
+
+                <mat-divider></mat-divider>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Asignatura</th>
+                            <th>Notas</th>
+                            <th>Promedio</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let subject of alumnData.subjects">
+                            <tr>
+                                <td>{{subject.name}}</td>
+                                <td>
+                                    <ng-container *ngFor="let calification of subject.califications">
+                                        {{calification}}
+                                    </ng-container>
+                                </td>
+                                <td style="text-align:center"> {{sum(subject.califications)}}</td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="2">Promedio segundo semestre</th>
+                            <td style="text-align:center">{{getSemesterAvg()}}</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Promedio Final</th>
+                            <td style="text-align:center">{{getYearAvg()}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </nb-card-body>
+    </nb-card>
+</div>
+
+<mat-dialog-actions align="end">
+    <div *ngIf=!generated>
+
+        <button mat-raised-button color="primary" (click)="generatePdf()" [disabled]="!selectedAlumnId">
+            Generar Informe
+        </button>
+
+    </div>
+    <div *ngIf=generated>
+        <button mat-raised-button color="primary" (click)="downloadReport()" matSuffix icon="cloud-download-outline">
+            <nb-icon matTooltip="Descargar Informe" matTooltipPosition="above" matSuffix icon="cloud-download-outline">
+            </nb-icon>
+
+        </button>
+    </div>
+</mat-dialog-actions>
