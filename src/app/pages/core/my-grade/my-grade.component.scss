@@ -1,0 +1,103 @@
+table {
+    width: 100%;
+  }
+  
+   button {
+    margin: 16px 8px;
+   }
+//   .mat-row {
+//     height: auto;
+//   }
+  
+   .mat-cell {
+     padding: 50px 8px 8px 0;
+   }
+  
+//   .multi-test {
+//     margin-left: 13px;
+//     margin-bottom: 13px;
+// }
+
+ .full-width {
+ 	width: 100%;
+ }
+ .empty-center {
+    text-align: center;
+    border: white;
+    margin-top: 70px;
+}
+.empty {
+    font-size: 10rem;
+    color: #f1f1f1;
+}
+
+.empty-center p {
+    color: #ddd;
+}
+
+// .example-container {
+// 	display: flex;
+// 	flex-direction: column;
+// 	max-height: 500px;
+// 	min-width: 300px;
+// }
+
+//  .mat-table {
+//  	overflow: auto;
+//  	max-height: 500px;
+//  	margin-bottom: 25px;
+//  }
+
+nb-card {
+    max-width: 100%;
+    max-height:  100%;
+  }
+
+// .mat-column-select {
+// 	overflow: visible;
+// 	flex: 0 0 75px;
+// }
+
+ .type-number {
+  	width: 15%;
+  }
+
+ .mat-column-alumnFullName{
+ 	text-align: left;
+	width: 20% !important;
+   }
+
+
+.actions-icon {
+	font-size: 1.5em;
+	color: #cccccc;
+	margin-right: 6px;
+	&:hover {
+		color: #6200ee;
+		cursor: pointer;
+	}
+}
+
+// .mat-header-cell {
+//   align-items: right;
+// }
+
+// // .mat-cell {
+
+// // align-items: left;
+
+// // }
+
+
+// .mat-column-code {
+// 	flex: 0 0 160px;
+// }
+// .mat-column-actions {
+// 	flex: 0 0 120px;
+// }
+
+
+
+.pointer {
+	cursor: pointer;
+}
