@@ -2,12 +2,34 @@
     <span class="demo-close" mat-dialog-close>
         <nb-icon icon="close-outline"></nb-icon>
     </span>
-
 </div>
 <h2 mat-dialog-title>
     <nb-icon icon="person-outline"></nb-icon> {{title}}
 </h2>
 <mat-dialog-content class="mat-typography" [nbSpinner]="loading">
+
+    <div class="row">
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <mat-label>Nombres</mat-label>
+                <input matInput name="firstname" [(ngModel)]="userContentForm.firstName" required>
+                <mat-error *ngIf="!userContentForm.firstName">Ingrese nombre</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <mat-label>Primer Apellido</mat-label>
+                <input matInput name="lastname" [(ngModel)]="userContentForm.lastName" required>
+                <mat-error *ngIf="!userContentForm.lastName">Ingrese primer apellido</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <mat-label>Segundo Apellido</mat-label>
+                <input matInput name="secondsurname" [(ngModel)]="userContentForm.secondSurname">
+            </mat-form-field>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-4">
             <mat-form-field class="example-full-width">
@@ -16,33 +38,28 @@
                 <mat-error *ngIf="!userContentForm.username">Ingrese nombre de usuario</mat-error>
             </mat-form-field>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-4">
             <mat-form-field class="example-full-width">
                 <mat-label>Email</mat-label>
                 <input matInput name="email" [(ngModel)]="userContentForm.email" required>
                 <mat-error *ngIf="!userContentForm.email">Ingrese email</mat-error>
             </mat-form-field>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-4">
             <mat-form-field class="example-full-width">
-                <mat-label>Nombres</mat-label>
-                <input matInput name="firstname" [(ngModel)]="userContentForm.firstName" required>
-                <mat-error *ngIf="!userContentForm.firstName">Ingrese nombre</mat-error>
+                <mat-label>Rol</mat-label>
+                <mat-select [(ngModel)]="userContentForm.roleId" [ngModelOptions]="{standalone: true}">
+                    <mat-option [value]="1">
+                        Administrador
+                    </mat-option>
+                    <mat-option [value]="2">
+                        Usuario
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
         </div>
-        <div class="col-md-6">
-            <mat-form-field class="example-full-width">
-                <mat-label>Primer Apellido</mat-label>
-                <input matInput name="lastname" [(ngModel)]="userContentForm.lastName" required>
-                <mat-error *ngIf="!userContentForm.lastName">Ingrese primer apellido</mat-error>
-            </mat-form-field>
-        </div>
-        <div class="col-md-6">
-            <mat-form-field class="example-full-width">
-                <mat-label>Segundo Apellido</mat-label>
-                <input matInput name="secondsurname" [(ngModel)]="userContentForm.secondSurname">
-            </mat-form-field>
-        </div>
+    </div>
+    <div class="row">
         <div class="col-md-6" *ngIf="isNewUser">
             <mat-form-field class="example-full-width">
                 <mat-label>Contraseña</mat-label>
@@ -52,22 +69,19 @@
             </mat-form-field>
         </div>
         <div class="col-md-6" *ngIf="isNewUser">
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="full-width">
                 <mat-label>Confirmar Contraseña</mat-label>
                 <input matInput name="password" type="password" [(ngModel)]="passwordRepeat" required>
-
                 <mat-error *ngIf="!passwordRepeat">Confirme contraseña</mat-error>
             </mat-form-field>
         </div>
-        <div class="col-md-12">
-
-            <ng-template #statusEnabled>
-                <mat-slide-toggle class="float-right" [(ngModel)]="userContentForm.status"
-                    [ngModelOptions]="{standalone: true}"> {{userContentForm.status? 'Activo':'Inactivo'}}
-                </mat-slide-toggle>
-            </ng-template>
-        </div>
     </div>
+    <div class="col-md-12" *ngIf="!isNewUser">
+        <mat-slide-toggle class="float-right" [(ngModel)]="userContentForm.status"
+            [ngModelOptions]="{standalone: true}"> {{userContentForm.status? 'Activo':'Inactivo'}}
+        </mat-slide-toggle>
+    </div>
+
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <div *ngIf="!userContentForm.status">

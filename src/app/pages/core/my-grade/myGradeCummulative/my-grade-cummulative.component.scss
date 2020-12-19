@@ -1,90 +1,138 @@
 table {
-    width: 100%;
-  }
-  
-   button {
-    margin: 16px 8px;
-   }
+  width: 100%;
+}
+
+ button {
+  margin: 16px 8px;
+ }
 //   .mat-row {
 //     height: auto;
 //   }
-  
-   .mat-cell {
-     padding: 50px 8px 8px 0;
-   }
-  
-//   .multi-test {
-//     margin-left: 13px;
-//     margin-bottom: 13px;
-// }
 
- .full-width {
- 	width: 100%;
+ .mat-cell {
+
+   flex:20%;
  }
 
-// .example-container {
-// 	display: flex;
-// 	flex-direction: column;
-// 	max-height: 500px;
-// 	min-width: 300px;
-// }
-
-//  .mat-table {
-//  	overflow: auto;
-//  	max-height: 500px;
-//  	margin-bottom: 25px;
-//  }
-
-nb-card {
-    max-width: 100%;
-    max-height:  100%;
-  }
-
-// .mat-column-select {
-// 	overflow: visible;
-// 	flex: 0 0 75px;
-// }
-
- .type-number {
-  	width: 15%;
-  }
-
- .mat-column-alumnFullName{
- 	text-align: left;
-	width: 20% !important;
-   }
 
 
-.actions-icon {
-	font-size: 1.5em;
-	color: #cccccc;
-	margin-right: 6px;
-	&:hover {
-		color: #6200ee;
-		cursor: pointer;
-	}
+.full-width {
+ width: 100%;
+}
+.empty-center {
+  text-align: center;
+  border: white;
+  margin-top: 70px;
+}
+.empty {
+  font-size: 10rem;
+  color: #f1f1f1;
 }
 
-// .mat-header-cell {
-//   align-items: right;
-// }
-
-// // .mat-cell {
-
-// // align-items: left;
-
-// // }
+.empty-center p {
+  color: #ddd;
+}
 
 
-// .mat-column-code {
-// 	flex: 0 0 160px;
-// }
-// .mat-column-actions {
-// 	flex: 0 0 120px;
-// }
+.mat-table {
+ overflow: visible;
+
+}
+
+.type-number {
+  width: 15%;
+}
+
+.mat-column-alumnFullName{
+  text-align: left;
+// width: 25% !important;
+ flex:20%;
+  }
+  .mat-column-A1{
+    text-align: center;
+  // width: 25% !important;
+   flex:20%;
+    }
+    .mat-column-A2{
+      text-align: center;
+      padding: 50px 8px 8px 0;
+     flex:20%;
+      }
+      .mat-column-A3{
+        text-align: center;
+
+      // width: 25% !important;
+       flex:20%;
+        }
+        .mat-column-A4{
+          text-align: center;
+        // width: 25% !important;
+         flex:20%;
+          }
+          .mat-column-A5{
+            text-align: center;
+            padding: 50px 8px 8px 0;
+          // width: 25% !important;
+           flex:20%;
+            }
+            .mat-column-A6{
+              text-align: center;
+            // width: 25% !important;
+             flex:20%;
+              }
+              .mat-column-A7{
+                text-align: center;
+              // width: 25% !important;
+               flex:20%;
+                } 
+                .mat-column-A8{
+                  text-align: center;
+                // width: 25% !important;
+                 flex:20%;
+                  }  .mat-column-A9{
+                    text-align: center;
+                  // width: 25% !important;
+                   flex:20%;
+                    }  .mat-column-A10{
+                      text-align: center;
+                    // width: 25% !important;
+                     flex:20%;
+                      }  .mat-column-A11{
+                        text-align: center;
+                      // width: 25% !important;
+                       flex:20%;
+                        }  .mat-column-A12{
+                          text-align: center;
+                        // width: 25% !important;
+                         flex:20%;
+                          }  .mat-column-A13{
+                            text-align: center;
+                          // width: 25% !important;
+                           flex:20%;
+                            }  .mat-column-A1{
+                              text-align: center;
+                            // width: 25% !important;
+                             flex:20%;
+                              }  .mat-column-A15{
+                                text-align: center;
+                              // width: 25% !important;
+                               flex:20%;
+                                } 
+
+.actions-icon {
+font-size: 1.5em;
+color: #cccccc;
+margin-right: 6px;
+&:hover {
+  color: #6200ee;
+  cursor: pointer;
+}
+}
+
+
 
 
 
 .pointer {
-	cursor: pointer;
+cursor: pointer;
 }

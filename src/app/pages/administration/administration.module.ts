@@ -39,6 +39,7 @@ import { DialogChangePasswordComponent } from './user/dialog-change-password/dia
 import { ChangePasswordComponent } from '../../@theme/components/table-render/ChangePasswordComponentRender.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ToggleOrTextComponent } from '../../@theme/components/table-render/ToggleOrText.component';
+import { DialogUserSubjectComponent } from './user/dialog-user-subject/dialog-user-subject.component';
 const materialModules = [
   MatFormFieldModule,
   MatInputModule,
@@ -70,6 +71,7 @@ const materialModules = [
     DialogChangePasswordComponent,
     ChangePasswordComponent,
     ToggleOrTextComponent,
+    DialogUserSubjectComponent,
 
 
   ],

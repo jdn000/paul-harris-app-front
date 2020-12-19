@@ -10,20 +10,23 @@
                 <nb-tabset>
                     <nb-tab tabTitle="Global">
                         <div class="row">
-                            <div class="col-md-2">
+
+                            <div class="col-md-3">
                                 <mat-form-field class="full-width">
-                                    <mat-label>Filtrar por curso</mat-label>
-                                    <mat-select (selectionChange)="onSelectedGeneralGrade($event)">
+                                    <mat-label>Curso</mat-label>
+                                    <mat-select (selectionChange)="onSelectedGeneralGrade($event)"
+                                        [(ngModel)]="selectedGradeId">
                                         <mat-option *ngFor="let grade of grades" [value]="grade.id">
                                             {{grade.description }}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <mat-form-field class="full-width">
-                                    <mat-label>Filtrar por Asignatura</mat-label>
-                                    <mat-select (selectionChange)="onSelectedGeneralSubject($event)">
+                                    <mat-label> Asignatura</mat-label>
+                                    <mat-select (selectionChange)="onSelectedGeneralSubject($event)"
+                                        [(ngModel)]="selectedSubjectId">
                                         <mat-option *ngFor="let subject of subjects" [value]="subject.id">
                                             {{subject.description }}
                                         </mat-option>
@@ -31,17 +34,21 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                        <ngx-charts-bar-vertical-normalized [view]="view" [scheme]="colorScheme" [results]="multi3"
-                            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
-                            [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                            [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel">
-                        </ngx-charts-bar-vertical-normalized>
+                        <mat-divider></mat-divider>
+                        <div class="col-md-12" *ngIf="data">
+                            <ngx-charts-bar-vertical-normalized [view]="view" [scheme]="colorScheme" [results]="multi3"
+                                [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                                [legendTitle]="legendTitle" [showXAxisLabel]="showXAxisLabel"
+                                [showYAxisLabel]="showYAxisLabel" [maxXAxisTickLength]="17" [xAxisLabel]="xAxisLabel"
+                                [yAxisLabel]="yAxisLabel">
+                            </ngx-charts-bar-vertical-normalized>
+                        </div>
                     </nb-tab>
                     <nb-tab tabTitle="Detalle">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-4">
                                 <mat-form-field class="full-width">
-                                    <mat-label>Filtrar por curso</mat-label>
+                                    <mat-label> Curso</mat-label>
                                     <mat-select (selectionChange)="onSelectedGrade($event)">
                                         <mat-option *ngFor="let grade of grades" [value]="grade.id">
                                             {{grade.description }}
@@ -49,9 +56,9 @@
                                     </mat-select>
                                 </mat-form-field>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-4">
                                 <mat-form-field class="full-width">
-                                    <mat-label>Filtrar por Asignatura</mat-label>
+                                    <mat-label> Asignatura</mat-label>
                                     <mat-select (selectionChange)="onSelectedSubject($event)">
                                         <mat-option *ngFor="let subject of subjects" [value]="subject.id">
                                             {{subject.description }}
@@ -59,13 +66,11 @@
                                     </mat-select>
                                 </mat-form-field>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-4">
                                 <mat-form-field class="full-width">
-                                    <mat-label>Seleccione Objetivo</mat-label>
+                                    <mat-label>Objetivo</mat-label>
                                     <mat-select (selectionChange)="onSelectedObjective($event)">
-                                        <mat-option *ngFor="let objective of filteredLearningObjectives"
+                                        <mat-option *ngFor="let objective of tempFilteredLearningObjectives"
                                             [value]="objective.id">
                                             {{objective.description }}
                                         </mat-option>
@@ -73,62 +78,29 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div *ngIf="objectiveData.length">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Objetivo</th>
-                                        <th>Indicador</th>
-                                        <th>cantidad de notas</th>
-                                    </tr>
 
-                                </thead>
-                                <tbody>
-                                    <ng-container *ngFor="let objective of objectiveData">
-                                        <tr>
-                                            <td>{{objective.objectiveId}}</td>
-                                            <td>{{objective.id}}</td>
-                                            <td>
-                                                {{objective.califications.length}}
-                                            </td>
-                                        </tr>
-                                    </ng-container>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th colspan="2">NL</th>
-                                        <td style="text-align:center">{{low.length}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2">ML</th>
-                                        <td style="text-align:center">{{medium.length}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2">L</th>
-                                        <td style="text-align:center">{{high.length}}</td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
-                                        <h6>Indicadores</h6>
-                                        <ngx-charts-bar-vertical-normalized [view]="view2" [scheme]="colorScheme"
-                                            [results]="multi2" [gradient]="gradient" [xAxis]="showXAxis"
-                                            [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
-                                            [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
-                                            [yAxisLabel]="yAxisLabel">
-                                        </ngx-charts-bar-vertical-normalized>
-                                    </div>
-                                    <h6>Objetivo</h6>
-                                    <ngx-charts-bar-vertical-normalized [view]="view" [scheme]="colorScheme"
-                                        [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
-                                        [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
-                                        [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
-                                        [yAxisLabel]="yAxisLabel">
-                                    </ngx-charts-bar-vertical-normalized>
-                                </div>
+                        <div *ngIf="objectiveData.length">
+                            <mat-divider></mat-divider>
+                            <div class="row" *ngIf="data2">
+                                <h4>Indicadores</h4>
+                                <ngx-charts-bar-vertical-normalized [view]="view2" [scheme]="colorScheme"
+                                    [results]="multi2" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                                    [legend]="false" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                                    [xAxisLabel]="xAxisLabel2" [maxXAxisTickLength]="17" [yAxisLabel]="yAxisLabel"
+                                    [legendTitle]="legendTitle">
+                                </ngx-charts-bar-vertical-normalized>
                             </div>
+                            <mat-divider></mat-divider>
+                            <div class="row" *ngIf="data2">
+                                <h4>Objetivos</h4>
+                                <ngx-charts-bar-vertical-normalized [view]="view" [scheme]="colorScheme"
+                                    [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+                                    [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+                                    [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+                                    [yAxisLabel]="yAxisLabel" [maxXAxisTickLength]="17" [legendTitle]="legendTitle">
+                                </ngx-charts-bar-vertical-normalized>
+                            </div>
+
                         </div>
                     </nb-tab>
 

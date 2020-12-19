@@ -11,6 +11,8 @@ import { DialogLearningObjectiveComponent } from './dialog-learning-objective/di
 import _ from 'lodash';
 import { SubjectService } from '../../../services/subject.service';
 import { Subject } from '../../../models/subject';
+import { UserSubject } from '../../../models/user';
+import { UserSubjectService } from '../../../services/userSubject.service';
 @Component({
   selector: 'ngx-learning-objective',
   templateUrl: './learning-objective.component.html',
@@ -25,6 +27,8 @@ export class LearningObjectiveComponent implements OnInit, AfterViewInit {
     private readonly ngxService: NgxUiLoaderService,
     private readonly gradeService: GradeService,
     private readonly subjectService: SubjectService,
+    private readonly userSubjectService: UserSubjectService,
+
   ) { }
   loading = false;
   learningObjectives: LearningObjective[] = [];
@@ -33,6 +37,8 @@ export class LearningObjectiveComponent implements OnInit, AfterViewInit {
   selectedGrades: Grade[] = [];
   subjects: Subject[] = [];
   selectedSubjects: Subject[] = [];
+  rawSubjects: Subject[] = [];
+  userSubjects: UserSubject[] = [];
   filteredLearningObjectives: LearningObjective[] = [];
   async ngOnInit() {
     this.ngxService.startLoader('obj');
@@ -42,8 +48,9 @@ export class LearningObjectiveComponent implements OnInit, AfterViewInit {
   async load() {
     try {
       this.grades = await this.gradeService.getAll().toPromise();
-      this.subjects = await this.subjectService.getAll().toPromise();
-      this.learningObjectives = await this.learningObjectiveService.getAll().toPromise();
+
+      await this.filterSubjects();
+      await this.filterLearningObjectives();
       this.filteredLearningObjectives = this.learningObjectives;
       this.selectedGrades = this.grades;
       this.selectedSubjects = this.subjects;
@@ -52,6 +59,26 @@ export class LearningObjectiveComponent implements OnInit, AfterViewInit {
     }
   }
 
+  async filterSubjects() {
+
+    this.rawSubjects = await this.subjectService.getAll().toPromise();
+    this.userSubjects = await this.userSubjectService.getByUserId(Number(localStorage.getItem('userId'))).toPromise(); // aca cambiar el id
+    this.userSubjects.forEach((u) => {
+      const allowedSubject = this.rawSubjects.find((rs) => rs.id === u.subjectId);
+      if (allowedSubject) {
+        this.subjects.push(allowedSubject);
+      }
+    });
+  }
+  async filterLearningObjectives() {
+    const rawObjectives = await this.learningObjectiveService.getAll().toPromise();
+    rawObjectives.forEach((u) => {
+      const allowedObj = this.subjects.find((rs) => rs.id === u.subjectId);
+      if (allowedObj) {
+        this.learningObjectives.push(u);
+      }
+    });
+  }
   compareFunction = (o1: any, o2: any) => o1.id === o2.id;
 
   async onSelectedGrade(evt: any) {

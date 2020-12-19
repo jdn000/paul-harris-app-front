@@ -1,0 +1,27 @@
+<div class="float-right">
+    <span class="demo-close" mat-dialog-close>
+        <nb-icon icon="close-outline"></nb-icon>
+    </span>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <small class="float-left">Accceso a asignaturas: </small>
+    </div>
+    <div class="col-md-6">
+        <mat-checkbox class="mat-option" class="float-right allSelect" [checked]="isChecked()"
+            (click)="$event.stopPropagation()" (change)="toggleSelection($event)" labelPosition="before">
+            <small>Seleccionar todo</small>
+        </mat-checkbox>
+    </div>
+</div>
+<mat-selection-list [(ngModel)]="selectedSubjects" [ngModelOptions]="{standalone: true}" [compareWith]="compareFunction"
+    (selectionChange)="onChange($event)">
+    <mat-list-option *ngFor="let subject of allSubjects" [value]="subject">
+        {{subject.description}}
+    </mat-list-option>
+</mat-selection-list>
+
+<p style="text-align: right;"><small>Seleccionados: {{selectedSubjects.length}}</small></p>
+<mat-dialog-actions align="end">
+    <button mat-button color="accent" (click)="submit()">Guardar</button>
+</mat-dialog-actions>

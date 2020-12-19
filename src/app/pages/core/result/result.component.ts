@@ -15,6 +15,8 @@ import { ToastService } from '../../../services/toast.service';
 import _ from 'lodash';
 import { AlumnCalification } from '../../../models/calification';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { UserSubject } from '../../../models/user';
+import { UserSubjectService } from '../../../services/userSubject.service';
 @Component({
   selector: 'ngx-result',
   templateUrl: './result.component.html',
@@ -22,13 +24,15 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 })
 export class ResultComponent implements OnInit {
   objectives: LearningObjective[] = [];
-  selectedObjective: LearningObjective = {} as LearningObjective;
+
   objectiveData: ObjectiveData[] = [];
-  loading = false;
+
   learningObjectives: LearningObjective[] = [];
-  learningObjectiveData: LearningObjective = {} as LearningObjective;
+  rawObjectives: LearningObjective[] = [];
   grades: Grade[] = [];
   selectedGrades: Grade[] = [];
+  selectedGradeId: number;
+  selectedSubjectId: number;
   subjects: Subject[] = [];
   selectedSubjects: Subject[] = [];
   locked = false;
@@ -36,42 +40,40 @@ export class ResultComponent implements OnInit {
   high: AlumnCalification[] = [];
   medium: AlumnCalification[] = [];
   filteredLearningObjectives: LearningObjective[] = [];
+  tempFilteredLearningObjectives: LearningObjective[] = [];
   multi: any[];
   multi2: any[];
   multi3: any[];
-  view: any[] = [500, 600];
-  view2: any[] = [250, 200];
-
+  view: any[] = [800, 450];
+  view2: any[] = [600, 350];
+  userSubjects: UserSubject[] = [];
+  rawSubjects: Subject[] = [];
   // options
   showXAxis: boolean = true;
   showYAxis: boolean = true;
   gradient: boolean = false;
   showLegend: boolean = true;
+  legendTitle: string = 'Simbología';
   showXAxisLabel: boolean = true;
-  yAxisLabel: string = 'Nivel de Logro';
+  yAxisLabel: string = '% de alumnos';
   showYAxisLabel: boolean = true;
   xAxisLabel: string = 'Objetivo';
+  xAxisLabel2: string = 'Indicador';
 
   colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    domain: ['#2e31fce8', '#019afff8', '#54C6EB', '#000000']
   };
-
-
-
-
+  data = false;
+  data2 = false;
 
   constructor(
     private readonly calificationService: CalificationService,
     private readonly objectiveService: LearningObjectiveService,
-
     private readonly toastService: ToastService,
-    // private readonly dialog: MatDialog,
     private readonly ngxService: NgxUiLoaderService,
     private readonly gradeService: GradeService,
-    private readonly alumnService: AlumnService,
     private readonly subjectService: SubjectService,
-    private readonly router: Router,
-    // private readonly pdfService: PdfService,
+    private readonly userSubjectService: UserSubjectService,
     private readonly reportService: ReportService) { }
 
   async ngOnInit() {
@@ -84,9 +86,9 @@ export class ResultComponent implements OnInit {
   async load() {
     try {
       this.locked = true;
+      await this.filterSubjects();
       this.grades = await this.gradeService.getAll().toPromise();
-      this.subjects = await this.subjectService.getAll().toPromise();
-      this.learningObjectives = await this.objectiveService.getAll().toPromise();
+      await this.filterObjectives();
       this.filteredLearningObjectives = this.learningObjectives;
       this.selectedGrades = this.grades;
       this.selectedSubjects = this.subjects;
@@ -96,17 +98,33 @@ export class ResultComponent implements OnInit {
   }
   compareFunction = (o1: any, o2: any) => o1.id === o2.id;
 
+  async filterSubjects() {
+    this.rawSubjects = await this.subjectService.getAll().toPromise();
+    this.userSubjects = await this.userSubjectService.getByUserId(Number(localStorage.getItem('userId'))).toPromise();
+    this.userSubjects.forEach((u) => {
+      const allowedSubject = this.rawSubjects.find((rs) => rs.id === u.subjectId);
+      if (allowedSubject) {
+        this.subjects.push(allowedSubject);
+      }
+    });
+  }
+  async filterObjectives() {
+    this.rawObjectives = await this.objectiveService.getAll().toPromise();
+    this.subjects.forEach((u) => {
+      const allowedObjectives = this.rawObjectives.find((rs) => rs.subjectId === u.id);
+      if (allowedObjectives) {
+        this.learningObjectives.push(allowedObjectives);
+      }
+    });
+  }
   async onSelectedGrade(evt: any) {
     try {
       this.filteredLearningObjectives = [];
-
       if (evt.value) {
-        const filteredsByGrade = this.learningObjectives.filter((a) => a.gradeId === evt.valuet);
+        const filteredsByGrade = this.learningObjectives.filter((a) => a.gradeId === evt.value);
         this.filteredLearningObjectives.push(...filteredsByGrade);
       }
-
       if (!evt.value.length) {
-
         this.filteredLearningObjectives = this.learningObjectives;
       }
       this.filteredLearningObjectives = _.uniqBy(this.filteredLearningObjectives, 'id');
@@ -116,45 +134,41 @@ export class ResultComponent implements OnInit {
   }
   async onSelectedSubject(evt: any) {
     try {
-      this.filteredLearningObjectives = [];
-
+      let temp = [];
       if (evt.value) {
         const filteredsBySubject = this.filteredLearningObjectives.filter((a) => a.subjectId === evt.value);
-        this.filteredLearningObjectives.push(...filteredsBySubject);
+        temp.push(...filteredsBySubject);
       }
-
-      if (!evt.value.length) {
-        this.filteredLearningObjectives = [];
-      }
-      this.filteredLearningObjectives = _.uniqBy(this.filteredLearningObjectives, 'id');
+      this.tempFilteredLearningObjectives = _.uniqBy(temp, 'id');
     } catch (error) {
       this.toastService.showError(error.message || error);
     }
   }
+
   async onSelectedGeneralGrade(evt: any) {
     try {
-      this.filteredLearningObjectives = [];
 
+      this.filteredLearningObjectives = [];
       if (evt.value) {
         const filteredsByGrade = this.learningObjectives.filter((a) => a.gradeId === evt.value);
         this.filteredLearningObjectives.push(...filteredsByGrade);
       }
-
-
       this.filteredLearningObjectives = _.uniqBy(this.filteredLearningObjectives, 'id');
+      if (this.selectedSubjectId) {
+        this.onSelectedGeneralSubject({ value: this.selectedSubjectId });
+      }
     } catch (error) {
       this.toastService.showError(error.message || error);
     }
   }
+
   async onSelectedGeneralSubject(evt: any) {
     try {
       let graphGral = [];
       let tempObj = [];
       this.multi3 = [];
       if (evt.value) {
-
         const filteredsBySubject = this.filteredLearningObjectives.filter((a) => a.subjectId === evt.value);
-        console.log(evt.value, this.filteredLearningObjectives, filteredsBySubject);
         tempObj = filteredsBySubject;
       }
       tempObj = _.uniqBy(tempObj, 'id');
@@ -163,6 +177,7 @@ export class ResultComponent implements OnInit {
         return this.putDataOnObject(data.low.length, data.medium.length, data.high.length, o.description);
       }));
       this.multi3 = graphGral;
+      this.data = true;
     } catch (error) {
       this.toastService.showError(error.message || error);
     }
@@ -170,6 +185,7 @@ export class ResultComponent implements OnInit {
 
   async getDataFromObjectiveId(objectiveId: number) {
     this.objectiveData = await this.objectiveService.getAllDataById(objectiveId).toPromise();
+
     let l = [];
     let m = [];
     let h = [];
@@ -192,6 +208,7 @@ export class ResultComponent implements OnInit {
       high: h
     };
   }
+
   async onSelectedObjective(evt: any) {
     try {
       this.objectiveData = [];
@@ -224,9 +241,9 @@ export class ResultComponent implements OnInit {
           });
         });
         graph.push(this.putDataOnObject(this.low.length, this.medium.length, this.high.length, description));
-        console.log(graph);
         this.multi = graph;
         this.multi2 = indicatorGraph;
+        this.data2 = true;
       }
 
     } catch (error) {
@@ -238,16 +255,18 @@ export class ResultComponent implements OnInit {
   putDataOnObject(low: number, medium: number, high: number, description: string) {
     return {
       'name': description,
-      "series": [{
-        "name": "No Logrado",
-        "value": low
-      }, {
-        "name": "Medianamente Logrado",
-        "value": medium
-      }, {
-        "name": " Logrado",
-        "value": high
-      },]
+      "series": [
+        {
+          "name": " Logrado",
+          "value": high
+        },
+        {
+          "name": "Medianamente Logrado",
+          "value": medium
+        }, {
+          "name": "No Logrado",
+          "value": low
+        },]
     };
   }
 }

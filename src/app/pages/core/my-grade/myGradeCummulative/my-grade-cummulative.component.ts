@@ -130,37 +130,51 @@ export class MyGradeCummulativeComponent implements OnInit {
 
   async updateCalifications() {
     try {
-      let calificationsToUpdate = [];
-      let mainCalificationToUpdate = [];
-      this.alumnCalifications.forEach((c) => {
-        for (let i = 1; i <= 15; i++) {
-          if (c[`A${i}`]) {
-            mainCalificationToUpdate.push({
-              id: c.calificationId,
-              value: Math.round(c.avg)
-            });
-            calificationsToUpdate.push({
-              id: c[`A${i}Id`],
-              value: c[`A${i}`]
-            });
+      if (this.validateForm()) {
+        let calificationsToUpdate = [];
+        let mainCalificationToUpdate = [];
+        this.alumnCalifications.forEach((c) => {
+          for (let i = 1; i <= 15; i++) {
+            if (c[`A${i}`]) {
+              mainCalificationToUpdate.push({
+                id: c.calificationId,
+                value: Math.round(c.avg)
+              });
+              calificationsToUpdate.push({
+                id: c[`A${i}Id`],
+                value: c[`A${i}`]
+              });
+            }
           }
         }
-      }
-      );
-      if (!calificationsToUpdate.length) {
-        this.toastService.showError('no se pudo actualizar');
+        );
+        if (!calificationsToUpdate.length) {
+          this.toastService.showError('no se pudo actualizar');
+        } else {
+          mainCalificationToUpdate = _.uniqBy(mainCalificationToUpdate, 'id');
+          const updated = await this.calificationService.updateCummulatives(calificationsToUpdate).toPromise();
+          const mainCalificationUpdated = await this.calificationService.update(mainCalificationToUpdate).toPromise();
+          updated && mainCalificationUpdated ? this.toastService.showSuccess('actualizadas') : this.toastService.showError('no se pudo actualizar');
+          this.redirectingCalifications();
+        }
       } else {
-        mainCalificationToUpdate = _.uniqBy(mainCalificationToUpdate, 'id');
-        const updated = await this.calificationService.updateCummulatives(calificationsToUpdate).toPromise();
-        const mainCalificationUpdated = await this.calificationService.update(mainCalificationToUpdate).toPromise();
-        updated && mainCalificationUpdated ? this.toastService.showSuccess('actualizadas') : this.toastService.showError('no se pudo actualizar');
-        this.redirectingCalifications();
+        this.toastService.showWarning('Error en el valor de las notas');
       }
-
 
     } catch (error) {
       this.toastService.showError('no se pudo actualizar');
     }
+  }
+  validateForm() {
+    let isValidated = true;
+    this.alumnCalifications.forEach((c) => {
+      for (let i = 1; i <= 15; i++) {
+        if (c[`A${i}`] && c[`A${i}`] > 7 || c[`A${i}`] && c[`A${i}`] < 2) {
+          isValidated = false;
+        }
+      }
+    });
+    return isValidated;
   }
 
 }

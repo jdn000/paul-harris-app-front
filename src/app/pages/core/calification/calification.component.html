@@ -26,7 +26,7 @@
         </div>
         <div class="col-md-12" *ngIf=!califications.length>
             <nb-card>
-                <mat-dialog-actions align="end">
+                <mat-dialog-actions>
                     <div *ngIf="selectedSubject.id">
                         <button mat-raised-button color="primary" (click)="openDialog()">
                             <nb-icon matTooltip="Nueva nota" matTooltipPosition="above" matSuffix icon="plus-outline">
@@ -42,7 +42,7 @@
         </div>
         <div class="col-md-12" *ngIf=califications.length>
             <nb-card [nbSpinner]="loadingCalifications" nbSpinnerStatus="danger">
-                <mat-dialog-actions align="right">
+                <mat-dialog-actions>
                     <div *ngIf="selectedSubject.id">
                         <button mat-raised-button color="primary" (click)="editCalifications()">
                             <nb-icon matTooltip="Editar nota" matTooltipPosition="above" matSuffix
@@ -69,7 +69,7 @@
                             <h6 style="font-size:13px">Alumno</h6>
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.alumnFullName}}
+                            <h6 style="font-size:13px">{{element.alumnFullName}}</h6>
                         </td>
                     </ng-container>
 
@@ -111,6 +111,7 @@
                         <td mat-cell *matCellDef="let element" matTooltip="N2" matTooltipPosition="above">
                             <mat-form-field class="type-number">
                                 <input matInput [(ngModel)]="element.N2"
+                                    [ngStyle]="{'background-color':element.N2>7||element.N2<2? 'yellow':'white' }"
                                     [disabled]="!editAlumnCalifications||element.N2Cummulative">
                             </mat-form-field>
                         </td>
@@ -131,12 +132,11 @@
                         <td mat-cell *matCellDef="let element" matTooltip="N3" matTooltipPosition="above">
                             <mat-form-field class="type-number">
                                 <input matInput [(ngModel)]="element.N3"
+                                    [ngStyle]="{'background-color':element.N3>7||element.N3<2? 'yellow':'white' }"
                                     [disabled]="!editAlumnCalifications||element.N3Cummulative">
                             </mat-form-field>
                         </td>
                     </ng-container>
-
-
                     <ng-container matColumnDef="N4">
                         <th mat-header-cell *matHeaderCellDef>
                             <div *ngIf="isCummulative.N4">
@@ -153,6 +153,7 @@
                         <td mat-cell *matCellDef="let element" matTooltip="N4" matTooltipPosition="above">
                             <mat-form-field class="type-number">
                                 <input matInput [(ngModel)]="element.N4"
+                                    [ngStyle]="{'background-color':element.N4>7||element.N4<2? 'yellow':'white' }"
                                     [disabled]="!editAlumnCalifications||element.N4Cummulative">
                             </mat-form-field>
                         </td>
@@ -173,6 +174,7 @@
                         <td mat-cell *matCellDef="let element" matTooltip="N5" matTooltipPosition="above">
                             <mat-form-field class="type-number">
                                 <input matInput [(ngModel)]="element.N5"
+                                    [ngStyle]="{'background-color':element.N5>7||element.N5<2? 'yellow':'white' }"
                                     [disabled]="!editAlumnCalifications||element.N5Cummulative">
                             </mat-form-field>
                         </td>
@@ -193,6 +195,7 @@
                         <td mat-cell *matCellDef="let element" matTooltip="N6" matTooltipPosition="above">
                             <mat-form-field class="type-number">
                                 <input matInput [(ngModel)]="element.N6"
+                                    [ngStyle]="{'background-color':element.N6>7||element.N6<2? 'yellow':'white' }"
                                     [disabled]="!editAlumnCalifications||element.N6Cummulative">
                             </mat-form-field>
                         </td>
@@ -213,6 +216,7 @@
                         <td mat-cell *matCellDef="let element" matTooltip="N7" matTooltipPosition="above">
                             <mat-form-field class="type-number">
                                 <input matInput [(ngModel)]="element.N7"
+                                    [ngStyle]="{'background-color':element.N7>7||element.N7<2? 'yellow':'white' }"
                                     [disabled]="!editAlumnCalifications||element.N7Cummulative">
                             </mat-form-field>
                         </td>
@@ -233,6 +237,7 @@
                         <td mat-cell *matCellDef="let element" matTooltip="N8" matTooltipPosition="above">
                             <mat-form-field class="type-number">
                                 <input matInput [(ngModel)]="element.N8"
+                                    [ngStyle]="{'background-color':element.N8>7||element.N8<2? 'yellow':'white' }"
                                     [disabled]="!editAlumnCalifications||element.N8Cummulative">
                             </mat-form-field>
                         </td>
@@ -253,6 +258,7 @@
                         <td mat-cell *matCellDef="let element" matTooltip="N9" matTooltipPosition="above">
                             <mat-form-field class="type-number">
                                 <input matInput [(ngModel)]="element.N9"
+                                    [ngStyle]="{'background-color':element.N9>7||element.N9<2? 'yellow':'white' }"
                                     [disabled]="!editAlumnCalifications||element.N9Cummulative">
                             </mat-form-field>
                         </td>
@@ -273,6 +279,7 @@
                         <td mat-cell *matCellDef="let element" matTooltip="N10" matTooltipPosition="above">
                             <mat-form-field class="type-number">
                                 <input matInput [(ngModel)]="element.N10"
+                                    [ngStyle]="{'background-color':element.N10>7||element.N10<2? 'yellow':'white' }"
                                     [disabled]="!editAlumnCalifications||element.N10Cummulative">
                             </mat-form-field>
                         </td>
@@ -293,6 +300,7 @@
                         <td mat-cell *matCellDef="let element" matTooltip="N11" matTooltipPosition="above">
                             <mat-form-field class="type-number">
                                 <input matInput [(ngModel)]="element.N11"
+                                    [ngStyle]="{'background-color':element.N11>7||element.N11<2? 'yellow':'white' }"
                                     [disabled]="!editAlumnCalifications||element.N11Cummulative">
                             </mat-form-field>
                         </td>
@@ -313,6 +321,7 @@
                         <td mat-cell *matCellDef="let element" matTooltip="N12" matTooltipPosition="above">
                             <mat-form-field class="type-number">
                                 <input matInput [(ngModel)]="element.N12"
+                                    [ngStyle]="{'background-color':element.N12>7||element.N12<2? 'yellow':'white' }"
                                     [disabled]="!editAlumnCalifications||element.N12Cummulative">
                             </mat-form-field>
                         </td>
@@ -333,13 +342,14 @@
                         <td mat-cell *matCellDef="let element" matTooltip="N13" matTooltipPosition="above">
                             <mat-form-field class="type-number">
                                 <input matInput [(ngModel)]="element.N13"
+                                    [ngStyle]="{'background-color':element.N13>7||element.N13<2? 'yellow':'white' }"
                                     [disabled]="!editAlumnCalifications||element.N13Cummulative">
                             </mat-form-field>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="N14">
                         <th mat-header-cell *matHeaderCellDef>
-                            <div *ngIf="isCummulative.N3">
+                            <div *ngIf="isCummulative.N14">
                                 <span matBadge="{{isCummulative.N14Total}}" matBadgeOverlap="false"
                                     (click)=redirectingCalifications(14,false) class="pointer"
                                     matTooltip="{{isCummulative.N14Total}} Notas de Proceso" matTooltipPosition="below">
@@ -353,6 +363,7 @@
                         <td mat-cell *matCellDef="let element" matTooltip="N14" matTooltipPosition="above">
                             <mat-form-field class="type-number">
                                 <input matInput [(ngModel)]="element.N14"
+                                    [ngStyle]="{'background-color':element.N14>7||element.N14<2? 'yellow':'white' }"
                                     [disabled]="!editAlumnCalifications||element.N14Cummulative">
                             </mat-form-field>
                         </td>
@@ -373,6 +384,7 @@
                         <td mat-cell *matCellDef="let element" matTooltip="N15" matTooltipPosition="above">
                             <mat-form-field class="type-number">
                                 <input matInput [(ngModel)]="element.N15"
+                                    [ngStyle]="{'background-color':element.N15>7||element.N15<2? 'yellow':'white' }"
                                     [disabled]="!editAlumnCalifications||element.N15Cummulative">
                             </mat-form-field>
                         </td>
@@ -393,7 +405,7 @@
     </div>
 
     <div class="col-md-12">
-        <mat-dialog-actions align="end">
+        <mat-dialog-actions>
             <div class="example-button-row">
                 <div *ngIf=!generated>
                     <button mat-raised-button color="primary" (click)="generatePdf()" [disabled]="!selectedGrade.id"

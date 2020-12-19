@@ -32,7 +32,9 @@
                         </th>
                         <td mat-cell *matCellDef="let element" matTooltip="A1" matTooltipPosition="above">
                             <mat-form-field class="type-number">
-                                <input matInput [(ngModel)]="element.A1" [disabled]="!editAlumnCalifications">
+                                <input matInput [(ngModel)]="element.A1"
+                                    [ngStyle]="{'background-color':element.A1>7||element.A1<2? 'yellow':'white' }"
+                                    [disabled]="!editAlumnCalifications">
                             </mat-form-field>
                         </td>
                     </ng-container>
@@ -43,7 +45,9 @@
                     </th>
                     <td mat-cell *matCellDef="let element" matTooltip="A2" matTooltipPosition="above">
                         <mat-form-field class="type-number">
-                            <input matInput [(ngModel)]="element.A2" [disabled]="!editAlumnCalifications">
+                            <input matInput [(ngModel)]="element.A2"
+                                [ngStyle]="{'background-color':element.A2>7||element.A2<2? 'yellow':'white' }"
+                                [disabled]="!editAlumnCalifications">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -53,7 +57,9 @@
                     </th>
                     <td mat-cell *matCellDef="let element" matTooltip="A3" matTooltipPosition="above">
                         <mat-form-field class="type-number">
-                            <input matInput [(ngModel)]="element.A3" [disabled]="!editAlumnCalifications">
+                            <input matInput [(ngModel)]="element.A3"
+                                [ngStyle]="{'background-color':element.A3>7||element.A3<2? 'yellow':'white' }"
+                                [disabled]="!editAlumnCalifications">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -63,7 +69,9 @@
                     </th>
                     <td mat-cell *matCellDef="let element" matTooltip="A4" matTooltipPosition="above">
                         <mat-form-field class="type-number">
-                            <input matInput [(ngModel)]="element.A4" [disabled]="!editAlumnCalifications">
+                            <input matInput [(ngModel)]="element.A4"
+                                [ngStyle]="{'background-color':element.A4>7||element.A4<2? 'yellow':'white' }"
+                                [disabled]="!editAlumnCalifications">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -73,7 +81,9 @@
                     </th>
                     <td mat-cell *matCellDef="let element" matTooltip="A5" matTooltipPosition="above">
                         <mat-form-field class="type-number">
-                            <input matInput [(ngModel)]="element.A5" [disabled]="!editAlumnCalifications">
+                            <input matInput [(ngModel)]="element.A5"
+                                [ngStyle]="{'background-color':element.A5>7||element.A5<2? 'yellow':'white' }"
+                                [disabled]="!editAlumnCalifications">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -83,7 +93,9 @@
                     </th>
                     <td mat-cell *matCellDef="let element" matTooltip="A6" matTooltipPosition="above">
                         <mat-form-field class="type-number">
-                            <input matInput [(ngModel)]="element.A6" [disabled]="!editAlumnCalifications">
+                            <input matInput [(ngModel)]="element.A6"
+                                [ngStyle]="{'background-color':element.A6>7||element.A6<2? 'yellow':'white' }"
+                                [disabled]="!editAlumnCalifications">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -93,7 +105,9 @@
                     </th>
                     <td mat-cell *matCellDef="let element" matTooltip="A7" matTooltipPosition="above">
                         <mat-form-field class="type-number">
-                            <input matInput [(ngModel)]="element.A7" [disabled]="!editAlumnCalifications">
+                            <input matInput [(ngModel)]="element.A7"
+                                [ngStyle]="{'background-color':element.A7>7||element.A7<2? 'yellow':'white' }"
+                                [disabled]="!editAlumnCalifications">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -103,7 +117,9 @@
                     </th>
                     <td mat-cell *matCellDef="let element" matTooltip="A8" matTooltipPosition="above">
                         <mat-form-field class="type-number">
-                            <input matInput [(ngModel)]="element.A8" [disabled]="!editAlumnCalifications">
+                            <input matInput [(ngModel)]="element.A8"
+                                [ngStyle]="{'background-color':element.A8>7||element.A8<2? 'yellow':'white' }"
+                                [disabled]="!editAlumnCalifications">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -113,7 +129,9 @@
                     </th>
                     <td mat-cell *matCellDef="let element" matTooltip="A9" matTooltipPosition="above">
                         <mat-form-field class="type-number">
-                            <input matInput [(ngModel)]="element.A9" [disabled]="!editAlumnCalifications">
+                            <input matInput [(ngModel)]="element.A9"
+                                [ngStyle]="{'background-color':element.A9>7||element.A9<2? 'yellow':'white' }"
+                                [disabled]="!editAlumnCalifications">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -123,7 +141,9 @@
                     </th>
                     <td mat-cell *matCellDef="let element" matTooltip="A10" matTooltipPosition="above">
                         <mat-form-field class="type-number">
-                            <input matInput [(ngModel)]="element.A10" [disabled]="!editAlumnCalifications">
+                            <input matInput [(ngModel)]="element.A10"
+                                [ngStyle]="{'background-color':element.A10>7||element.A10<2? 'yellow':'white' }"
+                                [disabled]="!editAlumnCalifications">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -133,7 +153,9 @@
                     </th>
                     <td mat-cell *matCellDef="let element" matTooltip="A11" matTooltipPosition="above">
                         <mat-form-field class="type-number">
-                            <input matInput [(ngModel)]="element.A11" [disabled]="!editAlumnCalifications">
+                            <input matInput [(ngModel)]="element.A11"
+                                [ngStyle]="{'background-color':element.A11>7||element.A11<2? 'yellow':'white' }"
+                                [disabled]="!editAlumnCalifications">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -143,7 +165,9 @@
                     </th>
                     <td mat-cell *matCellDef="let element" matTooltip="A12" matTooltipPosition="above">
                         <mat-form-field class="type-number">
-                            <input matInput [(ngModel)]="element.A12" [disabled]="!editAlumnCalifications">
+                            <input matInput [(ngModel)]="element.A12"
+                                [ngStyle]="{'background-color':element.A12>7||element.A12<2? 'yellow':'white' }"
+                                [disabled]="!editAlumnCalifications">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -153,7 +177,9 @@
                     </th>
                     <td mat-cell *matCellDef="let element" matTooltip="A13" matTooltipPosition="above">
                         <mat-form-field class="type-number">
-                            <input matInput [(ngModel)]="element.A13" [disabled]="!editAlumnCalifications">
+                            <input matInput [(ngModel)]="element.A13"
+                                [ngStyle]="{'background-color':element.A13>7||element.A13<2? 'yellow':'white' }"
+                                [disabled]="!editAlumnCalifications">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -163,7 +189,9 @@
                     </th>
                     <td mat-cell *matCellDef="let element" matTooltip="A14" matTooltipPosition="above">
                         <mat-form-field class="type-number">
-                            <input matInput [(ngModel)]="element.A14" [disabled]="!editAlumnCalifications">
+                            <input matInput [(ngModel)]="element.A14"
+                                [ngStyle]="{'background-color':element.A14>7||element.A14<2? 'yellow':'white' }"
+                                [disabled]="!editAlumnCalifications">
                         </mat-form-field>
                     </td>
                 </ng-container>
@@ -173,7 +201,9 @@
                     </th>
                     <td mat-cell *matCellDef="let element" matTooltip="A15" matTooltipPosition="above">
                         <mat-form-field class="type-number">
-                            <input matInput [(ngModel)]="element.A15" [disabled]="!editAlumnCalifications">
+                            <input matInput [(ngModel)]="element.A15"
+                                [ngStyle]="{'background-color':element.A15>7||element.A15<2? 'yellow':'white' }"
+                                [disabled]="!editAlumnCalifications">
                         </mat-form-field>
                     </td>
                 </ng-container>

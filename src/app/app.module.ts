@@ -23,6 +23,7 @@ import {
   NbWindowModule,
 } from '@nebular/theme';
 import { NgxUiLoaderModule, SPINNER, POSITION, PB_DIRECTION, NgxUiLoaderConfig } from 'ngx-ui-loader';
+import { RoleGuardService } from './guards/role-guard.service';
 
 
 
@@ -58,6 +59,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   ],
   providers: [
     AuthGuard,
+    RoleGuardService,
 
     {
       provide: LOCALE_ID,

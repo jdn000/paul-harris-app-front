@@ -6,6 +6,8 @@ import { CummulativeComponent } from './calification/cummulative/cummulative.com
 
 import { CoreFLowComponent } from './core-flow.component';
 import { LearningObjectiveComponent } from './learning-objective/learning-objective.component';
+import { MyGradeComponent } from './my-grade/my-grade.component';
+import { MyGradeCummulativeComponent } from './my-grade/myGradeCummulative/my-grade-cummulative.component';
 import { ReportsComponent } from './reports/reports.component';
 import { ResultComponent } from './result/result.component';
 
@@ -41,6 +43,15 @@ const routes: Routes = [
                 path: 'result',
                 component: ResultComponent,
             },
+            {
+                path: 'my-grade-cummulativeCalification',
+                component: MyGradeCummulativeComponent,
+            },
+            {
+                path: 'my-grade',
+                component: MyGradeComponent,
+            },
+
         ],
     },
 ];

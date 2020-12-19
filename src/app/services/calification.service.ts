@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 import { retry, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ErrorService } from './error.service';
-import { BatchCalifications, Calification, CalificationCummulative } from '../models/calification';
+import { AlumnCalification, BatchCalifications, Calification, CalificationCummulative } from '../models/calification';
 
 
 
@@ -68,6 +68,11 @@ export class CalificationService {
   add(data: BatchCalifications) {
     return this.http
       .post<any>(this.baseUrl, data, this.httpOptions)
+      .pipe(retry(1), catchError(this.errorService.errorHandler));
+  }
+  addForNewAlumn(data: AlumnCalification[]) {
+    return this.http
+      .post<any>(this.baseUrl + `/new`, data, this.httpOptions)
       .pipe(retry(1), catchError(this.errorService.errorHandler));
   }
   addCummulatives(data: BatchCalifications) {

@@ -10,3 +10,8 @@ export interface User {
   roleId: number;
   status: boolean;
 }
+export interface UserSubject {
+  id?: number;
+  userId: number;
+  subjectId: number;
+}

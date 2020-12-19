@@ -60,6 +60,10 @@ import { CummulativeComponent } from './calification/cummulative/cummulative.com
 import { ReportsComponent } from './reports/reports.component';
 import { ResultComponent } from './result/result.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { MyGradeComponent } from './my-grade/my-grade.component';
+import { DialogMyGradeCalificationComponent } from './my-grade/dialog-my-grade-calification/dialog-my-grade-calification.component';
+import { MyGradeCummulativeComponent } from './my-grade/myGradeCummulative/my-grade-cummulative.component';
+
 
 registerLocaleData(localeEs, 'es-ES');
 
@@ -102,7 +106,11 @@ const materialModules = [
     DialogCalificationComponent,
     CummulativeComponent,
     ReportsComponent,
-    ResultComponent
+    ResultComponent,
+    MyGradeComponent,
+    DialogMyGradeCalificationComponent,
+    MyGradeCummulativeComponent,
+
 
   ],
   providers: [

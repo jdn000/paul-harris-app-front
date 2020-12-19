@@ -41,7 +41,6 @@ export class MyGradeComponent implements OnInit {
     private readonly subjectService: SubjectService,
     private readonly router: Router,
     private readonly reportService: ReportService,
-    private readonly userService: UserService,
 
   ) {
     if (typeof this.router.getCurrentNavigation().extras.state !== 'undefined') {
@@ -125,12 +124,13 @@ export class MyGradeComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   async ngOnInit() {
-
     const rawGrades = await this.gradeService.getAll().toPromise();
 
     this.grades = rawGrades.filter((g) => g.headTeacherId === Number(localStorage.getItem('userId')));
-    console.log(this.grades, Number(localStorage.getItem('userId')));
-    // this.selectedGrade = this.grades.find((g) => g.headTeacherId === Number(localStorage.getItem('userId')));
+    if (!this.grades.length) {
+      this.toastService.showInfo('No posee jefatura de curso');
+      this.router.navigate(['/pages']);
+    }
     this.subjects = await this.subjectService.getAll().toPromise();
     this.alumns = await this.alumnService.getAll().toPromise();
     this.filteredAlumns = this.alumns;

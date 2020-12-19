@@ -41,6 +41,7 @@ export class DialogUserManagerComponent implements OnInit {
       this.userContentForm.secondSurname = this.getData['user'].secondSurname;
       this.userContentForm.status = this.getData['user'].status;
       this.userContentForm.username = this.getData['user'].username;
+      this.userContentForm.roleId = this.getData['user'].roleId;
       this.isNewUser = false;
 
     } else {
@@ -54,6 +55,7 @@ export class DialogUserManagerComponent implements OnInit {
       try {
         const userInfo = Object.assign({}, this.userContentForm);
         if (this.isNewUser) {
+          delete userInfo.status;
           const res = await this.userService.add(userInfo).toPromise();
           if (res) {
             this.toastService.showToast('success', 'Confirmación', 'Registro creado exitosamente');
@@ -69,6 +71,7 @@ export class DialogUserManagerComponent implements OnInit {
           editUser.secondSurname = this.userContentForm.secondSurname ? this.userContentForm.secondSurname : '';
           editUser.status = this.userContentForm.status;
           editUser.username = this.userContentForm.username;
+          editUser.roleId = this.userContentForm.roleId;
           const res = await this.userService.update(id, editUser).toPromise();
           if (res) {
             this.toastService.showToast('success', 'Confirmación', 'Registro actualizado');

@@ -5,6 +5,8 @@ import { LayoutService } from '../../../@core/utils';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { RippleService } from '../../../@core/utils/ripple.service';
+import { Router } from '@angular/router';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'ngx-header',
@@ -56,7 +58,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private layoutService: LayoutService,
     private breakpointService: NbMediaBreakpointsService,
     private rippleService: RippleService,
-    private authService: NbAuthService
+    private authService: NbAuthService,
+    private router: Router,
+    private toastService: ToastService
   ) {
     this.materialTheme$ = this.themeService.onThemeChange()
       .pipe(map(theme => {
@@ -68,6 +72,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (token.isValid()) {
         // here we receive a payload from the token and assigns it to our `user` variable
         this.user = token.getPayload();
+        localStorage.setItem('userId', `${this.user['id']}`);
+        localStorage.setItem('roleId', `${this.user['roleId']}`);
+        localStorage.setItem('userStatus', `${this.user['status']}`);
+        if (this.user.status === false) {
+          this.router.navigate(['']);
+          alert('Usuario desactivado, contacte al administrador');
+        }
       }
     });
 

@@ -57,7 +57,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Mi Curso',
     icon: 'radio-button-off-outline',
-    // link: '/pages/core/alumn',
+    link: '/pages/core/my-grade',
   },
   {
     title: 'CONFIGURACIÓN',
@@ -82,21 +82,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
         ],
       },
-      {
-        title: 'Parámetros',
-        link: '/pages/administration/system-parameters',
-        icon: 'lock-outline',
-      },
-      {
-        title: 'Cursos',
-        link: '/pages/administration/grade',
-        icon: 'lock-outline',
-      },
-      {
-        title: 'Asignaturas',
-        link: '/pages/administration/subject',
-        icon: 'lock-outline',
-      },
+      // {
+      //   title: 'Cursos',
+      //   link: '/pages/administration/grade',
+      //   icon: 'lock-outline',
+      // },
+      // {
+      //   title: 'Asignaturas',
+      //   link: '/pages/administration/subject',
+      //   icon: 'lock-outline',
+      // },
     ],
   },
 ];

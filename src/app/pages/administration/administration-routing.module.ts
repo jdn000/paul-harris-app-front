@@ -6,7 +6,7 @@ import { UserComponent } from './user/user.component';
 import { SystemParametersComponent } from './system-parameters/system-parameters.component';
 import { GradeComponent } from './grade/grade.component';
 import { SubjectComponent } from './subject/subject.component';
-
+import { RoleGuardService as RoleGuard } from '../../guards/role-guard.service';
 const routes: Routes = [
     {
         path: '',
@@ -15,18 +15,34 @@ const routes: Routes = [
             {
                 path: 'user',
                 component: UserComponent,
+                canActivate: [RoleGuard],
+                data: {
+                    roleId: 1,
+                },
             },
             {
                 path: 'system-parameters',
                 component: SystemParametersComponent,
+                canActivate: [RoleGuard],
+                data: {
+                    roleId: 1,
+                },
             },
             {
                 path: 'grade',
                 component: GradeComponent,
+                canActivate: [RoleGuard],
+                data: {
+                    roleId: 1,
+                },
             },
             {
                 path: 'subject',
                 component: SubjectComponent,
+                canActivate: [RoleGuard],
+                data: {
+                    roleId: 1,
+                },
             },
 
         ],

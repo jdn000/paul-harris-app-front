@@ -11,6 +11,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogChangePasswordComponent } from './dialog-change-password/dialog-change-password.component';
 import { ButtonToggleDisabledComponent } from '../../../@theme/components/table-render/ToggleDisabledButton.component';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { ChangePasswordComponent } from '../../../@theme/components/table-render/ChangePasswordComponentRender.component';
+import { DialogUserSubjectComponent } from './dialog-user-subject/dialog-user-subject.component';
+
+import { SubjectService } from '../../../services/subject.service';
+import { Subject } from '../../../models/subject';
+import { addSubjectsAccess } from '../../../@theme/components/table-render/addSubjectsAccess.component';
 
 @Component({
   selector: 'ngx-user',
@@ -25,12 +31,13 @@ export class UserComponent implements OnInit, AfterViewInit {
     private readonly dialog: MatDialog,
     private readonly snackBar: MatSnackBar,
     private readonly ngxService: NgxUiLoaderService,
+    private readonly subjectService: SubjectService,
   ) { }
 
   loading = false;
 
   users: User[] = [];
-
+  subjects: Subject[] = [];
   userData: User = {} as User;
 
   @ViewChild('table') smartTable: Ng2SmartTableComponent;
@@ -82,22 +89,23 @@ export class UserComponent implements OnInit, AfterViewInit {
         filter: false,
         renderComponent: ButtonToggleDisabledComponent
       },
-      /*changePass: {
+      changePass: {
         title: '',
         type: 'custom',
-        renderComponent: ChangePasswordComponent,
+        renderComponent: addSubjectsAccess,
         onComponentInitFunction: (instance) => {
           instance.update.subscribe((row) => {
-            this.openChangePasswordDialog(row);
+            this.openSubjectDialog(row);
           });
         },
-      },*/
+      },
     },
   };
 
   async ngOnInit() {
     this.ngxService.startLoader('loader');
     await this.load();
+    this.subjects = await this.subjectService.getAll().toPromise();
     this.ngxService.stopLoader('loader');
   }
 
@@ -140,6 +148,22 @@ export class UserComponent implements OnInit, AfterViewInit {
       if (data) {
         await this.load();
       }
+    });
+  }
+  openSubjectDialog(userInfo: User): void {
+    this.dialog.open(DialogUserSubjectComponent, {
+      data: {
+        subjects: this.subjects,
+        userId: userInfo.id,
+
+      },
+      width: '40%',
+      disableClose: true,
+      panelClass: 'custom-modalbox',
+    }).afterClosed().subscribe(async (data) => {
+
+      await this.load();
+
     });
   }
   openChangePasswordDialog(userInfo: User): void {
