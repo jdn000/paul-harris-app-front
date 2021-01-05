@@ -1,0 +1,36 @@
+<div class="float-right">
+    <span class="demo-close" mat-dialog-close>
+        <nb-icon icon="close-outline"></nb-icon>
+    </span>
+</div>
+<h2 mat-dialog-title>
+    <nb-icon icon="person-outline"></nb-icon>Actualizar Semestre
+</h2>
+<mat-dialog-content class="mat-typography">
+
+    <div class="row">
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <mat-label>codigo</mat-label>
+                <input matInput name="firstname" [(ngModel)]="semesterContentForm.code" disabled>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <mat-label>Descripción</mat-label>
+                <input matInput name="lastname" [(ngModel)]="semesterContentForm.description" required>
+                <mat-error *ngIf="!semesterContentForm.description">Ingrese descripción</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <mat-slide-toggle class="float-right" [(ngModel)]="semesterContentForm.status"
+            [ngModelOptions]="{standalone: true}"> {{semesterContentForm.status? 'Activo':'Inactivo'}}
+        </mat-slide-toggle>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <div> <button mat-button color="accent" (click)="manageSemester()">Actualizar</button></div>
+</mat-dialog-actions>

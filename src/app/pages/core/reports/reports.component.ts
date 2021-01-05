@@ -13,6 +13,7 @@ import { saveAs } from 'file-saver';
 import { ReportService } from '../../../services/report.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { CalificationReport } from '../../../models/calification';
+import { SemesterService } from '../../../services/semester.service';
 @Component({
   selector: 'ngx-reports',
   templateUrl: './reports.component.html',
@@ -26,7 +27,8 @@ export class ReportsComponent implements OnInit {
     private readonly dialog: MatDialog,
     private readonly ngxService: NgxUiLoaderService,
     private readonly gradeService: GradeService,
-    private readonly reportService: ReportService
+    private readonly reportService: ReportService,
+    private readonly semesterService: SemesterService
 
   ) { }
   loading = false;
@@ -40,8 +42,8 @@ export class ReportsComponent implements OnInit {
   reportData: any = {};
   selectedAlumnId: number;
   alumnFullName: string;
-
-
+  isFirstSemester = false;
+  waitingDownload = false;
   async ngOnInit() {
     this.ngxService.startLoader('loader');
     await this.load();
@@ -51,6 +53,8 @@ export class ReportsComponent implements OnInit {
     try {
       this.grades = await this.gradeService.getAll().toPromise();
       this.alumns = await this.alumnService.getAll().toPromise();
+      this.isFirstSemester = await this.semesterService.isFirstSemester();
+
       this.filteredAlumns = this.alumns;
       this.selectedGrades = this.grades;
     } catch (error) {
@@ -87,29 +91,49 @@ export class ReportsComponent implements OnInit {
     }
   }
   async generatePdf() {
+    this.waitingDownload = true;
     this.reportData = await this.reportService.createSingleReport(this.selectedAlumnId).toPromise();
     this.generated = true;
+    this.waitingDownload = false;
   }
   sum(values: number[]) {
-    return Math.round((values.reduce((a, b) => a + b, 0) / values.length));
+    let t = 0;
+    let c = 0;
+    values.forEach((v) => {
+      t += v;
+      c += 1;
+    });
+    return c > 0 ? t / c : 0;
+    // return ((values.reduce((a, b) => a + b, 0)) / values.length);
   }
 
   getSemesterAvg() {
     let total = 0;
     this.alumnData.subjects.forEach((s) => {
-      total += this.sum(s.califications);
+      if (s.califications) {
+        total += (this.sum(s.califications));
+      }
     });
-    return Math.round(total / (this.alumnData.subjects.length));
+    return Number((total / (this.alumnData.subjects.length)).toFixed(1));
   }
-  getYearAvg() {
 
-    let pastTotal = 0;
+  getFirstSemesterAvg() {
+    let total = 0;
+    let count = 0;
     this.alumnData.subjects.forEach((s) => {
-      pastTotal += s.firstSemesterAvg;
+      if (s.firstSemesterAvg) {
+        total += s.firstSemesterAvg;
+        count++;
+      }
+      count++;
     });
-    const currentAvg = this.getSemesterAvg();
-    return Math.round((pastTotal + currentAvg) / 2);
+    return count > 0 ? Number((total / count).toFixed(1)) : 0;
+  }
 
+  getYearAvg() {
+    const currentAvg = this.getSemesterAvg();
+    const pastAvg = this.getFirstSemesterAvg();
+    return Number(((pastAvg + currentAvg) / 2).toFixed(1));
   }
 
   async downloadReport() {

@@ -83,7 +83,7 @@
     </div>
 
 </mat-dialog-content>
-<mat-dialog-actions align="end">
+<mat-dialog-actions>
     <div *ngIf="!userContentForm.status">
         <swal #deactUser title="Desactivar {{ userContentForm.username }}?"
             [swalOptions]="{ confirmButtonText: 'Aceptar',cancelButtonText: 'Cancelar' }"

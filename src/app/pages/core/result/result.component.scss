@@ -15,7 +15,9 @@ table {
  }
 
  .mat-dialog-actions {
-  justify-content: flex-end;
+  display: flex;
+  align-items: center;
+  justify-content:flex-end ;
 }
 
 .full-width {
@@ -56,9 +58,6 @@ margin-right: 6px;
   cursor: pointer;
 }
 }
-
-
-
 
 
 .pointer {

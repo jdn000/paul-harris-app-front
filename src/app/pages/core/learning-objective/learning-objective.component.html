@@ -1,6 +1,5 @@
 <ngx-ui-loader [loaderId]="'obj'"></ngx-ui-loader>
 <div class="row">
-
     <div class="col-md-12">
         <nb-card>
             <nb-card-header>
@@ -8,8 +7,8 @@
             </nb-card-header>
             <nb-card-body>
                 <div class="row">
-                    <div class="col-md-2">
-                        <mat-form-field class="full-width">
+                    <div class="col-md-4">
+                        <mat-form-field class="example-full-width">
                             <mat-label>Filtrar por curso</mat-label>
                             <mat-select (selectionChange)="onSelectedGrade($event)" multiple>
                                 <mat-option *ngFor="let grade of grades" [value]="grade.id">
@@ -18,8 +17,8 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
-                    <div class="col-md-2">
-                        <mat-form-field class="full-width">
+                    <div class="col-md-4">
+                        <mat-form-field class="example-full-width">
                             <mat-label>Filtrar por Asignatura</mat-label>
                             <mat-select (selectionChange)="onSelectedSubject($event)" multiple>
                                 <mat-option *ngFor="let subject of subjects" [value]="subject.id">
@@ -28,7 +27,6 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
-
                 </div>
                 <ng2-smart-table [settings]="settings" [source]="filteredLearningObjectives" #table></ng2-smart-table>
             </nb-card-body>

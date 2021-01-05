@@ -33,13 +33,21 @@ import { AdministrationComponent } from './administration.component';
 import { AdministrationRoutingModule } from './administration-routing.module';
 import { UserComponent } from './user/user.component';
 import { DialogUserManagerComponent } from './user/dialog-user-manager/dialog-user-manager.component';
-import { SystemParametersComponent } from './system-parameters/system-parameters.component';
-import { DialogSystemParametersComponent } from './system-parameters/dialog-system-parameters/dialog-system-parameters.component';
 import { DialogChangePasswordComponent } from './user/dialog-change-password/dialog-change-password.component';
 import { ChangePasswordComponent } from '../../@theme/components/table-render/ChangePasswordComponentRender.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ToggleOrTextComponent } from '../../@theme/components/table-render/ToggleOrText.component';
 import { DialogUserSubjectComponent } from './user/dialog-user-subject/dialog-user-subject.component';
+import { SemesterComponent } from './semester/semester.component';
+import { DialogSemesterComponent } from './semester/dialog-semester/dialog-semester.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDaterangepickerModule } from 'mat-daterangepicker';
 const materialModules = [
   MatFormFieldModule,
   MatInputModule,
@@ -56,6 +64,13 @@ const materialModules = [
   MatListModule,
   MatGridListModule,
   MatBadgeModule,
+  MatTooltipModule,
+  MatAutocompleteModule,
+  MatIconModule,
+  MatTableModule,
+  MatProgressSpinnerModule,
+  MatChipsModule,
+  MatDaterangepickerModule, MatTabsModule
 ];
 
 @NgModule({
@@ -65,13 +80,12 @@ const materialModules = [
     ButtonToggleUserComponent,
     UserComponent,
     DialogUserManagerComponent,
-
-    SystemParametersComponent,
-    DialogSystemParametersComponent,
     DialogChangePasswordComponent,
     ChangePasswordComponent,
     ToggleOrTextComponent,
     DialogUserSubjectComponent,
+    SemesterComponent,
+    DialogSemesterComponent,
 
 
   ],

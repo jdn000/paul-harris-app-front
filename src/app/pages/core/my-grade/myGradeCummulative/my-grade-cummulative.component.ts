@@ -110,7 +110,7 @@ export class MyGradeCummulativeComponent implements OnInit {
             alumn[`A${i}Id`] = null;
           }
         }
-        alumn.avg = count > 0 ? Math.round(total / count) : 0;
+        alumn.avg = count > 0 ? Number((total / count).toFixed(1)) : 0;
       }
     });
 
@@ -138,7 +138,7 @@ export class MyGradeCummulativeComponent implements OnInit {
             if (c[`A${i}`]) {
               mainCalificationToUpdate.push({
                 id: c.calificationId,
-                value: Math.round(c.avg)
+                value: Number((c.avg).toFixed(1))
               });
               calificationsToUpdate.push({
                 id: c[`A${i}Id`],

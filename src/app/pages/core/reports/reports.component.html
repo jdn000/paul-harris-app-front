@@ -47,54 +47,110 @@
                         <hx>{{alumnData.grade}}</hx>
                     </div>
                 </div>
-
                 <mat-divider></mat-divider>
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Asignatura</th>
-                            <th>Notas</th>
-                            <th>Promedio</th>
-                        </tr>
-
-                    </thead>
-                    <tbody>
-                        <ng-container *ngFor="let subject of alumnData.subjects">
+                <div *ngIf="isFirstSemester">
+                    <table>
+                        <thead>
                             <tr>
-                                <td>{{subject.name}}</td>
-                                <td>
-                                    <ng-container *ngFor="let calification of subject.califications">
-                                        {{calification}}
-                                    </ng-container>
-                                </td>
-                                <td style="text-align:center"> {{sum(subject.califications)}}</td>
+                                <th class>
+                                    Asignatura</th>
+                                <th>Notas</th>
+                                <th>Promedio</th>
                             </tr>
-                        </ng-container>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th colspan="2">Promedio segundo semestre</th>
-                            <td style="text-align:center">{{getSemesterAvg()}}</td>
-                        </tr>
-                        <tr>
-                            <th colspan="2">Promedio Final</th>
-                            <td style="text-align:center">{{getYearAvg()}}</td>
-                        </tr>
-                    </tfoot>
-                </table>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let subject of alumnData.subjects">
+                                <tr>
+                                    <td>{{subject.name}}</td>
+                                    <td>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <ng-container *ngFor="let calification of subject.califications">
+                                                        <hx>
+                                                            {{calification}}
+                                                        </hx>
+                                                    </ng-container>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </td>
+                                    <td style="text-align:center">
+                                        {{sum(subject.califications)}}
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="2">Promedio primer semestre</th>
+                                <td style="text-align:center">{{getFirstSemesterAvg()}}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div *ngIf="!isFirstSemester">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class>
+                                    Asignatura</th>
+                                <th>Notas</th>
+                                <th>Promedio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let subject of alumnData.subjects">
+                                <tr>
+                                    <td>{{subject.name}}</td>
+                                    <td>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <ng-container *ngFor="let calification of subject.califications">
+                                                        <hx>
+                                                            {{calification}}
+                                                        </hx>
+                                                    </ng-container>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </td>
+                                    <td style="text-align:center">
+                                        {{sum(subject.califications)}}
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+
+                        <tfoot>
+                            <tr>
+                                <th colspan="2">Promedio primer semestre</th>
+                                <td style="text-align:center">{{getFirstSemesterAvg()}}</td>
+                            </tr>
+                            <tr>
+                                <th colspan="2">Promedio segundo semestre</th>
+                                <td style="text-align:center">{{getSemesterAvg()}}</td>
+                            </tr>
+                            <tr>
+                                <th colspan="2">Promedio Final</th>
+                                <td style="text-align:center">{{getYearAvg()}}</td>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+                </div>
             </div>
         </nb-card-body>
     </nb-card>
 </div>
 
-<mat-dialog-actions align="end">
+<mat-dialog-actions>
     <div *ngIf=!generated>
-
-        <button mat-raised-button color="primary" (click)="generatePdf()" [disabled]="!selectedAlumnId">
+        <button mat-raised-button [nbSpinner]="waitingDownload" nbSpinnerStatus="info" color="primary"
+            (click)="generatePdf()" [disabled]="!selectedAlumnId">
             Generar Informe
         </button>
-
     </div>
     <div *ngIf=generated>
         <button mat-raised-button color="primary" (click)="downloadReport()" matSuffix icon="cloud-download-outline">

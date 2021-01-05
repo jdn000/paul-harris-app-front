@@ -18,7 +18,6 @@ import 'rxjs/add/observable/of';
 import { MatTableDataSource } from '@angular/material/table';
 import { DialogCalificationComponent } from './dialog-calification/dialog-calification.component';
 import { Router, NavigationExtras } from '@angular/router';
-import { PdfService } from '../../../services/pdf.service';
 import { ReportService } from '../../../services/report.service';
 import { saveAs } from 'file-saver';
 import { UserSubject } from '../../../models/user';
@@ -34,7 +33,6 @@ export class CalificationComponent implements OnInit {
     private readonly calificationService: CalificationService,
     private readonly toastService: ToastService,
     private readonly dialog: MatDialog,
-    private readonly ngxService: NgxUiLoaderService,
     private readonly gradeService: GradeService,
     private readonly alumnService: AlumnService,
     private readonly subjectService: SubjectService,

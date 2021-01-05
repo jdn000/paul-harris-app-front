@@ -26,7 +26,7 @@
         </div>
         <div class="col-md-12" *ngIf=!califications.length>
             <nb-card>
-                <mat-dialog-actions align="end">
+                <mat-dialog-actions>
                     <div *ngIf="selectedSubject.id">
                         <button mat-raised-button color="primary" (click)="openDialog()">
                             <nb-icon matTooltip="Nueva nota" matTooltipPosition="above" matSuffix icon="plus-outline">
@@ -406,7 +406,7 @@
     </div>
 
     <div class="col-md-12">
-        <mat-dialog-actions align="end">
+        <mat-dialog-actions>
             <div class="example-button-row">
                 <div *ngIf=!generated>
                     <button mat-raised-button color="primary" (click)="generatePdf()" [disabled]="!selectedGrade.id"

@@ -111,7 +111,7 @@ export class CummulativeComponent implements OnInit {
             alumn[`A${i}Id`] = null;
           }
         }
-        alumn.avg = count > 0 ? Math.round(total / count) : 0;
+        alumn.avg = count > 0 ? Number((total / count).toFixed(1)) : 0;
       }
     });
 

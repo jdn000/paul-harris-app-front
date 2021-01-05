@@ -2,7 +2,7 @@ import { NbMenuItem } from '@nebular/theme';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
-    title: 'Dashboard',
+    title: 'Inicio',
     icon: 'home-outline',
     link: '/pages/dashboard',
     home: true,
@@ -82,11 +82,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
         ],
       },
-      // {
-      //   title: 'Cursos',
-      //   link: '/pages/administration/grade',
-      //   icon: 'lock-outline',
-      // },
+      {
+        title: 'Configuración Semestre',
+        link: '/pages/administration/semester',
+        //icon: 'lock-outline',
+      },
       // {
       //   title: 'Asignaturas',
       //   link: '/pages/administration/subject',
