@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LocalDataSource, Ng2SmartTableComponent } from 'ng2-smart-table';
-import { Grade } from '../../../../models/Grade';
+import { Grade } from '../../../../models/grade';
 import { Indicator } from '../../../../models/indicator';
 import { LearningObjective } from '../../../../models/learningObjective';
 import { Subject } from '../../../../models/subject';

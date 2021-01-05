@@ -3,7 +3,7 @@ import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Alumn } from '../../../../models/alumn';
 import { ToastService } from '../../../../services/toast.service';
 import { AlumnService } from '../../../../services/alumn.service';
-import { Grade } from '../../../../models/Grade';
+import { Grade } from '../../../../models/grade';
 
 @Component({
   selector: 'ngx-dialog-alumn',

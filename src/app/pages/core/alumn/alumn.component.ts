@@ -9,7 +9,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ToastService } from '../../../services/toast.service';
 import { DialogAlumnComponent } from './dialog-alumn/dialog-alumn.component';
 import { GradeService } from '../../../services/grade.service';
-import { Grade } from '../../../models/Grade';
+import { Grade } from '../../../models/grade';
 import { MatSelectionListChange } from '@angular/material/list';
 import _ from 'lodash';
 //import { DialogUserManagerComponent } from './dialog-user-manager/dialog-user-manager.component';

@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NgxUiLoaderService } from 'ngx-ui-loader'; import { Alumn } from '../../../models/alumn';
 
 import { BatchCalifications, Calification, CalificationTemplate } from '../../../models/calification';
-import { Grade } from '../../../models/Grade';
+import { Grade } from '../../../models/grade';
 import { Subject } from '../../../models/subject';
 import { AlumnService } from '../../../services/alumn.service';
 import { CalificationService } from '../../../services/calification.service';

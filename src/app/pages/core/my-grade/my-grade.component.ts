@@ -7,7 +7,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 import { Alumn } from '../../../models/alumn';
 import { BatchCalifications, Calification, CalificationTemplate } from '../../../models/calification';
-import { Grade } from '../../../models/Grade';
+import { Grade } from '../../../models/grade';
 import { Subject } from '../../../models/subject';
 import { UserSubject } from '../../../models/user';
 import { AlumnService } from '../../../services/alumn.service';

@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Subject } from '../../../../models/subject';
 import { Calification } from '../../../../models/calification';
-import { Grade } from '../../../../models/Grade';
+import { Grade } from '../../../../models/grade';
 import { AlumnService } from '../../../../services/alumn.service';
 import { CalificationService } from '../../../../services/calification.service';
 import { GradeService } from '../../../../services/grade.service';

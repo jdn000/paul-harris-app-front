@@ -5,7 +5,7 @@ import { retry, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ErrorService } from './error.service';
 
-import { Grade } from '../models/Grade';
+import { Grade } from '../models/grade';
 
 @Injectable({
     providedIn: 'root',

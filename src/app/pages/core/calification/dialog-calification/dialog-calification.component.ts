@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Alumn } from '../../../../models/alumn';
 import { BatchCalifications, Calification, CalificationIndicator } from '../../../../models/calification';
-import { Grade } from '../../../../models/Grade';
+import { Grade } from '../../../../models/grade';
 import { Indicator } from '../../../../models/indicator';
 import { LearningObjective } from '../../../../models/learningObjective';
 import { AlumnService } from '../../../../services/alumn.service';

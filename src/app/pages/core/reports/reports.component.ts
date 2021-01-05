@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Alumn } from '../../../models/alumn';
-import { Grade } from '../../../models/Grade';
+import { Grade } from '../../../models/grade';
 import { AlumnService } from '../../../services/alumn.service';
 import { GradeService } from '../../../services/grade.service';
 import { ToastService } from '../../../services/toast.service';

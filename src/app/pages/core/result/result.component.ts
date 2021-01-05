@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 
-import { Grade } from '../../../models/Grade';
+import { Grade } from '../../../models/grade';
 import { LearningObjective, ObjectiveData } from '../../../models/learningObjective';
 import { Subject } from '../../../models/subject';
 import { AlumnService } from '../../../services/alumn.service';

@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { Grade } from '../../../models/Grade';
+import { Grade } from '../../../models/grade';
 import { LearningObjective } from '../../../models/learningObjective';
 import { GradeService } from '../../../services/grade.service';
 import { LearningObjectiveService } from '../../../services/learning-objective.service';

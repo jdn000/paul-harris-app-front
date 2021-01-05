@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Ng2SmartTableComponent } from 'ng2-smart-table';
 import { ButtonToggleDisabledComponent } from '../../../@theme/components/table-render/ToggleDisabledButton.component';
-import { Grade } from '../../../models/Grade';
+import { Grade } from '../../../models/grade';
 import { Semester } from '../../../models/semester';
 import { GradeService } from '../../../services/grade.service';
 import { SemesterService } from '../../../services/semester.service';
