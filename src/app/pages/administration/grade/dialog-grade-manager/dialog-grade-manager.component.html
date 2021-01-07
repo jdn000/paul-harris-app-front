@@ -1,0 +1,26 @@
+<div class="float-right">
+    <span class="demo-close" mat-dialog-close>
+        <nb-icon icon="close-outline"></nb-icon>
+    </span>
+</div>
+<h2 mat-dialog-title>
+    <nb-icon icon="person-outline"></nb-icon> {{title}}
+</h2>
+<mat-dialog-content class="mat-typography">
+    <div class="row">
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
+                <mat-label>Profesor Jefe</mat-label>
+                <mat-select [(ngModel)]="gradeContentForm.headTeacherId" [ngModelOptions]="{standalone: true}">
+                    <mat-option *ngFor="let user of usersData" [value]="user.id">
+                        {{user.firstName }}- {{user.lastName }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+
+    <button mat-button color="accent" (click)="manageGrade()">{{buttonTitle}}</button>
+</mat-dialog-actions>
