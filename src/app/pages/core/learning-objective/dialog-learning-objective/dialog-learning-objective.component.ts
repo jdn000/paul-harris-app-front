@@ -129,7 +129,7 @@ export class DialogLearningObjectiveComponent implements OnInit {
     }
   }
   async onDeleteConfirm(event) {
-    console.log(' it works');
+
   }
   validateSmartTable(event: any) {
 

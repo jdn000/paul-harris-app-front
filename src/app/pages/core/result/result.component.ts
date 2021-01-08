@@ -169,7 +169,7 @@ export class ResultComponent implements OnInit {
         this.filteredLearningObjectives.push(...filteredsByGrade);
       }
       this.filteredLearningObjectives = _.uniqBy(this.filteredLearningObjectives, 'id');
-      console.log(this.filteredLearningObjectives);
+
       if (this.selectedSubjectId) {
         this.onSelectedGeneralSubject({ value: this.selectedSubjectId });
       }
@@ -190,10 +190,10 @@ export class ResultComponent implements OnInit {
       tempObj = _.uniqBy(tempObj, 'id');
       graphGral = await Promise.all(tempObj.map(async (o) => {
         let data = await this.getDataFromObjectiveId(o.id);
-        console.log(data, 'data');
+
         return this.putDataOnObject(data.low.length, data.medium.length, data.high.length, o.description);
       }));
-      console.log(graphGral);
+
       this.multi3 = graphGral;
       if (graphGral.length) {
         this.data = true;
