@@ -39,6 +39,7 @@ export class CalificationComponent implements OnInit {
     private readonly router: Router,
     private readonly reportService: ReportService,
     private readonly userSubjectService: UserSubjectService,
+    private readonly ngxService: NgxUiLoaderService,
 
   ) {
     if (typeof this.router.getCurrentNavigation().extras.state !== 'undefined') {
@@ -122,6 +123,7 @@ export class CalificationComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   async ngOnInit() {
+    this.ngxService.startLoader('c');
     this.grades = await this.gradeService.getAll().toPromise();
     await this.filterSubjects();
     this.alumns = await this.alumnService.getAll().toPromise();
@@ -131,6 +133,7 @@ export class CalificationComponent implements OnInit {
     if (this.useBreadcrumb) {
       this.getInfoFromBreadCrumb();
     }
+    this.ngxService.stopLoader('c');
   }
 
   async filterSubjects() {

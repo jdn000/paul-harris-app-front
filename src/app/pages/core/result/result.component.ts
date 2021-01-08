@@ -17,6 +17,7 @@ import { AlumnCalification } from '../../../models/calification';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { UserSubject } from '../../../models/user';
 import { UserSubjectService } from '../../../services/userSubject.service';
+import { triggerAsyncId } from 'async_hooks';
 @Component({
   selector: 'ngx-result',
   templateUrl: './result.component.html',
@@ -33,6 +34,9 @@ export class ResultComponent implements OnInit {
   selectedGrades: Grade[] = [];
   selectedGradeId: number;
   selectedSubjectId: number;
+  selectedGradeId2: number;
+  selectedSubjectId2: number;
+  selectedObjective: number;
   subjects: Subject[] = [];
   selectedSubjects: Subject[] = [];
   locked = false;
@@ -44,8 +48,8 @@ export class ResultComponent implements OnInit {
   multi: any[];
   multi2: any[];
   multi3: any[];
-  view: any[] = [800, 450];
-  view2: any[] = [600, 350];
+  view: any[] = [400, 250];
+  view2: any[] = [300, 200];
   userSubjects: UserSubject[] = [];
   rawSubjects: Subject[] = [];
   // options
@@ -63,8 +67,8 @@ export class ResultComponent implements OnInit {
   colorScheme = {
     domain: ['#2e31fce8', '#019afff8', '#54C6EB', '#000000']
   };
-  data = false;
-  data2 = false;
+  data: boolean;
+  data2: boolean;
 
   constructor(
     private readonly calificationService: CalificationService,
@@ -117,6 +121,17 @@ export class ResultComponent implements OnInit {
       }
     });
   }
+  clean() {
+    if (this.selectedGradeId2) {
+      if (this.selectedSubjectId2) {
+        delete this.selectedSubjectId2;
+      }
+      if (this.selectedObjective) {
+        delete this.selectedObjective;
+      }
+      this.data2 = false;
+    }
+  }
   async onSelectedGrade(evt: any) {
     try {
       this.filteredLearningObjectives = [];
@@ -136,7 +151,7 @@ export class ResultComponent implements OnInit {
     try {
       let temp = [];
       if (evt.value) {
-        const filteredsBySubject = this.filteredLearningObjectives.filter((a) => a.subjectId === evt.value);
+        const filteredsBySubject = this.filteredLearningObjectives.filter((a) => a.subjectId === evt.value && a.gradeId === this.selectedGradeId2);
         temp.push(...filteredsBySubject);
       }
       this.tempFilteredLearningObjectives = _.uniqBy(temp, 'id');
@@ -154,6 +169,7 @@ export class ResultComponent implements OnInit {
         this.filteredLearningObjectives.push(...filteredsByGrade);
       }
       this.filteredLearningObjectives = _.uniqBy(this.filteredLearningObjectives, 'id');
+      console.log(this.filteredLearningObjectives);
       if (this.selectedSubjectId) {
         this.onSelectedGeneralSubject({ value: this.selectedSubjectId });
       }
@@ -174,10 +190,16 @@ export class ResultComponent implements OnInit {
       tempObj = _.uniqBy(tempObj, 'id');
       graphGral = await Promise.all(tempObj.map(async (o) => {
         let data = await this.getDataFromObjectiveId(o.id);
+        console.log(data, 'data');
         return this.putDataOnObject(data.low.length, data.medium.length, data.high.length, o.description);
       }));
+      console.log(graphGral);
       this.multi3 = graphGral;
-      this.data = true;
+      if (graphGral.length) {
+        this.data = true;
+      } else {
+        this.data = false;
+      }
     } catch (error) {
       this.toastService.showError(error.message || error);
     }
@@ -243,7 +265,11 @@ export class ResultComponent implements OnInit {
         graph.push(this.putDataOnObject(this.low.length, this.medium.length, this.high.length, description));
         this.multi = graph;
         this.multi2 = indicatorGraph;
-        this.data2 = true;
+        if (graph.length) {
+          this.data2 = true;
+        } else {
+          this.data2 = false;
+        }
       }
 
     } catch (error) {

@@ -154,3 +154,19 @@ align-items: center;
 
 	 padding: 0 5px 0 0 ;
   }
+
+  .actions-icon {
+	font-size: 1.5em;
+	color: #cccccc;
+	margin-right: 6px;
+	&:hover {
+		color: #6200ee;
+		cursor: pointer;
+	}
+}
+.mat-dialog-actions {
+    display: flex;
+    align-items: center;
+    justify-content:flex-end ;
+}
+

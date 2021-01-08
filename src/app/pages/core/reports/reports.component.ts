@@ -45,9 +45,9 @@ export class ReportsComponent implements OnInit {
   isFirstSemester = false;
   waitingDownload = false;
   async ngOnInit() {
-    this.ngxService.startLoader('loader');
+    this.ngxService.startLoader('re');
     await this.load();
-    this.ngxService.stopLoader('loader');
+    this.ngxService.stopLoader('re');
   }
   async load() {
     try {

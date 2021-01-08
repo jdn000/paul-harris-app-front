@@ -112,7 +112,6 @@ export class DialogLearningObjectiveComponent implements OnInit {
     }
   }
 
-
   async onSaveConfirm(event) {
     if (this.validateSmartTable(event)) {
       const newIndicator: Indicator = {} as Indicator;
@@ -129,7 +128,9 @@ export class DialogLearningObjectiveComponent implements OnInit {
 
     }
   }
-
+  async onDeleteConfirm(event) {
+    console.log(' it works');
+  }
   validateSmartTable(event: any) {
 
     if (!event.newData.name) {

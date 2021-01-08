@@ -124,6 +124,7 @@ export class MyGradeComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   async ngOnInit() {
+    this.ngxService.startLoader('my');
     const rawGrades = await this.gradeService.getAll().toPromise();
 
     this.grades = rawGrades.filter((g) => g.headTeacherId === Number(localStorage.getItem('userId')));
@@ -140,6 +141,7 @@ export class MyGradeComponent implements OnInit {
     if (this.useBreadcrumb) {
       this.getInfoFromBreadCrumb();
     }
+    this.ngxService.stopLoader('my');
   }
 
   enableSelectLists() {

@@ -48,6 +48,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDaterangepickerModule } from 'mat-daterangepicker';
+import { DialogGradeManagerComponent } from './grade/dialog-grade-manager/dialog-grade-manager.component';
 const materialModules = [
   MatFormFieldModule,
   MatInputModule,
@@ -86,6 +87,7 @@ const materialModules = [
     DialogUserSubjectComponent,
     SemesterComponent,
     DialogSemesterComponent,
+    DialogGradeManagerComponent,
 
 
   ],

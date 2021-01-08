@@ -1,3 +1,50 @@
-<div class="row">
-  <h1>Bienvenido</h1>
+<div class="col-md-12">
+  <div class="row">
+    <h1>Accesos directos</h1>
+  </div>
+
+  <div class="row" *ngIf="getRole()===2">
+    <button (click)="btnClick1()" nbButton status="primary">Alumnos<nb-icon icon="bulb-outline">
+      </nb-icon></button>
+    <button (click)="btnClick2()" nbButton status="info">Objetivos de aprendizaje<nb-icon icon="book-open-outline">
+      </nb-icon>
+    </button>
+    <button (click)="btnClick3()" nbButton status="success">Notas<nb-icon icon="grid-outline"></nb-icon>
+    </button>
+    <button (click)="btnClick4()" nbButton status="success">Informe de notas<nb-icon icon="npm-outline">
+      </nb-icon></button>
+    <button (click)="btnClick5()" nbButton status="info">Resultados<nb-icon icon="trending-up-outline">
+      </nb-icon>
+    </button>
+    <button (click)="btnClick6()" nbButton status="primary">Mi Curso<nb-icon icon="people-outline">
+      </nb-icon>
+    </button>
+  </div>
+  <div class="row" *ngIf="getRole()===1">
+    <button (click)="btnClick1()" nbButton status="primary">Alumnos<nb-icon icon="bulb-outline">
+      </nb-icon></button>
+    <button (click)="btnClick2()" nbButton status="info">Objetivos de aprendizaje<nb-icon icon="book-open-outline">
+      </nb-icon>
+    </button>
+    <button (click)="btnClick3()" nbButton status="success">Notas<nb-icon icon="grid-outline"></nb-icon>
+    </button>
+    <button (click)="btnClick4()" nbButton status="primary">Informe de notas<nb-icon icon="npm-outline">
+      </nb-icon></button>
+    <button (click)="btnClick5()" nbButton status="info">Resultados<nb-icon icon="trending-up-outline">
+      </nb-icon>
+    </button>
+    <button (click)="btnClick6()" nbButton status="success">Mi Curso<nb-icon icon="people-outline">
+      </nb-icon>
+    </button>
+
+
+    <button (click)="btnClick7()" nbButton status="warning">Usuarios<nb-icon icon="person-outline">
+      </nb-icon></button>
+    <button (click)="btnClick8()" nbButton status="warning">Configuración semestre<nb-icon icon="award-outline">
+      </nb-icon>
+    </button>
+    <button (click)="btnClick9()" nbButton status="warning">Cursos<nb-icon icon="book-outline"></nb-icon>
+    </button>
+
+  </div>
 </div>

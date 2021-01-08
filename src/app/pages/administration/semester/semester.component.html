@@ -1,3 +1,4 @@
+<ngx-ui-loader [loaderId]="'sm'"></ngx-ui-loader>
 <div class="row">
     <div class="col-md-12">
         <nb-card>
@@ -6,21 +7,25 @@
             </nb-card-header>
             <nb-card-body>
                 <div>
-                    <button mat-raised-button color="primary" (click)="openSyncMenu()">Sincronizar Notas primer
-                        semestre</button>
-                    <div class="col-md-6" *ngIf="openSync">
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Curso</mat-label>
-                            <mat-select [(ngModel)]="gradeId" [ngModelOptions]="{standalone: true}">
-                                <mat-option *ngFor="let grade of grades" [value]="grade.id">
-                                    {{grade.description}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        <button mat-raised-button color="primary" (click)="syncCalifications()"
-                            [disabled]="!gradeId">Sincronizar
-                        </button>
-                    </div>
+                    <mat-dialog-actions><button mat-raised-button color="primary" (click)="openSyncMenu()">Sincronizar
+                            Notas primer
+                            semestre</button>
+                        <div class="col-md-6" *ngIf="openSync">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Curso</mat-label>
+                                <mat-select [(ngModel)]="gradeId" [ngModelOptions]="{standalone: true}">
+                                    <mat-option *ngFor="let grade of grades" [value]="grade.id">
+                                        {{grade.description}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <button mat-raised-button color="primary" (click)="syncCalifications()"
+                                [disabled]="!gradeId">Sincronizar
+                            </button>
+                        </div>
+                    </mat-dialog-actions>
+
+
 
                 </div>
                 <ng2-smart-table [settings]="settings" [source]="semesters" #table></ng2-smart-table>

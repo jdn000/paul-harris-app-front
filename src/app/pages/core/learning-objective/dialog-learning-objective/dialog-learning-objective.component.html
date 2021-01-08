@@ -37,7 +37,7 @@
                 <mat-error *ngIf="!objectiveContentForm.gradeId">Seleccione curso</mat-error>
             </mat-form-field>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-8">
             <mat-form-field class="example-full-width">
                 <mat-label>Asignatura</mat-label>
                 <mat-select [(ngModel)]="objectiveContentForm.subjectId" [ngModelOptions]="{standalone: true}" required>
@@ -52,12 +52,12 @@
     </div>
     <div class="col-md-12">
         <ng2-smart-table [settings]="settings" [source]="indicatorsSource" (createConfirm)="onCreateConfirm($event)"
-            (editConfirm)="onSaveConfirm($event)" #indicators>
+            (editConfirm)="onSaveConfirm($event)" (deleteConfirm)="onDeleteConfirm($event)" #indicators>
         </ng2-smart-table>
     </div>
 </mat-dialog-content>
 
 
 <mat-dialog-actions>
-    <button mat-button color="accent" (click)="manageObjective()">{{buttonTitle}}</button>
+    <button mat-raised-button color="accent" (click)="manageObjective()">{{buttonTitle}}</button>
 </mat-dialog-actions>

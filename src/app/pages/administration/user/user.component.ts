@@ -103,10 +103,10 @@ export class UserComponent implements OnInit, AfterViewInit {
   };
 
   async ngOnInit() {
-    this.ngxService.startLoader('loader');
+    this.ngxService.startLoader('us');
     await this.load();
     this.subjects = await this.subjectService.getAll().toPromise();
-    this.ngxService.stopLoader('loader');
+    this.ngxService.stopLoader('us');
   }
 
   ngAfterViewInit(): void {

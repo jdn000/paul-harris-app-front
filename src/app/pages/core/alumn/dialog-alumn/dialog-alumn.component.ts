@@ -83,7 +83,7 @@ export class DialogAlumnComponent implements OnInit {
     } else if (!this.alumnContentForm.secondSurname) {
       this.toastService.showToast('warning', 'Dato Incompleto', 'Ingrese Apellido Materno');
       return false;
-    } else if (!this.alumnContentForm.gradeId) {
+    } else if (!this.alumnContentForm.gradeId && this.isNewAlumn) {
       this.toastService.showToast('warning', 'Dato Incompleto', 'Ingrese un Curso');
       return false;
     }

@@ -4,13 +4,12 @@
     <div class="col-md-12">
         <nb-card>
             <nb-card-header>
-                Análisis de resultados
+                Resultados
             </nb-card-header>
             <nb-card-body>
                 <nb-tabset>
                     <nb-tab tabTitle="Global">
                         <div class="row">
-
                             <div class="col-md-3">
                                 <mat-form-field class="full-width">
                                     <mat-label>Curso</mat-label>
@@ -40,8 +39,11 @@
                                 [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
                                 [legendTitle]="legendTitle" [showXAxisLabel]="showXAxisLabel"
                                 [showYAxisLabel]="showYAxisLabel" [maxXAxisTickLength]="17" [xAxisLabel]="xAxisLabel"
-                                [yAxisLabel]="yAxisLabel">
+                                [yAxisLabel]="yAxisLabel" [legendPosition]="'below'">
                             </ngx-charts-bar-vertical-normalized>
+                        </div>
+                        <div class="col-md-12" *ngIf="!data">
+
                         </div>
                     </nb-tab>
                     <nb-tab tabTitle="Detalle">
@@ -49,8 +51,9 @@
                             <div class="col-md-4">
                                 <mat-form-field class="full-width">
                                     <mat-label> Curso</mat-label>
-                                    <mat-select (selectionChange)="onSelectedGrade($event)">
-                                        <mat-option *ngFor="let grade of grades" [value]="grade.id">
+                                    <mat-select (selectionChange)="onSelectedGrade($event)"
+                                        [(ngModel)]="selectedGradeId2">
+                                        <mat-option *ngFor="let grade of grades" [value]="grade.id" (click)="clean()">
                                             {{grade.description }}
                                         </mat-option>
                                     </mat-select>
@@ -59,7 +62,8 @@
                             <div class="col-md-4">
                                 <mat-form-field class="full-width">
                                     <mat-label> Asignatura</mat-label>
-                                    <mat-select (selectionChange)="onSelectedSubject($event)">
+                                    <mat-select (selectionChange)="onSelectedSubject($event)"
+                                        [(ngModel)]="selectedSubjectId2">
                                         <mat-option *ngFor="let subject of subjects" [value]="subject.id">
                                             {{subject.description }}
                                         </mat-option>
@@ -69,7 +73,8 @@
                             <div class="col-md-4">
                                 <mat-form-field class="full-width">
                                     <mat-label>Objetivo</mat-label>
-                                    <mat-select (selectionChange)="onSelectedObjective($event)">
+                                    <mat-select (selectionChange)="onSelectedObjective($event)"
+                                        [(ngModel)]="selectedObjective">
                                         <mat-option *ngFor="let objective of tempFilteredLearningObjectives"
                                             [value]="objective.id">
                                             {{objective.description }}
@@ -87,20 +92,26 @@
                                     [results]="multi2" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
                                     [legend]="false" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
                                     [xAxisLabel]="xAxisLabel2" [maxXAxisTickLength]="17" [yAxisLabel]="yAxisLabel"
-                                    [legendTitle]="legendTitle">
+                                    [legendTitle]="legendTitle" [legendPosition]="'below'">
                                 </ngx-charts-bar-vertical-normalized>
                             </div>
                             <mat-divider></mat-divider>
                             <div class="row" *ngIf="data2">
                                 <h4>Objetivos</h4>
+
                                 <ngx-charts-bar-vertical-normalized [view]="view" [scheme]="colorScheme"
                                     [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
                                     [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
                                     [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
-                                    [yAxisLabel]="yAxisLabel" [maxXAxisTickLength]="17" [legendTitle]="legendTitle">
+                                    [yAxisLabel]="yAxisLabel" [maxXAxisTickLength]="17" [legendTitle]="legendTitle"
+                                    [legendPosition]="'below'">
                                 </ngx-charts-bar-vertical-normalized>
-                            </div>
 
+
+                            </div>
+                            <div class="col-md-12" *ngIf="!data2">
+                                No existe información
+                            </div>
                         </div>
                     </nb-tab>
 

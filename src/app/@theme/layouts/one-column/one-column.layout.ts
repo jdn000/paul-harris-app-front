@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { NbSidebarService } from '@nebular/theme';
 @Component({
   selector: 'ngx-one-column-layout',
   styleUrls: ['./one-column.layout.scss'],
@@ -9,11 +9,11 @@ import { Component } from '@angular/core';
         <ngx-header></ngx-header>
       </nb-layout-header>
 
-      <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive>
+      <nb-sidebar class="menu-sidebar" state="compacted" tag="menu-sidebar" responsive>
         <ng-content select="nb-menu" autoCollapse="true"></ng-content>
       </nb-sidebar>
 
-      <nb-layout-column>
+      <nb-layout-column (click)="collapseSidebar()">
         <ng-content select="router-outlet"></ng-content>
       </nb-layout-column>
 
@@ -23,4 +23,10 @@ import { Component } from '@angular/core';
     </nb-layout>
   `,
 })
-export class OneColumnLayoutComponent {}
+export class OneColumnLayoutComponent {
+  constructor(private sidebarService: NbSidebarService) { }
+  collapseSidebar(): boolean {
+    this.sidebarService.compact('menu-sidebar');
+    return false;
+  }
+}

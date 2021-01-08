@@ -16,36 +16,51 @@
                 <mat-error *ngIf="!alumnContentForm.names">Ingrese nombres del alumno</mat-error>
             </mat-form-field>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <mat-form-field class="example-full-width">
                 <mat-label> Apellido Paterno</mat-label>
                 <input matInput name="lastname" [(ngModel)]="alumnContentForm.lastName" required>
                 <mat-error *ngIf="!alumnContentForm.lastName">Ingrese apellido paterno</mat-error>
             </mat-form-field>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <mat-form-field class="example-full-width">
                 <mat-label> Apellido Materno</mat-label>
                 <input matInput name="secondSurname" [(ngModel)]="alumnContentForm.secondSurname">
                 <mat-error *ngIf="!alumnContentForm.secondSurname">Ingrese apellido materno</mat-error>
             </mat-form-field>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <mat-form-field class="example-full-width">
                 <mat-label> Run</mat-label>
                 <input matInput name="run" [(ngModel)]="alumnContentForm.run">
                 <mat-error *ngIf="!alumnContentForm.run">Ingrese run</mat-error>
             </mat-form-field>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-4" *ngIf="isNewAlumn">
             <mat-form-field class="example-full-width">
                 <mat-label>Curso</mat-label>
                 <mat-select [(ngModel)]="alumnContentForm.gradeId" [ngModelOptions]="{standalone: true}" required>
                     <mat-option *ngFor="let grade of getData.grades" [value]="grade.id">
                         {{grade.description}}
                     </mat-option>
+
                 </mat-select>
                 <mat-error *ngIf="!alumnContentForm.gradeId">Seleccione curso</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4" *ngIf="!isNewAlumn">
+            <mat-form-field class="example-full-width">
+                <mat-label>Curso</mat-label>
+                <mat-select [(ngModel)]="alumnContentForm.gradeId" [ngModelOptions]="{standalone: true}">
+                    <mat-option *ngFor="let grade of getData.grades" [value]="grade.id">
+                        {{grade.description}}
+                    </mat-option>
+                    <mat-option [value]=null>
+                        Desactivar Alumno
+                    </mat-option>
+                </mat-select>
+
             </mat-form-field>
         </div>
         <!-- <div class="col-md-12">
@@ -59,6 +74,5 @@
     </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button mat-button color="accent" (click)="manageAlumn()">{{buttonTitle}}</button>
-
+    <button mat-raised-button color="accent" (click)="manageAlumn()">{{buttonTitle}}</button>
 </mat-dialog-actions>

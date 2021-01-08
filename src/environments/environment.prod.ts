@@ -5,6 +5,6 @@
  */
 export const environment = {
   production: true,
-  apiUrl: 'https://ph-back.herokuapp.com/',
+  apiUrl: 'https://ph-back.herokuapp.com/api',
   // apiUrl: 'http://192.168.0.234:3000/api',
 };

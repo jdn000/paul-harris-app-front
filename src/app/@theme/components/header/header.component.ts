@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public readonly materialTheme$: Observable<boolean>;
   userPictureOnly: boolean = false;
   user: any = {};
-
+  username: string;
   themes = [
     {
       value: 'default',
@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ];
 
   currentTheme = 'default';
-  userMenu = [{ title: 'Perfil' }, { title: 'Cerrar Sesión', link: 'logout/' }];
+  userMenu = [{ title: 'Cerrar Sesión', link: 'logout/' }];
 
 
   public constructor(
@@ -85,6 +85,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.username = this.user.user;
     this.currentTheme = this.themeService.currentTheme;
     const { xl } = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()

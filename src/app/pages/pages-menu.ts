@@ -13,17 +13,17 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Alumnos',
-    icon: 'radio-button-off-outline',
+    icon: 'bulb-outline',
     link: '/pages/core/alumn',
   },
   {
     title: 'Objetivos de aprendizaje',
-    icon: 'radio-button-off-outline',
+    icon: 'book-open-outline',
     link: '/pages/core/objective',
   },
   {
     title: 'Notas',
-    icon: 'radio-button-off-outline',
+    icon: 'grid-outline',
     link: '/pages/core/calification',
     // children: [
     //   {
@@ -46,17 +46,17 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Informe De notas',
-    icon: 'radio-button-off-outline',
+    icon: 'npm-outline',
     link: '/pages/core/report',
   },
   {
     title: 'Resultados',
-    icon: 'radio-button-off-outline',
+    icon: 'trending-up-outline',
     link: '/pages/core/result',
   },
   {
     title: 'Mi Curso',
-    icon: 'radio-button-off-outline',
+    icon: 'people-outline',
     link: '/pages/core/my-grade',
   },
   {
@@ -69,11 +69,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
   // },
   {
     title: 'Sistema',
-    icon: 'cube-outline',
+    icon: 'settings-outline',
     children: [
       {
         title: 'Usuarios',
-        icon: 'people-outline',
+        icon: 'person-outline',
         children: [
           {
             title: 'Usuarios',
@@ -85,13 +85,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Configuración Semestre',
         link: '/pages/administration/semester',
-        //icon: 'lock-outline',
+        icon: 'award-outline',
       },
-      // {
-      //   title: 'Asignaturas',
-      //   link: '/pages/administration/subject',
-      //   icon: 'lock-outline',
-      // },
+      {
+        title: 'Cursos',
+        link: '/pages/administration/grade',
+        icon: 'book-outline',
+      },
     ],
   },
 ];

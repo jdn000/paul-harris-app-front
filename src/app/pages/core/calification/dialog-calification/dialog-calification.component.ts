@@ -68,6 +68,7 @@ export class DialogCalificationComponent implements OnInit {
     this.calificationNumber = this.getData.calificationNumber;
     this.calificationsToSelect = this.getData.calificationsToSelect;
     this.objectives = await this.learningObjectiveService.getGradeAndSubjectId(this.selectedGrade.id, this.selectedSubjectId).toPromise();
+    this.objectives = _.uniqBy(this.objectives, 'id');
     this.objectivesFiltered = await this.objectives.filter((i) => i.hasCalifications === true);
     this.alumns = this.getData.allAlumns;
     this.form.evaluationNumber = this.calificationNumber;

@@ -10,5 +10,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://ph-back.herokuapp.com/'
+  apiUrl: 'http://localhost:3000/api'
 };

@@ -1,6 +1,9 @@
-<div class="row">
-    <div class="col-md-12">
-
+<ngx-ui-loader [loaderId]="'my'"></ngx-ui-loader>
+<nb-card>
+    <nb-card-header>
+        Mi Curso
+    </nb-card-header>
+    <nb-card-body>
         <div class="row">
             <div class="col-md-4">
                 <mat-form-field class="full-width">
@@ -24,410 +27,430 @@
                 </mat-form-field>
             </div>
         </div>
-        <div class="col-md-12" *ngIf=!califications.length>
-            <nb-card>
-                <mat-dialog-actions>
-                    <div *ngIf="selectedSubject.id">
-                        <button mat-raised-button color="primary" (click)="openDialog()">
-                            <nb-icon matTooltip="Nueva nota" matTooltipPosition="above" matSuffix icon="plus-outline">
-                            </nb-icon>
-                        </button>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-12" *ngIf=!califications.length>
+
+                    <mat-dialog-actions>
+                        <div *ngIf="selectedSubject.id">
+                            <button mat-raised-button color="primary" (click)="openDialog()">
+                                <nb-icon matTooltip="Nueva nota" matTooltipPosition="above" matSuffix
+                                    icon="plus-outline">
+                                </nb-icon>
+                            </button>
+                        </div>
+                    </mat-dialog-actions>
+                    <div class="empty-center">
+                        <nb-icon class="empty" icon="star-outline"></nb-icon>
+                        <p>Seleccione Curso y Asignatura</p>
                     </div>
-                </mat-dialog-actions>
-                <div class="empty-center">
-                    <nb-icon class="empty" icon="star-outline"></nb-icon>
-                    <p>Seleccione Curso y Asignatura</p>
+
                 </div>
-            </nb-card>
-        </div>
-        <div class="col-md-12" *ngIf=califications.length>
-            <nb-card [nbSpinner]="loadingCalifications" nbSpinnerStatus="danger">
-                <mat-dialog-actions align="right">
-                    <div *ngIf="selectedSubject.id">
-                        <button mat-raised-button color="primary" (click)="editCalifications()">
-                            <nb-icon matTooltip="Editar nota" matTooltipPosition="above" matSuffix
-                                icon="edit-2-outline">
-                            </nb-icon>
-                        </button>
-                        <button mat-raised-button color="primary" (click)="openDialog()">
-                            <nb-icon matTooltip="Nueva nota" matTooltipPosition="above" matSuffix icon="plus-outline">
-                            </nb-icon>
-                        </button>
-                    </div>
-                    <div *ngIf="!selectedSubject.id">
-                        <button mat-raised-button color="basic" (click)="editCalifications()">
-                            <nb-icon matTooltip="Editar nota" matTooltipPosition="above" matSuffix
-                                icon="edit-2-outline">
-                            </nb-icon>
-                        </button>
-                    </div>
-                </mat-dialog-actions>
+                <div class="col-md-12" *ngIf=califications.length>
+                    <nb-card [nbSpinner]="loadingCalifications" nbSpinnerStatus="danger">
+                        <mat-dialog-actions>
+                            <div *ngIf="selectedSubject.id">
+                                <button mat-raised-button color="primary" (click)="editCalifications()">
+                                    <nb-icon matTooltip="Editar nota" matTooltipPosition="above" matSuffix
+                                        icon="edit-2-outline">
+                                    </nb-icon>
+                                </button>
+                                <button mat-raised-button color="primary" (click)="openDialog()">
+                                    <nb-icon matTooltip="Nueva nota" matTooltipPosition="above" matSuffix
+                                        icon="plus-outline">
+                                    </nb-icon>
+                                </button>
+                            </div>
+                            <div *ngIf="!selectedSubject.id">
+                                <button mat-raised-button color="basic" (click)="editCalifications()">
+                                    <nb-icon matTooltip="Editar nota" matTooltipPosition="above" matSuffix
+                                        icon="edit-2-outline">
+                                    </nb-icon>
+                                </button>
+                            </div>
+                        </mat-dialog-actions>
 
-                <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-                    <ng-container matColumnDef="alumnFullName" sticky>
-                        <th mat-header-cell *matHeaderCellDef>
-                            <h6 style="font-size:13px">Alumno</h6>
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                            {{element.alumnFullName}}
-                        </td>
-                    </ng-container>
+                        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                            <ng-container matColumnDef="alumnFullName" sticky>
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <h6 style="font-size:13px">Alumno</h6>
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <h6 style="font-size:13px">{{element.alumnFullName}}</h6>
+                                </td>
+                            </ng-container>
 
-                    <ng-container matColumnDef="N1">
-                        <th mat-header-cell *matHeaderCellDef>
-                            <div *ngIf="isCummulative.N1">
-                                <span matBadge="{{isCummulative.N1Total}}" matBadgeOverlap="false"
-                                    (click)=redirectingCalifications(1,false) class="pointer"
-                                    matTooltip="{{isCummulative.N1Total}} Notas de Proceso" matTooltipPosition="below">
-                                    N1
-                                </span>
-                            </div>
-                            <div *ngIf="!isCummulative.N1">
-                                N1
-                            </div>
-                        </th>
+                            <ng-container matColumnDef="N1">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <div *ngIf="isCummulative.N1">
+                                        <span matBadge="{{isCummulative.N1Total}}" matBadgeOverlap="false"
+                                            (click)=redirectingCalifications(1,false) class="pointer"
+                                            matTooltip="{{isCummulative.N1Total}} Notas de Proceso"
+                                            matTooltipPosition="below">
+                                            N1
+                                        </span>
+                                    </div>
+                                    <div *ngIf="!isCummulative.N1">
+                                        N1
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <mat-form-field class="type-number">
+                                        <input matInput name="N1" [(ngModel)]="element.N1"
+                                            [disabled]="!editAlumnCalifications||element.N1Cummulative"
+                                            [ngStyle]="{'background-color':element.N1>7||element.N1<2? 'yellow':'white' }">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="N2">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <div *ngIf="isCummulative.N2">
+                                        <span matBadge="{{isCummulative.N2Total}}" matBadgeOverlap="false"
+                                            (click)=redirectingCalifications(2,false) class="pointer"
+                                            matTooltip="{{isCummulative.N2Total}} Notas de Proceso"
+                                            matTooltipPosition="below">
+                                            N2
+                                        </span>
+                                    </div>
+                                    <div *ngIf="!isCummulative.N2">
+                                        N2
+                                    </div>
+                                </th>
 
-                        <td mat-cell *matCellDef="let element" matTooltip="N1" matTooltipPosition="above">
-                            <mat-form-field class="type-number">
-                                <input matInput [(ngModel)]="element.N1"
-                                    [ngStyle]="{'background-color':element.N1>7||element.N1<2? 'yellow':'white' }"
-                                    [disabled]="!editAlumnCalifications||element.N1Cummulative">
-                            </mat-form-field>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="N2">
-                        <th mat-header-cell *matHeaderCellDef>
-                            <div *ngIf="isCummulative.N2">
-                                <span matBadge="{{isCummulative.N2Total}}" matBadgeOverlap="false"
-                                    (click)=redirectingCalifications(2,false) class="pointer"
-                                    matTooltip="{{isCummulative.N2Total}} Notas de Proceso" matTooltipPosition="below">
-                                    N2
-                                </span>
-                            </div>
-                            <div *ngIf="!isCummulative.N2">
-                                N2
-                            </div>
-                        </th>
-
-                        <td mat-cell *matCellDef="let element" matTooltip="N2" matTooltipPosition="above">
-                            <mat-form-field class="type-number">
-                                <input matInput [(ngModel)]="element.N2"
-                                    [ngStyle]="{'background-color':element.N2>7||element.N2<2? 'yellow':'white' }"
-                                    [disabled]="!editAlumnCalifications||element.N2Cummulative">
-                            </mat-form-field>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="N3">
-                        <th mat-header-cell *matHeaderCellDef>
-                            <div *ngIf="isCummulative.N3">
-                                <span matBadge="{{isCummulative.N3Total}}" matBadgeOverlap="false"
-                                    (click)=redirectingCalifications(3,false) class="pointer"
-                                    matTooltip="{{isCummulative.N3Total}} Notas de Proceso" matTooltipPosition="below">
-                                    N3
-                                </span>
-                            </div>
-                            <div *ngIf="!isCummulative.N3">
-                                N3
-                            </div>
-                        </th>
-                        <td mat-cell *matCellDef="let element" matTooltip="N3" matTooltipPosition="above">
-                            <mat-form-field class="type-number">
-                                <input matInput [(ngModel)]="element.N3"
-                                    [ngStyle]="{'background-color':element.N3>7||element.N3<2? 'yellow':'white' }"
-                                    [disabled]="!editAlumnCalifications||element.N3Cummulative">
-                            </mat-form-field>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="N4">
-                        <th mat-header-cell *matHeaderCellDef>
-                            <div *ngIf="isCummulative.N4">
-                                <span matBadge="{{isCummulative.N4Total}}" matBadgeOverlap="false"
-                                    (click)=redirectingCalifications(4,false) class="pointer"
-                                    matTooltip="{{isCummulative.N4Total}} Notas de Proceso" matTooltipPosition="below">
-                                    N4
-                                </span>
-                            </div>
-                            <div *ngIf="!isCummulative.N4">
-                                N4
-                            </div>
-                        </th>
-                        <td mat-cell *matCellDef="let element" matTooltip="N4" matTooltipPosition="above">
-                            <mat-form-field class="type-number">
-                                <input matInput [(ngModel)]="element.N4"
-                                    [ngStyle]="{'background-color':element.N4>7||element.N4<2? 'yellow':'white' }"
-                                    [disabled]="!editAlumnCalifications||element.N4Cummulative">
-                            </mat-form-field>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="N5">
-                        <th mat-header-cell *matHeaderCellDef>
-                            <div *ngIf="isCummulative.N5">
-                                <span matBadge="{{isCummulative.N5Total}}" matBadgeOverlap="false"
-                                    (click)=redirectingCalifications(5,false) class="pointer"
-                                    matTooltip="{{isCummulative.N5Total}} Notas de Proceso" matTooltipPosition="below">
-                                    N5
-                                </span>
-                            </div>
-                            <div *ngIf="!isCummulative.N5">
-                                N5
-                            </div>
-                        </th>
-                        <td mat-cell *matCellDef="let element" matTooltip="N5" matTooltipPosition="above">
-                            <mat-form-field class="type-number">
-                                <input matInput [(ngModel)]="element.N5"
-                                    [ngStyle]="{'background-color':element.N5>7||element.N5<2? 'yellow':'white' }"
-                                    [disabled]="!editAlumnCalifications||element.N5Cummulative">
-                            </mat-form-field>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="N6">
-                        <th mat-header-cell *matHeaderCellDef>
-                            <div *ngIf="isCummulative.N6">
-                                <span matBadge="{{isCummulative.N6Total}}" matBadgeOverlap="false"
-                                    (click)=redirectingCalifications(6,false) class="pointer"
-                                    matTooltip="{{isCummulative.N6Total}} Notas de Proceso" matTooltipPosition="below">
-                                    N6
-                                </span>
-                            </div>
-                            <div *ngIf="!isCummulative.N6">
-                                N6
-                            </div>
-                        </th>
-                        <td mat-cell *matCellDef="let element" matTooltip="N6" matTooltipPosition="above">
-                            <mat-form-field class="type-number">
-                                <input matInput [(ngModel)]="element.N6"
-                                    [ngStyle]="{'background-color':element.N6>7||element.N6<2? 'yellow':'white' }"
-                                    [disabled]="!editAlumnCalifications||element.N6Cummulative">
-                            </mat-form-field>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="N7">
-                        <th mat-header-cell *matHeaderCellDef>
-                            <div *ngIf="isCummulative.N7">
-                                <span matBadge="{{isCummulative.N7Total}}" matBadgeOverlap="false"
-                                    (click)=redirectingCalifications(7,false) class="pointer"
-                                    matTooltip="{{isCummulative.N7Total}} Notas de Proceso" matTooltipPosition="below">
-                                    N7
-                                </span>
-                            </div>
-                            <div *ngIf="!isCummulative.N7">
-                                N7
-                            </div>
-                        </th>
-                        <td mat-cell *matCellDef="let element" matTooltip="N7" matTooltipPosition="above">
-                            <mat-form-field class="type-number">
-                                <input matInput [(ngModel)]="element.N7"
-                                    [ngStyle]="{'background-color':element.N7>7||element.N7<2? 'yellow':'white' }"
-                                    [disabled]="!editAlumnCalifications||element.N7Cummulative">
-                            </mat-form-field>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="N8">
-                        <th mat-header-cell *matHeaderCellDef>
-                            <div *ngIf="isCummulative.N8">
-                                <span matBadge="{{isCummulative.N8Total}}" matBadgeOverlap="false"
-                                    (click)=redirectingCalifications(8,false) class="pointer"
-                                    matTooltip="{{isCummulative.N8Total}} Notas de Proceso" matTooltipPosition="below">
-                                    N8
-                                </span>
-                            </div>
-                            <div *ngIf="!isCummulative.N8">
-                                N8
-                            </div>
-                        </th>
-                        <td mat-cell *matCellDef="let element" matTooltip="N8" matTooltipPosition="above">
-                            <mat-form-field class="type-number">
-                                <input matInput [(ngModel)]="element.N8"
-                                    [ngStyle]="{'background-color':element.N8>7||element.N8<2? 'yellow':'white' }"
-                                    [disabled]="!editAlumnCalifications||element.N8Cummulative">
-                            </mat-form-field>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="N9">
-                        <th mat-header-cell *matHeaderCellDef>
-                            <div *ngIf="isCummulative.N9">
-                                <span matBadge="{{isCummulative.N9Total}}" matBadgeOverlap="false"
-                                    (click)=redirectingCalifications(9,false) class="pointer"
-                                    matTooltip="{{isCummulative.N9Total}} Notas de Proceso" matTooltipPosition="below">
-                                    N9
-                                </span>
-                            </div>
-                            <div *ngIf="!isCummulative.N9">
-                                N9
-                            </div>
-                        </th>
-                        <td mat-cell *matCellDef="let element" matTooltip="N9" matTooltipPosition="above">
-                            <mat-form-field class="type-number">
-                                <input matInput [(ngModel)]="element.N9"
-                                    [ngStyle]="{'background-color':element.N9>7||element.N9<2? 'yellow':'white' }"
-                                    [disabled]="!editAlumnCalifications||element.N9Cummulative">
-                            </mat-form-field>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="N10">
-                        <th mat-header-cell *matHeaderCellDef>
-                            <div *ngIf="isCummulative.N10">
-                                <span matBadge="{{isCummulative.N10Total}}" matBadgeOverlap="false"
-                                    (click)=redirectingCalifications(10,false) class="pointer"
-                                    matTooltip="{{isCummulative.N10Total}} Notas de Proceso" matTooltipPosition="below">
-                                    N10
-                                </span>
-                            </div>
-                            <div *ngIf="!isCummulative.N10">
-                                N10
-                            </div>
-                        </th>
-                        <td mat-cell *matCellDef="let element" matTooltip="N10" matTooltipPosition="above">
-                            <mat-form-field class="type-number">
-                                <input matInput [(ngModel)]="element.N10"
-                                    [ngStyle]="{'background-color':element.N10>7||element.N10<2? 'yellow':'white' }"
-                                    [disabled]="!editAlumnCalifications||element.N10Cummulative">
-                            </mat-form-field>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="N11">
-                        <th mat-header-cell *matHeaderCellDef>
-                            <div *ngIf="isCummulative.N11">
-                                <span matBadge="{{isCummulative.N11Total}}" matBadgeOverlap="false"
-                                    (click)=redirectingCalifications(11,false) class="pointer"
-                                    matTooltip="{{isCummulative.N11Total}} Notas de Proceso" matTooltipPosition="below">
-                                    N11
-                                </span>
-                            </div>
-                            <div *ngIf="!isCummulative.N11">
-                                N11
-                            </div>
-                        </th>
-                        <td mat-cell *matCellDef="let element" matTooltip="N11" matTooltipPosition="above">
-                            <mat-form-field class="type-number">
-                                <input matInput [(ngModel)]="element.N11"
-                                    [ngStyle]="{'background-color':element.N11>7||element.N11<2? 'yellow':'white' }"
-                                    [disabled]="!editAlumnCalifications||element.N11Cummulative">
-                            </mat-form-field>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="N12">
-                        <th mat-header-cell *matHeaderCellDef>
-                            <div *ngIf="isCummulative.N12">
-                                <span matBadge="{{isCummulative.N12Total}}" matBadgeOverlap="false"
-                                    (click)=redirectingCalifications(12,false) class="pointer"
-                                    matTooltip="{{isCummulative.N12Total}} Notas de Proceso" matTooltipPosition="below">
-                                    N12
-                                </span>
-                            </div>
-                            <div *ngIf="!isCummulative.N12">
-                                N12
-                            </div>
-                        </th>
-                        <td mat-cell *matCellDef="let element" matTooltip="N12" matTooltipPosition="above">
-                            <mat-form-field class="type-number">
-                                <input matInput [(ngModel)]="element.N12"
-                                    [ngStyle]="{'background-color':element.N12>7||element.N12<2? 'yellow':'white' }"
-                                    [disabled]="!editAlumnCalifications||element.N12Cummulative">
-                            </mat-form-field>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="N13">
-                        <th mat-header-cell *matHeaderCellDef>
-                            <div *ngIf="isCummulative.N13">
-                                <span matBadge="{{isCummulative.N13Total}}" matBadgeOverlap="false"
-                                    (click)=redirectingCalifications(13,false) class="pointer"
-                                    matTooltip="{{isCummulative.N13Total}} Notas de Proceso" matTooltipPosition="below">
-                                    N13
-                                </span>
-                            </div>
-                            <div *ngIf="!isCummulative.N13">
-                                N13
-                            </div>
-                        </th>
-                        <td mat-cell *matCellDef="let element" matTooltip="N13" matTooltipPosition="above">
-                            <mat-form-field class="type-number">
-                                <input matInput [(ngModel)]="element.N13"
-                                    [ngStyle]="{'background-color':element.N13>7||element.N13<2? 'yellow':'white' }"
-                                    [disabled]="!editAlumnCalifications||element.N13Cummulative">
-                            </mat-form-field>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="N14">
-                        <th mat-header-cell *matHeaderCellDef>
-                            <div *ngIf="isCummulative.N14">
-                                <span matBadge="{{isCummulative.N14Total}}" matBadgeOverlap="false"
-                                    (click)=redirectingCalifications(14,false) class="pointer"
-                                    matTooltip="{{isCummulative.N14Total}} Notas de Proceso" matTooltipPosition="below">
-                                    N14
-                                </span>
-                            </div>
-                            <div *ngIf="!isCummulative.N14">
-                                N14
-                            </div>
-                        </th>
-                        <td mat-cell *matCellDef="let element" matTooltip="N14" matTooltipPosition="above">
-                            <mat-form-field class="type-number">
-                                <input matInput [(ngModel)]="element.N14"
-                                    [ngStyle]="{'background-color':element.N14>7||element.N14<2? 'yellow':'white' }"
-                                    [disabled]="!editAlumnCalifications||element.N14Cummulative">
-                            </mat-form-field>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="N15">
-                        <th mat-header-cell *matHeaderCellDef>
-                            <div *ngIf="isCummulative.N15">
-                                <span matBadge="{{isCummulative.N15Total}}" matBadgeOverlap="false"
-                                    (click)=redirectingCalifications(15,false) class="pointer"
-                                    matTooltip="{{isCummulative.N15Total}} Notas de Proceso" matTooltipPosition="below">
-                                    N15
-                                </span>
-                            </div>
-                            <div *ngIf="!isCummulative.N15">
-                                N15
-                            </div>
-                        </th>
-                        <td mat-cell *matCellDef="let element" matTooltip="N15" matTooltipPosition="above">
-                            <mat-form-field class="type-number">
-                                <input matInput [(ngModel)]="element.N15"
-                                    [ngStyle]="{'background-color':element.N15>7||element.N15<2? 'yellow':'white' }"
-                                    [disabled]="!editAlumnCalifications||element.N15Cummulative">
-                            </mat-form-field>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="avg">
-                        <th mat-header-cell *matHeaderCellDef> Promedio </th>
-                        <td mat-cell *matCellDef="let element" matTooltip="Promedio" matTooltipPosition="above">
-                            <mat-form-field class="type-number">
-                                <input matInput [(ngModel)]="element.avg" disabled>
-                            </mat-form-field>
-                        </td>
-                    </ng-container>
-                    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-                    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
-                </mat-table>
-            </nb-card>
-        </div>
-    </div>
-
-    <div class="col-md-12">
-        <mat-dialog-actions>
-            <div class="example-button-row">
-                <div *ngIf=!generated>
-                    <button mat-raised-button color="primary" (click)="generatePdf()" [disabled]="!selectedGrade.id"
-                        [nbSpinner]="waitingDownload" nbSpinnerStatus="info">
-                        Generar Informe
-                    </button>
-                    <button mat-raised-button class="multi-test" color="primary" [disabled]="!califications.length"
-                        (click)="updateCalifications()">GUARDAR</button>
-                </div>
-                <div *ngIf=generated>
-                    <button mat-raised-button color="primary" (click)="downloadReport()">
-                        <nb-icon matTooltip="Descargar Informe" matTooltipPosition="above" matSuffix
-                            icon="cloud-download-outline">
-                        </nb-icon>
-                    </button>
-                    <button mat-raised-button class="multi-test" color="primary"
-                        (click)="updateCalifications()">GUARDAR</button>
+                                <td mat-cell *matCellDef="let element">
+                                    <mat-form-field class="type-number">
+                                        <input matInput [(ngModel)]="element.N2"
+                                            [ngStyle]="{'background-color':element.N2>7||element.N2<2? 'yellow':'white' }"
+                                            [disabled]="!editAlumnCalifications||element.N2Cummulative">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="N3">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <div *ngIf="isCummulative.N3">
+                                        <span matBadge="{{isCummulative.N3Total}}" matBadgeOverlap="false"
+                                            (click)=redirectingCalifications(3,false) class="pointer"
+                                            matTooltip="{{isCummulative.N3Total}} Notas de Proceso"
+                                            matTooltipPosition="below">
+                                            N3
+                                        </span>
+                                    </div>
+                                    <div *ngIf="!isCummulative.N3">
+                                        N3
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <mat-form-field class="type-number">
+                                        <input matInput [(ngModel)]="element.N3"
+                                            [ngStyle]="{'background-color':element.N3>7||element.N3<2? 'yellow':'white' }"
+                                            [disabled]="!editAlumnCalifications||element.N3Cummulative">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="N4">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <div *ngIf="isCummulative.N4">
+                                        <span matBadge="{{isCummulative.N4Total}}" matBadgeOverlap="false"
+                                            (click)=redirectingCalifications(4,false) class="pointer"
+                                            matTooltip="{{isCummulative.N4Total}} Notas de Proceso"
+                                            matTooltipPosition="below">
+                                            N4
+                                        </span>
+                                    </div>
+                                    <div *ngIf="!isCummulative.N4">
+                                        N4
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <mat-form-field class="type-number">
+                                        <input matInput [(ngModel)]="element.N4"
+                                            [ngStyle]="{'background-color':element.N4>7||element.N4<2? 'yellow':'white' }"
+                                            [disabled]="!editAlumnCalifications||element.N4Cummulative">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="N5">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <div *ngIf="isCummulative.N5">
+                                        <span matBadge="{{isCummulative.N5Total}}" matBadgeOverlap="false"
+                                            (click)=redirectingCalifications(5,false) class="pointer"
+                                            matTooltip="{{isCummulative.N5Total}} Notas de Proceso"
+                                            matTooltipPosition="below">
+                                            N5
+                                        </span>
+                                    </div>
+                                    <div *ngIf="!isCummulative.N5">
+                                        N5
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <mat-form-field class="type-number">
+                                        <input matInput [(ngModel)]="element.N5"
+                                            [ngStyle]="{'background-color':element.N5>7||element.N5<2? 'yellow':'white' }"
+                                            [disabled]="!editAlumnCalifications||element.N5Cummulative">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="N6">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <div *ngIf="isCummulative.N6">
+                                        <span matBadge="{{isCummulative.N6Total}}" matBadgeOverlap="false"
+                                            (click)=redirectingCalifications(6,false) class="pointer"
+                                            matTooltip="{{isCummulative.N6Total}} Notas de Proceso"
+                                            matTooltipPosition="below">
+                                            N6
+                                        </span>
+                                    </div>
+                                    <div *ngIf="!isCummulative.N6">
+                                        N6
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <mat-form-field class="type-number">
+                                        <input matInput [(ngModel)]="element.N6"
+                                            [ngStyle]="{'background-color':element.N6>7||element.N6<2? 'yellow':'white' }"
+                                            [disabled]="!editAlumnCalifications||element.N6Cummulative">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="N7">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <div *ngIf="isCummulative.N7">
+                                        <span matBadge="{{isCummulative.N7Total}}" matBadgeOverlap="false"
+                                            (click)=redirectingCalifications(7,false) class="pointer"
+                                            matTooltip="{{isCummulative.N7Total}} Notas de Proceso"
+                                            matTooltipPosition="below">
+                                            N7
+                                        </span>
+                                    </div>
+                                    <div *ngIf="!isCummulative.N7">
+                                        N7
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <mat-form-field class="type-number">
+                                        <input matInput [(ngModel)]="element.N7"
+                                            [ngStyle]="{'background-color':element.N7>7||element.N7<2? 'yellow':'white' }"
+                                            [disabled]="!editAlumnCalifications||element.N7Cummulative">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="N8">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <div *ngIf="isCummulative.N8">
+                                        <span matBadge="{{isCummulative.N8Total}}" matBadgeOverlap="false"
+                                            (click)=redirectingCalifications(8,false) class="pointer"
+                                            matTooltip="{{isCummulative.N8Total}} Notas de Proceso"
+                                            matTooltipPosition="below">
+                                            N8
+                                        </span>
+                                    </div>
+                                    <div *ngIf="!isCummulative.N8">
+                                        N8
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <mat-form-field class="type-number">
+                                        <input matInput [(ngModel)]="element.N8"
+                                            [ngStyle]="{'background-color':element.N8>7||element.N8<2? 'yellow':'white' }"
+                                            [disabled]="!editAlumnCalifications||element.N8Cummulative">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="N9">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <div *ngIf="isCummulative.N9">
+                                        <span matBadge="{{isCummulative.N9Total}}" matBadgeOverlap="false"
+                                            (click)=redirectingCalifications(9,false) class="pointer"
+                                            matTooltip="{{isCummulative.N9Total}} Notas de Proceso"
+                                            matTooltipPosition="below">
+                                            N9
+                                        </span>
+                                    </div>
+                                    <div *ngIf="!isCummulative.N9">
+                                        N9
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <mat-form-field class="type-number">
+                                        <input matInput [(ngModel)]="element.N9"
+                                            [ngStyle]="{'background-color':element.N9>7||element.N9<2? 'yellow':'white' }"
+                                            [disabled]="!editAlumnCalifications||element.N9Cummulative">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="N10">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <div *ngIf="isCummulative.N10">
+                                        <span matBadge="{{isCummulative.N10Total}}" matBadgeOverlap="false"
+                                            (click)=redirectingCalifications(10,false) class="pointer"
+                                            matTooltip="{{isCummulative.N10Total}} Notas de Proceso"
+                                            matTooltipPosition="below">
+                                            N10
+                                        </span>
+                                    </div>
+                                    <div *ngIf="!isCummulative.N10">
+                                        N10
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <mat-form-field class="type-number">
+                                        <input matInput [(ngModel)]="element.N10"
+                                            [ngStyle]="{'background-color':element.N10>7||element.N10<2? 'yellow':'white' }"
+                                            [disabled]="!editAlumnCalifications||element.N10Cummulative">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="N11">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <div *ngIf="isCummulative.N11">
+                                        <span matBadge="{{isCummulative.N11Total}}" matBadgeOverlap="false"
+                                            (click)=redirectingCalifications(11,false) class="pointer"
+                                            matTooltip="{{isCummulative.N11Total}} Notas de Proceso"
+                                            matTooltipPosition="below">
+                                            N11
+                                        </span>
+                                    </div>
+                                    <div *ngIf="!isCummulative.N11">
+                                        N11
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <mat-form-field class="type-number">
+                                        <input matInput [(ngModel)]="element.N11"
+                                            [ngStyle]="{'background-color':element.N11>7||element.N11<2? 'yellow':'white' }"
+                                            [disabled]="!editAlumnCalifications||element.N11Cummulative">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="N12">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <div *ngIf="isCummulative.N12">
+                                        <span matBadge="{{isCummulative.N12Total}}" matBadgeOverlap="false"
+                                            (click)=redirectingCalifications(12,false) class="pointer"
+                                            matTooltip="{{isCummulative.N12Total}} Notas de Proceso"
+                                            matTooltipPosition="below">
+                                            N12
+                                        </span>
+                                    </div>
+                                    <div *ngIf="!isCummulative.N12">
+                                        N12
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <mat-form-field class="type-number">
+                                        <input matInput [(ngModel)]="element.N12"
+                                            [ngStyle]="{'background-color':element.N12>7||element.N12<2? 'yellow':'white' }"
+                                            [disabled]="!editAlumnCalifications||element.N12Cummulative">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="N13">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <div *ngIf="isCummulative.N13">
+                                        <span matBadge="{{isCummulative.N13Total}}" matBadgeOverlap="false"
+                                            (click)=redirectingCalifications(13,false) class="pointer"
+                                            matTooltip="{{isCummulative.N13Total}} Notas de Proceso"
+                                            matTooltipPosition="below">
+                                            N13
+                                        </span>
+                                    </div>
+                                    <div *ngIf="!isCummulative.N13">
+                                        N13
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <mat-form-field class="type-number">
+                                        <input matInput [(ngModel)]="element.N13"
+                                            [ngStyle]="{'background-color':element.N13>7||element.N13<2? 'yellow':'white' }"
+                                            [disabled]="!editAlumnCalifications||element.N13Cummulative">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="N14">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <div *ngIf="isCummulative.N14">
+                                        <span matBadge="{{isCummulative.N14Total}}" matBadgeOverlap="false"
+                                            (click)=redirectingCalifications(14,false) class="pointer"
+                                            matTooltip="{{isCummulative.N14Total}} Notas de Proceso"
+                                            matTooltipPosition="below">
+                                            N14
+                                        </span>
+                                    </div>
+                                    <div *ngIf="!isCummulative.N14">
+                                        N14
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <mat-form-field class="type-number">
+                                        <input matInput [(ngModel)]="element.N14"
+                                            [ngStyle]="{'background-color':element.N14>7||element.N14<2? 'yellow':'white' }"
+                                            [disabled]="!editAlumnCalifications||element.N14Cummulative">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="N15">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <div *ngIf="isCummulative.N15">
+                                        <span matBadge="{{isCummulative.N15Total}}" matBadgeOverlap="false"
+                                            (click)=redirectingCalifications(15,false) class="pointer"
+                                            matTooltip="{{isCummulative.N15Total}} Notas de Proceso"
+                                            matTooltipPosition="below">
+                                            N15
+                                        </span>
+                                    </div>
+                                    <div *ngIf="!isCummulative.N15">
+                                        N15
+                                    </div>
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                    <mat-form-field class="type-number">
+                                        <input matInput [(ngModel)]="element.N15"
+                                            [ngStyle]="{'background-color':element.N15>7||element.N15<2? 'yellow':'white' }"
+                                            [disabled]="!editAlumnCalifications||element.N15Cummulative">
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                            <ng-container matColumnDef="avg">
+                                <th mat-header-cell *matHeaderCellDef> Promedio </th>
+                                <td mat-cell *matCellDef="let element" matTooltip="Promedio" matTooltipPosition="above">
+                                    <mat-form-field class="type-number">
+                                        <input matInput [(ngModel)]="element.avg" disabled>
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                            <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+                        </mat-table>
+                    </nb-card>
                 </div>
             </div>
 
-        </mat-dialog-actions>
+            <div class="col-md-12">
+                <mat-dialog-actions>
+                    <div class="example-button-row">
+                        <div *ngIf=!generated>
+                            <button mat-raised-button color="primary" (click)="generatePdf()"
+                                [disabled]="!selectedGrade.id" [nbSpinner]="waitingDownload" nbSpinnerStatus="info">
+                                Generar Informe
+                            </button>
+                            <button mat-raised-button class="multi-test" color="primary"
+                                [disabled]="!califications.length" (click)="updateCalifications()">GUARDAR</button>
+                        </div>
+                        <div *ngIf=generated>
+                            <button mat-raised-button color="primary" (click)="downloadReport()">
+                                <nb-icon matTooltip="Descargar Informe" matTooltipPosition="above" matSuffix
+                                    icon="cloud-download-outline">
+                                </nb-icon>
+                            </button>
+                            <button mat-raised-button class="multi-test" color="primary"
+                                (click)="updateCalifications()">GUARDAR</button>
+                        </div>
+                    </div>
 
-    </div>
-</div>
+                </mat-dialog-actions>
+
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

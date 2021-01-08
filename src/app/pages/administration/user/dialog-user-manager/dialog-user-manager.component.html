@@ -61,7 +61,7 @@
     </div>
     <div class="row">
         <div class="col-md-6" *ngIf="isNewUser">
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="full-width">
                 <mat-label>Contraseña</mat-label>
                 <input matInput name="password" type="password" [(ngModel)]="userContentForm.password" required>
 
@@ -84,7 +84,7 @@
 
 </mat-dialog-content>
 <mat-dialog-actions>
-    <div *ngIf="!userContentForm.status">
+    <div *ngIf="!userContentForm.status&&!isNewUser">
         <swal #deactUser title="Desactivar {{ userContentForm.username }}?"
             [swalOptions]="{ confirmButtonText: 'Aceptar',cancelButtonText: 'Cancelar' }"
             text="El usuario {{ userContentForm.username }} quedará desactivado. Está seguro?  " icon="question"
@@ -92,7 +92,7 @@
         </swal>
         <button mat-button color="accent" [swal]="deactUser">{{buttonTitle}}</button>
     </div>
-    <div *ngIf="userContentForm.status"> <button mat-button color="accent"
+    <div *ngIf="userContentForm.status||isNewUser"> <button mat-button color="accent"
             (click)="manageUser()">{{buttonTitle}}</button></div>
 
 </mat-dialog-actions>

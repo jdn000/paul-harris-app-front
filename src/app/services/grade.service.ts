@@ -27,6 +27,11 @@ export class GradeService {
             .pipe(retry(1), catchError(this.errorService.errorHandler));
     }
 
+    update(id: number, data: Grade) {
+        return this.http
+            .put<Grade>(this.baseUrl + `/${id}`, data, this.httpOptions)
+            .pipe(retry(1), catchError(this.errorService.errorHandler));
+    }
 
 
 }

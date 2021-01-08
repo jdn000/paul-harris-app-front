@@ -44,8 +44,19 @@ export class AlumnComponent implements OnInit, AfterViewInit {
     try {
       this.grades = await this.gradeService.getAll().toPromise();
       this.alumns = await this.alumnService.getAll().toPromise();
-      this.filteredAlumns = this.alumns;
-      this.selectedGrades = this.grades;
+      if (!this.filteredAlumns.length) {
+        this.filteredAlumns = this.alumns;
+        this.selectedGrades = this.grades;
+      }
+      if (this.filteredAlumns.length) {
+        let updated = [];
+        this.filteredAlumns.forEach((a) => {
+          updated.push(this.alumns.find((c) => c.id === a.id));
+        });
+        this.filteredAlumns = updated;
+        this.selectedGrades = this.grades;
+      }
+
     } catch (error) {
       this.toastService.showError(error.message || error);
     }
@@ -62,7 +73,6 @@ export class AlumnComponent implements OnInit, AfterViewInit {
         }
       }
       if (!evt.value.length) {
-
         this.filteredAlumns = this.alumns;
       }
       this.filteredAlumns = _.uniqBy(this.filteredAlumns, 'id');
@@ -95,6 +105,7 @@ export class AlumnComponent implements OnInit, AfterViewInit {
       panelClass: 'custom-modalbox',
     }).afterClosed().subscribe(async (data) => {
       if (data) {
+
         await this.load();
       }
     });
@@ -138,7 +149,8 @@ export class AlumnComponent implements OnInit, AfterViewInit {
         title: 'Curso',
         type: 'string',
         valuePrepareFunction: (cell, row) => {
-          return (this.grades.find((g) => g.id === cell)).description;
+          const grade = this.grades.find((g) => g.id === cell);
+          return grade ? grade.description : 'sin curso asignado';
         },
       },
 
