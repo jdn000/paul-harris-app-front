@@ -35,6 +35,7 @@ export class AlumnComponent implements OnInit, AfterViewInit {
   grades: Grade[] = [];
   selectedGrades: Grade[] = [];
   filteredAlumns: Alumn[] = [];
+  al = [];
   async ngOnInit() {
     this.ngxService.startLoader('loader');
     await this.load();
@@ -42,20 +43,14 @@ export class AlumnComponent implements OnInit, AfterViewInit {
   }
   async load() {
     try {
+      this.al = [];
       this.grades = await this.gradeService.getAll().toPromise();
       this.alumns = await this.alumnService.getAll().toPromise();
-      if (!this.filteredAlumns.length) {
-        this.filteredAlumns = this.alumns;
-        this.selectedGrades = this.grades;
-      }
-      if (this.filteredAlumns.length) {
-        let updated = [];
-        this.filteredAlumns.forEach((a) => {
-          updated.push(this.alumns.find((c) => c.id === a.id));
-        });
-        this.filteredAlumns = updated;
-        this.selectedGrades = this.grades;
-      }
+
+      this.filteredAlumns = this.alumns;
+      this.selectedGrades = this.grades;
+
+
 
     } catch (error) {
       this.toastService.showError(error.message || error);
@@ -105,7 +100,6 @@ export class AlumnComponent implements OnInit, AfterViewInit {
       panelClass: 'custom-modalbox',
     }).afterClosed().subscribe(async (data) => {
       if (data) {
-
         await this.load();
       }
     });

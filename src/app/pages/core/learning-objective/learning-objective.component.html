@@ -10,7 +10,7 @@
                     <div class="col-md-4">
                         <mat-form-field class="example-full-width">
                             <mat-label>Filtrar por curso</mat-label>
-                            <mat-select (selectionChange)="onSelectedGrade($event)" multiple>
+                            <mat-select (selectionChange)="onSelectedGrade($event)" [(ngModel)]="sg" multiple>
                                 <mat-option *ngFor="let grade of grades" [value]="grade.id">
                                     {{grade.description }}
                                 </mat-option>

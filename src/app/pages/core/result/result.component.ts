@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 import { Grade } from '../../../models/grade';
 import { LearningObjective, ObjectiveData } from '../../../models/learningObjective';
 import { Subject } from '../../../models/subject';
-import { AlumnService } from '../../../services/alumn.service';
 import { CalificationService } from '../../../services/calification.service';
 import { GradeService } from '../../../services/grade.service';
 import { LearningObjectiveService } from '../../../services/learning-objective.service';
@@ -17,7 +15,6 @@ import { AlumnCalification } from '../../../models/calification';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { UserSubject } from '../../../models/user';
 import { UserSubjectService } from '../../../services/userSubject.service';
-import { triggerAsyncId } from 'async_hooks';
 @Component({
   selector: 'ngx-result',
   templateUrl: './result.component.html',
@@ -85,7 +82,7 @@ export class ResultComponent implements OnInit {
     await this.load();
     //   this.multi = multi;
     this.ngxService.stopLoader('obj');
-    this.objectives = await this.objectiveService.getAll().toPromise();
+    //  this.objectives = await this.objectiveService.getAll().toPromise();
   }
   async load() {
     try {
@@ -115,9 +112,9 @@ export class ResultComponent implements OnInit {
   async filterObjectives() {
     this.rawObjectives = await this.objectiveService.getAll().toPromise();
     this.subjects.forEach((u) => {
-      const allowedObjectives = this.rawObjectives.find((rs) => rs.subjectId === u.id);
+      const allowedObjectives = this.rawObjectives.filter((rs) => rs.subjectId === u.id);
       if (allowedObjectives) {
-        this.learningObjectives.push(allowedObjectives);
+        this.learningObjectives.push(...allowedObjectives);
       }
     });
   }
@@ -136,19 +133,23 @@ export class ResultComponent implements OnInit {
     try {
       this.filteredLearningObjectives = [];
       if (evt.value) {
+
         const filteredsByGrade = this.learningObjectives.filter((a) => a.gradeId === evt.value);
         this.filteredLearningObjectives.push(...filteredsByGrade);
       }
       if (!evt.value.length) {
         this.filteredLearningObjectives = this.learningObjectives;
       }
+
       this.filteredLearningObjectives = _.uniqBy(this.filteredLearningObjectives, 'id');
+
     } catch (error) {
       this.toastService.showError(error.message || error);
     }
   }
   async onSelectedSubject(evt: any) {
     try {
+
       let temp = [];
       if (evt.value) {
         const filteredsBySubject = this.filteredLearningObjectives.filter((a) => a.subjectId === evt.value && a.gradeId === this.selectedGradeId2);

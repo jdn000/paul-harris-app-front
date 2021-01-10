@@ -19,9 +19,6 @@
 
             </div>
             <div class="col-md-6" *ngIf="isCummulative">
-
-
-
             </div>
             <div class="col-md-6" *ngIf="form.evaluationNumber>1">
                 <mat-checkbox (selectionChange)="onChange($event)" [ngModelOptions]="{standalone: true}"
@@ -65,7 +62,7 @@
                 <mat-form-field class="example-full-width">
                     <mat-label>Seleccione calificacion a añadir </mat-label>
                     <mat-select [(ngModel)]="form.calificationId">
-                        <mat-option *ngFor="let calification of calificationsToSelect"
+                        <mat-option *ngFor="let calification of calificationsSelected"
                             [value]="calification.calificationId">
                             Numero de calificación:{{calification.evaluationNumber }}
                         </mat-option>

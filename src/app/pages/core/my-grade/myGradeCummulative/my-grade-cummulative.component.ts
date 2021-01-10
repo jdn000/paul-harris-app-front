@@ -22,9 +22,7 @@ export class MyGradeCummulativeComponent implements OnInit {
 
   constructor(private readonly calificationService: CalificationService,
     private readonly toastService: ToastService,
-
     private readonly router: Router,
-
     private readonly alumnService: AlumnService,
 
 
@@ -134,24 +132,31 @@ export class MyGradeCummulativeComponent implements OnInit {
         let calificationsToUpdate = [];
         let mainCalificationToUpdate = [];
         this.alumnCalifications.forEach((c) => {
+          let total = 0;
+          let count = 0;
+
           for (let i = 1; i <= 15; i++) {
             if (c[`A${i}`]) {
-              mainCalificationToUpdate.push({
-                id: c.calificationId,
-                value: Number((c.avg).toFixed(1))
-              });
+              total = total + Number(c[`A${i}`]);
+              count += 1;
               calificationsToUpdate.push({
                 id: c[`A${i}Id`],
                 value: c[`A${i}`]
               });
             }
           }
+
+          mainCalificationToUpdate.push({
+            id: c.calificationId,
+            value: total > 0 ? (total / count).toFixed(1) : 0
+          });
+
         }
         );
         if (!calificationsToUpdate.length) {
           this.toastService.showError('no se pudo actualizar');
         } else {
-          mainCalificationToUpdate = _.uniqBy(mainCalificationToUpdate, 'id');
+          // mainCalificationToUpdate = _.uniqBy(mainCalificationToUpdate, 'id');
           const updated = await this.calificationService.updateCummulatives(calificationsToUpdate).toPromise();
           const mainCalificationUpdated = await this.calificationService.update(mainCalificationToUpdate).toPromise();
           updated && mainCalificationUpdated ? this.toastService.showSuccess('actualizadas') : this.toastService.showError('no se pudo actualizar');

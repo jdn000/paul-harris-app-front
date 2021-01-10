@@ -39,6 +39,7 @@ export class LearningObjectiveComponent implements OnInit, AfterViewInit {
   selectedSubjects: Subject[] = [];
   rawSubjects: Subject[] = [];
   userSubjects: UserSubject[] = [];
+  sg = [];
   filteredLearningObjectives: LearningObjective[] = [];
   async ngOnInit() {
     this.ngxService.startLoader('obj');
@@ -47,8 +48,10 @@ export class LearningObjectiveComponent implements OnInit, AfterViewInit {
   }
   async load() {
     try {
+      this.filteredLearningObjectives = [];
+      this.learningObjectives = [];
+      this.sg = [];
       this.grades = await this.gradeService.getAll().toPromise();
-
       await this.filterSubjects();
       await this.filterLearningObjectives();
       this.filteredLearningObjectives = this.learningObjectives;
@@ -126,7 +129,7 @@ export class LearningObjectiveComponent implements OnInit, AfterViewInit {
       this.openDialog();
     });
   }
-  openDialog(): void {
+  async openDialog(): Promise<void> {
     this.dialog.open(DialogLearningObjectiveComponent, {
       data: {
         allObjectives: this.learningObjectives,

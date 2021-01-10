@@ -76,6 +76,7 @@ export class CalificationService {
       .pipe(retry(1), catchError(this.errorService.errorHandler));
   }
   addCummulatives(data: BatchCalifications) {
+
     return this.http
       .post<any>(this.baseUrl + `/cummulative`, data, this.httpOptions)
       .pipe(retry(1), catchError(this.errorService.errorHandler));

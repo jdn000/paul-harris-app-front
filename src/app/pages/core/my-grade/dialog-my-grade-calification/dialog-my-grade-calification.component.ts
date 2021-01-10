@@ -47,6 +47,7 @@ export class DialogMyGradeCalificationComponent implements OnInit {
   calificationIndicator: CalificationIndicator = {} as CalificationIndicator;
   calificationIndicators: CalificationIndicator[] = [];
   calificationNumber: number;
+  calificationsSelected: Calification[];
   filteredIndicators: Indicator[] = [];
   alumns: Alumn[];
   calificationsToSelect: Calification[] = [];
@@ -67,28 +68,40 @@ export class DialogMyGradeCalificationComponent implements OnInit {
     this.selectedSubjectId = this.getData.subjectId;
     this.calificationNumber = this.getData.calificationNumber;
     this.calificationsToSelect = this.getData.calificationsToSelect;
-    this.objectives = await this.learningObjectiveService.getGradeAndSubjectId(this.selectedGrade.id, this.selectedSubjectId).toPromise();
-    this.objectivesFiltered = await this.objectives.filter((i) => i.hasCalifications === true);
-    this.alumns = this.getData.allAlumns;
-    this.form.evaluationNumber = this.calificationNumber;
-    this.calificationIndicators = await Promise.all(this.objectives.map(async (objective) => {
-      let indicators = await this.indicatorService.getByObjectiveId(objective.id).toPromise();
-      return {
-        calificationId: objective.id,
-        indicatorsIds: indicators.map((i) => { return i.id; })
-      };
-    }));
+    this.calificationsSelected = [];
+    if (this.calificationNumber >= 15) {
+      this.detectMaxReached();
+    } else {
+      this.objectives = await this.learningObjectiveService.getGradeAndSubjectId(this.selectedGrade.id, this.selectedSubjectId).toPromise();
+      this.objectives = _.uniqBy(this.objectives, 'id');
+      this.objectivesFiltered = await this.objectives.filter((i) => i.hasCalifications === true);
+      this.alumns = this.getData.allAlumns;
+      this.form.evaluationNumber = this.calificationNumber;
+      this.calificationIndicators = await Promise.all(this.objectives.map(async (objective) => {
+        let indicators = await this.indicatorService.getByObjectiveId(objective.id).toPromise();
+        return {
+          calificationId: objective.id,
+          indicatorsIds: indicators.map((i) => { return i.id; })
+        };
+      }));
+    }
   }
-
+  async detectMaxReached() {
+    this.toastService.showInfo('Límite de notas alcanzado');
+    this.dialogRef.close();
+  }
   async onSelectedObjective(evt: any) {
     try {
       this.filteredIndicators = [];
+      this.calificationsSelected = [];
       if (evt.value) {
         this.filteredIndicators = await this.indicatorService.getByObjectiveId(evt.value).toPromise();
       } else {
         this.filteredIndicators = [];
       }
       this.filteredIndicators = _.uniqBy(this.filteredIndicators, 'id');
+
+      this.calificationsSelected = this.calificationsToSelect.filter((c) => c.objectiveId === evt.value);
 
     } catch (error) {
       this.toastService.showError(error.message || error);
@@ -107,16 +120,16 @@ export class DialogMyGradeCalificationComponent implements OnInit {
     }
   }
   async manageCalifications() {
-    this.form.subjectId = this.selectedSubjectId;
-    this.form.gradeId = this.selectedGrade.id;
+
     const mainCalification = {
-      subjectId: this.form.subjectId,
+      subjectId: this.selectedSubjectId,
       isCummulative: this.isCummulative,
       objectiveId: this.isCummulative ? null : this.form.objectiveId,
       evaluationNumber: this.isCummulative ? await this.getHigestEvaluationNumber(this.form.calificationId) : this.form.evaluationNumber,
-      gradeId: this.form.gradeId,
+      gradeId: this.selectedGrade.id,
 
     };
+
     let calificationsToSave = this.alumns.map((alumn) => {
       return {
         alumnId: alumn.id,
@@ -129,10 +142,12 @@ export class DialogMyGradeCalificationComponent implements OnInit {
       indicators: this.form.indicators
     };
     let a: any;
+
     if (!this.isCummulative) {
       a = await this.calificationService.add(batchCalifToSave).toPromise();
     } else {
       batchCalifToSave.mainCalification.id = this.form.calificationId;
+
       a = await this.calificationService.addCummulatives(batchCalifToSave).toPromise();
     }
     if (a) {
@@ -142,9 +157,10 @@ export class DialogMyGradeCalificationComponent implements OnInit {
     }
     a.isCummulative = this.isCummulative;
     a.evaluationNumber = this.calificationNumber - 1;
+    a.calificationId = this.form.calificationId;
+
     this.dialogRef.close(a);
   }
-
   async getHigestEvaluationNumber(calificationId: number) {
     const cummulativeCalifications = await this.calificationService.getCummulativeByCalificationId(calificationId).toPromise();
     let maxvalue = Math.max(...cummulativeCalifications.map(elt => elt.evaluationNumber));

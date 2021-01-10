@@ -11,13 +11,6 @@
     <div class="row">
         <div class="col-md-4">
             <mat-form-field class="example-full-width">
-                <mat-label>Nombres Alumno</mat-label>
-                <input matInput name="names" [(ngModel)]="alumnContentForm.names" required>
-                <mat-error *ngIf="!alumnContentForm.names">Ingrese nombres del alumno</mat-error>
-            </mat-form-field>
-        </div>
-        <div class="col-md-4">
-            <mat-form-field class="example-full-width">
                 <mat-label> Apellido Paterno</mat-label>
                 <input matInput name="lastname" [(ngModel)]="alumnContentForm.lastName" required>
                 <mat-error *ngIf="!alumnContentForm.lastName">Ingrese apellido paterno</mat-error>
@@ -32,9 +25,16 @@
         </div>
         <div class="col-md-4">
             <mat-form-field class="example-full-width">
+                <mat-label>Nombres Alumno</mat-label>
+                <input matInput name="names" [(ngModel)]="alumnContentForm.names" required>
+                <mat-error *ngIf="!alumnContentForm.names">Ingrese nombres del alumno</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="example-full-width">
                 <mat-label> Run</mat-label>
                 <input matInput name="run" [(ngModel)]="alumnContentForm.run">
-                <mat-error *ngIf="!alumnContentForm.run">Ingrese run</mat-error>
+
             </mat-form-field>
         </div>
         <div class="col-md-4" *ngIf="isNewAlumn">
@@ -44,7 +44,6 @@
                     <mat-option *ngFor="let grade of getData.grades" [value]="grade.id">
                         {{grade.description}}
                     </mat-option>
-
                 </mat-select>
                 <mat-error *ngIf="!alumnContentForm.gradeId">Seleccione curso</mat-error>
             </mat-form-field>

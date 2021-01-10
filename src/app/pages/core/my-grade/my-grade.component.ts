@@ -126,12 +126,12 @@ export class MyGradeComponent implements OnInit {
   async ngOnInit() {
     this.ngxService.startLoader('my');
     const rawGrades = await this.gradeService.getAll().toPromise();
-
     this.grades = rawGrades.filter((g) => g.headTeacherId === Number(localStorage.getItem('userId')));
     if (!this.grades.length) {
       this.toastService.showInfo('No posee jefatura de curso');
       this.router.navigate(['/pages']);
     }
+
     this.subjects = await this.subjectService.getAll().toPromise();
     this.alumns = await this.alumnService.getAll().toPromise();
     this.filteredAlumns = this.alumns;
@@ -149,7 +149,6 @@ export class MyGradeComponent implements OnInit {
   }
 
   compareFunction = (o1: any, o2: any) => o1.id === o2.id;
-
   async onSelectedGrade(evt: any) {
     try {
       this.filteredAlumns = [];
@@ -209,16 +208,15 @@ export class MyGradeComponent implements OnInit {
     this.cummulativeColumnsToDisplay = this.displayedColumns.slice();
     this.califications = await this.calificationService.getByGradeAndSubjectId(gradeId, subjectId).toPromise();
     this.cummulativeCalifications = await this.calificationService.getCummulativeByGradeAndSubjectId(gradeId, subjectId).toPromise();
+    this.cummulativeCalifications = _.uniqBy(this.cummulativeCalifications, 'id');
     let maxvalue = Math.max(...this.califications.map(elt => elt.evaluationNumber));
     this.calificationNumber = maxvalue >= 0 ? maxvalue : 0;
     for (let i = 0; i < maxvalue; i++) {
       this.columnsToDisplay.push(`N${i + 1}`);
-
     }
     this.alumnCalifications.forEach(async (alumn) => {
       const foundedCalifications = this.califications.filter((c) => c.alumnId === alumn.alumnId);
-      let count = 0;
-      let total = 0;
+
       alumn.avg = 0;
       if (foundedCalifications.length) {
         for (let i = 1; i <= 15; i++) {
@@ -231,20 +229,20 @@ export class MyGradeComponent implements OnInit {
             alumn[`N${i}Id`] = founded.id;
             alumn[`N${i}Cummulative`] = founded.isCummulative ? true : false;
             this.isCummulative[`N${i}`] = founded.isCummulative ? true : false;
-            total += founded.value;
-            count += 1;
           } else {
             alumn[`N${i}`] = null;
             alumn[`N${i}Id`] = null;
           }
         }
         alumn.avg = Number(this.getAvg(alumn));
+
       }
     });
     this.columnsToDisplay.push('avg');
     this.dataSource = new MatTableDataSource<AlumnCalifications>(this.alumnCalifications);
     this.loadingCalifications = false;
   }
+
 
   getAvg(evt: any) {
     let total = 0;
@@ -279,9 +277,9 @@ export class MyGradeComponent implements OnInit {
           this.getCalificationInfo(this.selectedGrade.id, this.selectedSubject.id);
         }
         else {
-          this.redirectingCalifications(data.evaluationNumber, true);
+          const mainCalification = this.califications.find((c) => c.calificationId === data.calificationId);
+          this.redirectingCalifications(Number(mainCalification.evaluationNumber), true);
         }
-
       }
     });
   }
@@ -318,7 +316,7 @@ export class MyGradeComponent implements OnInit {
   }
   validateForm() {
     let isValidated = true;
-    let validated = this.alumnCalifications.forEach((c) => {
+    this.alumnCalifications.forEach((c) => {
       for (let i = 1; i <= 15; i++) {
         if (c[`N${i}`] && c[`N${i}`] > 7 || c[`N${i}`] && c[`N${i}`] < 2) {
           isValidated = false;
@@ -347,7 +345,7 @@ export class MyGradeComponent implements OnInit {
     values.forEach((v) => {
       total += v.value;
     });
-    return total > 0 ? (Number(total) / Number(values.length)).toFixed(1) : 0;
+    return total > 0 ? ((total) / (values.length)).toFixed(1) : 0;
 
   }
   async getCummulativeCount(calificationId: number, alumnId: number) {

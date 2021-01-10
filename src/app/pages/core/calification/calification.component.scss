@@ -1,144 +1,145 @@
 // table {
 //     width: 100%;
 //   }
-  
-   button {
-    margin: 16px 8px;
-   }
+
+button {
+  margin: 16px 8px;
+}
 //   .mat-row {
 //     height: auto;
 //   }
-  
-   .mat-cell {
-  
-     flex:20%;
-   }
-  
-   .mat-dialog-actions {
-    display: flex;
-    align-items: center;
-    justify-content:flex-end ;
+
+.mat-dialog-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
+.full-width {
+  width: 100%;
+}
 
- .full-width {
- 	width: 100%;
- }
- .empty-center {
-    text-align: center;
-    border: white;
-    margin-top: 70px;
+.empty-center {
+  text-align: center;
+  border: white;
+  margin-top: 70px;
 }
 .empty {
-    font-size: 10rem;
-    color: #f1f1f1;
+  font-size: 10rem;
+  color: #f1f1f1;
+}
+.type-number {
+  width: 15%;
 }
 
-.empty-center p {
-    color: #ddd;
+// .mat-table {
+//   overflow: visible;
+// }
+
+// .mat-column-alumnFullName {
+//   text-align: left;
+//   width: 60px !important;
+// }
+// .mat-column-N1 {
+//   text-align: center;
+//   width: 10px !important;
+// }
+
+// .mat-column-N2 {
+//   text-align: center;
+//   width: 10px !important;
+// }
+
+// .mat-column-N3 {
+//   text-align: center;
+//   width: 10px !important;
+// }
+
+// .mat-column-N4 {
+//   text-align: center;
+//   width: 10px !important;
+// }
+
+// .mat-column-N5 {
+//   text-align: center;
+//   width: 10px !important;
+// }
+
+// .mat-column-N6 {
+//   text-align: center;
+//   width: 10px !important;
+// }
+// .mat-column-N7 {
+//   text-align: center;
+//   width: 10px !important;
+// }
+// .mat-column-N8 {
+//   text-align: center;
+//   width: 10px !important;
+// }
+// .mat-column-N9 {
+//   text-align: center;
+//   width: 10px !important;
+// }
+// .mat-column-N10 {
+//   text-align: center;
+//   width: 10px !important;
+// }
+// .mat-column-N11 {
+//   text-align: center;
+//   width: 10px !important;
+// }
+// .mat-column-N12 {
+//   text-align: center;
+//   width: 10px !important;
+// }
+// .mat-column-N13 {
+//   text-align: center;
+//   width: 10px !important;
+// }
+// .mat-column-N1 {
+//   text-align: center;
+//   width: 10px !important;
+// }
+// .mat-column-N15 {
+//   text-align: center;
+//   width: 10px !important;
+// }
+// .mat-column-AVG {
+//   text-align: center;
+//   width: 10px !important;
+// }
+.mat-table {
+  overflow-x: scroll;
+  max-width: 99%;
 }
 
+.mat-cell,
+.mat-header-cell {
+  word-wrap: initial;
+  display: table-cell;
+  padding: 0px 10px;
+  line-break: unset;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+}
 
- .mat-table {
- 	overflow: visible;
-
- }
-
- .type-number {
-  	width: 15%;
-  }
-
-  .mat-column-alumnFullName{
-    text-align: left;
-  // width: 25% !important;
-   flex:20%;
-    }
-    .mat-column-N1{
-      text-align: center;
-    // width: 25% !important;
-     flex:20%;
-      }
-      .mat-column-N2{
-        text-align: center;
-        padding: 50px 8px 8px 0;
-       flex:20%;
-        }
-        .mat-column-N3{
-          text-align: center;
-
-        // width: 25% !important;
-         flex:20%;
-          }
-          .mat-column-N4{
-            text-align: center;
-          // width: 25% !important;
-           flex:20%;
-            }
-            .mat-column-N5{
-              text-align: center;
-              padding: 50px 8px 8px 0;
-            // width: 25% !important;
-             flex:20%;
-              }
-              .mat-column-N6{
-                text-align: center;
-              // width: 25% !important;
-               flex:20%;
-                }
-                .mat-column-N7{
-                  text-align: center;
-                // width: 25% !important;
-                 flex:20%;
-                  } 
-                  .mat-column-N8{
-                    text-align: center;
-                  // width: 25% !important;
-                   flex:20%;
-                    }  .mat-column-N9{
-                      text-align: center;
-                    // width: 25% !important;
-                     flex:20%;
-                      }  .mat-column-N10{
-                        text-align: center;
-                      // width: 25% !important;
-                       flex:20%;
-                        }  .mat-column-N11{
-                          text-align: center;
-                        // width: 25% !important;
-                         flex:20%;
-                          }  .mat-column-N12{
-                            text-align: center;
-                          // width: 25% !important;
-                           flex:20%;
-                            }  .mat-column-N13{
-                              text-align: center;
-                            // width: 25% !important;
-                             flex:20%;
-                              }  .mat-column-N1{
-                                text-align: center;
-                              // width: 25% !important;
-                               flex:20%;
-                                }  .mat-column-N15{
-                                  text-align: center;
-                                // width: 25% !important;
-                                 flex:20%;
-                                  } 
-                                  .mat-column-AVG{
-                                    text-align: center;
-                                  // width: 25% !important;
-                                   flex:20%;
-                                    } 
+.mat-row,
+.mat-header-row {
+  display: table-row;
+}
 .actions-icon {
-	font-size: 1.5em;
-	color: #cccccc;
-	margin-right: 6px;
-	&:hover {
-		color: #6200ee;
-		cursor: pointer;
-	}
+  font-size: 1.5em;
+  color: #cccccc;
+  margin-right: 6px;
+  &:hover {
+    color: #6200ee;
+    cursor: pointer;
+  }
 }
-
 
 .pointer {
-	cursor: pointer;
+  cursor: pointer;
 }

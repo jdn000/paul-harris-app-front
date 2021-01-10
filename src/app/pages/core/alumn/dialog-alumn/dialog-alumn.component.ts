@@ -71,10 +71,7 @@ export class DialogAlumnComponent implements OnInit {
   }
 
   validateForm() {
-    if (!this.alumnContentForm.run) {
-      this.toastService.showToast('warning', 'Dato Incompleto', 'Ingrese RUN');
-      return false;
-    } else if (!this.alumnContentForm.names) {
+    if (!this.alumnContentForm.names) {
       this.toastService.showToast('warning', 'Dato Incompleto', 'Ingrese  Nombres');
       return false;
     } else if (!this.alumnContentForm.lastName) {

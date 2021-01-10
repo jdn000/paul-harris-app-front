@@ -212,11 +212,11 @@ export class CalificationComponent implements OnInit {
     this.cummulativeColumnsToDisplay = this.displayedColumns.slice();
     this.califications = await this.calificationService.getByGradeAndSubjectId(gradeId, subjectId).toPromise();
     this.cummulativeCalifications = await this.calificationService.getCummulativeByGradeAndSubjectId(gradeId, subjectId).toPromise();
+    this.cummulativeCalifications = _.uniqBy(this.cummulativeCalifications, 'id');
     let maxvalue = Math.max(...this.califications.map(elt => elt.evaluationNumber));
     this.calificationNumber = maxvalue >= 0 ? maxvalue : 0;
     for (let i = 0; i < maxvalue; i++) {
       this.columnsToDisplay.push(`N${i + 1}`);
-
     }
     this.alumnCalifications.forEach(async (alumn) => {
       const foundedCalifications = this.califications.filter((c) => c.alumnId === alumn.alumnId);
@@ -239,6 +239,7 @@ export class CalificationComponent implements OnInit {
           }
         }
         alumn.avg = Number(this.getAvg(alumn));
+
       }
     });
     this.columnsToDisplay.push('avg');
@@ -257,6 +258,7 @@ export class CalificationComponent implements OnInit {
     }
     return total > 0 ? (total / count).toFixed(1) : 0;
   }
+
   openDialog(): void {
     let calificationsToSelect = _.uniqBy(this.califications, 'evaluationNumber');
     this.dialog.open(DialogCalificationComponent, {
@@ -265,7 +267,7 @@ export class CalificationComponent implements OnInit {
         title: 'Nueva Calificación',
         buttonTitle: 'CREAR',
         grade: this.selectedGrade,
-        subjectId: this.selectedSubject ? this.selectedSubject.id : 1,
+        subjectId: this.selectedSubject.id,
         calificationNumber: this.calificationNumber + 1,
         calificationsToSelect: calificationsToSelect ? calificationsToSelect : []
       },
@@ -279,9 +281,9 @@ export class CalificationComponent implements OnInit {
           this.getCalificationInfo(this.selectedGrade.id, this.selectedSubject.id);
         }
         else {
-          this.redirectingCalifications(data.evaluationNumber, true);
+          const mainCalification = this.califications.find((c) => c.calificationId === data.calificationId);
+          this.redirectingCalifications(Number(mainCalification.evaluationNumber), true);
         }
-
       }
     });
   }
@@ -347,9 +349,9 @@ export class CalificationComponent implements OnInit {
     values.forEach((v) => {
       total += v.value;
     });
-    return total > 0 ? (Number(total) / Number(values.length)).toFixed(1) : 0;
-
+    return total > 0 ? (total / values.length).toFixed(1) : 0;
   }
+
   async getCummulativeCount(calificationId: number, alumnId: number) {
     let values = this.cummulativeCalifications.filter((c) => c.alumnId === alumnId && c.calificationId === calificationId);
     return values ? values.length : 0;
@@ -365,6 +367,7 @@ export class CalificationComponent implements OnInit {
     this.loadingCalifications = false;
     this.onSelectedGrade(grade);
     this.onSelectedSubject(subject);
+
   }
 
   async generatePdf() {
@@ -384,12 +387,7 @@ export class CalificationComponent implements OnInit {
   }
 }
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
+
 export interface AlumnCalifications {
   alumnFullName: string;
   alumnId: number;
@@ -458,3 +456,6 @@ export interface AlumnCalifications {
 
  *
  */
+
+
+
