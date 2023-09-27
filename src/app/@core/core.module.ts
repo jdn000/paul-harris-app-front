@@ -20,6 +20,7 @@ const DATA_SERVICES = [
 export class NbSimpleRoleProvider extends NbRoleProvider {
   getRole() {
     // here you could provide any role based on any auth flow
+    //hello
     return observableOf('guest');
   }
 }
